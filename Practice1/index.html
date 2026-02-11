@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Library</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Online Library</a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="books.html">Books</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<header class="bg-light py-5">
+    <div class="container text-center">
+        <h1 class="mb-3">Welcome to the Online Library</h1>
+        <p class="lead">
+            Search, borrow books and write reviews.
+        </p>
+
+        <a href="books.html" class="btn btn-primary">
+            Browse books
+        </a>
+    </div>
+</header>
+
+
+<main class="container my-5">
+
+    <h2 class="mb-4">Featured books</h2>
+
+    <div class="row">
+
+        <!-- Book card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="images/book1.jpg" class="card-img-top" alt="Book cover">
+                <div class="card-body">
+                    <h5 class="card-title">El principito</h5>
+                    <p class="card-text">
+                        Antoine de Saint-Exupéry
+                    </p>
+                    <a href="book-detail.html" class="btn btn-outline-primary btn-sm">
+                        View details
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="images/book2.jpg" class="card-img-top" alt="Book cover">
+                <div class="card-body">
+                    <h5 class="card-title">Clean Architecture</h5>
+                    <p class="card-text">
+                        Robert C. Martin
+                    </p>
+                    <a href="book-detail.html" class="btn btn-outline-primary btn-sm">
+                        View details
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="images/book3.jpg" class="card-img-top" alt="Book cover">
+                <div class="card-body">
+                    <h5 class="card-title">Design Patterns</h5>
+                    <p class="card-text">
+                        Erich Gamma et al.
+                    </p>
+                    <a href="book-detail.html" class="btn btn-outline-primary btn-sm">
+                        View details
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="bg-dark text-light py-3">
+    <div class="container text-center">
+        <small>Online Library Project</small>
+    </div>
+</footer>
+
+</body>
+</html>
