@@ -3,74 +3,73 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
-| [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+| Álvaro Bravo Pareja     | a.bravop.2023@alumnos.urjc.es  | AlvaroBravoPareja      |
+| Carlos Asensio Trujillo | c.asensio.2023@alumnos.urjc.es | c-asensio              |
+| Ángel Vila Sanchez      | a.vilas.2019@alumnos.urjc.es   | vilasanchezangel-codes |
+
 
 ---
 
 ## 🎭 **Preparación: Definición del Proyecto**
 
-### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+### **Theme description**
+This project is a digital library management platform within the education and culture sector. The application allows users to explore a comprehensive book catalog, manage loans with automated due dates, and share their reading experiences through a review system.
 
-### **Entidades**
-Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
+Value Proposition:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+- Centralization: Provides easy and organized access to the library's book inventory.
 
-**Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
-- [Descripción de otras relaciones relevantes]
+- Interactivity: Enables readers to actively participate in the community through a rating and commenting system.
 
-### **Permisos de los Usuarios**
-Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
+- Efficient Management: Ensures rigorous control over loan periods, managing return deadlines and user history.
 
-* **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
-  - No es dueño de ninguna entidad
 
-* **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+### **Entities**
 
-* **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+1. **[Entity 1]**: [User]
+2. **[Entity 2]**: [Book]
+3. **[Entity 3]**: [Loan]
+4. **[Entity 4]**: [Review]
 
-### **Imágenes**
-Indicar qué entidades tendrán asociadas una o varias imágenes:
+**Relationships between entities:**
+- [User - Loan: A user can have multiple loans over time, but each loan record belongs to a single specific user (1:N)]
+- [Book - Loan: A book can be associated with multiple loan records (history), although it is typically linked to one active loan at a time (1:N)]
+- [User - Review: A user can write multiple reviews for different books they have read (1:N)]
+- [Book - Review: A book can receive multiple reviews and ratings from different users to calculate its average reputation (1:N)]
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+### **User Permissions**
 
-### **Gráficos**
-Indicar qué información se mostrará usando gráficos y de qué tipo serán:
+* **Anonymous User**: 
+  - Permissions: [Browse the book catalog, use the search functionality, register for a new account, log in]
+  - This user does not own any entities.
 
-- **Gráfico 1**: [Ej: Ventas mensuales - Gráfico de barras]
-- **Gráfico 2**: [Ej: Productos más vendidos - Gráfico de tarta/circular]
-- **Gráfico 3**: [Ej: Evolución de usuarios registrados - Gráfico de líneas]
-- **Gráfico 4**: [Ej: Distribución de pedidos por categoría - Gráfico de barras horizontales]
+* **Registered User**: 
+  - Permissions: [Manage their personal profile (including uploading an avatar), request book loans, view their loan history, post reviews for books they have borrowed]
+  - Is owner of: [Their own User profile, their Loan records, and their submitted Reviews]
 
-### **Tecnología Complementaria**
-Indicar qué tecnología complementaria se empleará:
+* **Administrator**: 
+  - Permissions: [(Create, Read, Update, Delete) operations on the Book catalog, monitoring all Loans, moderating Reviews, and managing User accounts]
+  - Is owner of: [All Book entities; has administrative authority over all Loans, Reviews, and Users]
 
-- [Ej: Envío de correos electrónicos automáticos mediante JavaMailSender]
-- [Ej: Generación de PDFs de facturas usando iText o similar]
+### **Images**
 
-### **Algoritmo o Consulta Avanzada**
-Indicar cuál será el algoritmo o consulta avanzada que se implementará:
+- **[Entity with images 1]**: [User - One image as a profile avatar per user]
+- **[Entity with images 2]**: [Book - A representative image of the book cover]
 
-- **Algoritmo/Consulta**: [Ej: Sistema de recomendaciones basado en el historial de compras del usuario]
-- **Descripción**: [Ej: Analiza los productos comprados previamente y sugiere productos similares o complementarios utilizando filtrado colaborativo]
-- **Alternativa**: [Ej: Consulta compleja que agrupe ventas por categoría, mes y región, con cálculo de tendencias]
+### **Graphics**
+
+- **Graphic 1**: [Most Popular Genres – A pie chart representing the most borrowed genres]
+- **Gráfico 2**: [Most Rated Genres – A bar chart displaying the mean of rated reviews for each genre (from 1 to 5 stars)]
+
+### **Complementary Technology**
+
+- [Automatic mail sender using JavaMailSender with information about a loan made by a user]
+
+### **Advanced Algorithm or Query**
+
+- **Algorithm/Query**: [Personalized Book Recommendation System based on User Loan History.]
+- **Description**: [The algorithm analyzes the genres of books previously borrowed by the user to identify their reading preferences. It then processes the library catalog to suggest the best rated available titles that match those specific categories]
+- **Alternative**: [A query that identifies "Trending Books" by calculating which titles have the highest turnover rate and best ratings within the last 30 days, filtered by the user's favorite genre]
 
 ---
 
