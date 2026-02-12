@@ -1,0 +1,38 @@
+.subheader {
+    background-image: url('../images/bookshelf-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    color: white;
+    text-shadow: #000000 1px 1px 4px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register-icon{
+    color: #28a745; 
+} 
+
+.login-icon{
+    color: #28a745; 
+} 
+
+.stars{
+    color: #FFD700;
+    font-size: 1.3rem;
+}
+
+.details-button{    background-color: aqua;
+    color: black;
+    size: 1.5rem;
+    display: block;
+    margin: 0.75rem auto 0;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+}
+
