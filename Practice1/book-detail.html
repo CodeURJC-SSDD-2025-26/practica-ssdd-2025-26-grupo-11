@@ -1,1 +1,111 @@
-<h1>Book detail</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Detail - Online Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Online Library</a>
+            </div>
+    </nav> 
+
+    <main class="container mt-2 mb-5">
+        <!-- Return Button -->
+        <div class="mb-4">
+            <a href="index.html" class="btn btn-outline-secondary px-4 py-2 fw-bold">
+                &larr; Volver <!-- &larr is the arroy icon -->
+            </a>
+        </div>
+        <div class="row mb-4">
+            <!-- Book title -->
+            <div class="col-6 text-center">
+                <h1 class="display-5 fw-bold mb-0">El principito</h1> 
+                <p class="lead text-muted mt-0">Antoine de Saint-Exupéry</p>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Book cover and "Request" "Edit" and "Delete" buttons -->
+            <div class="col-md-6 text-center">
+                <img src="images/book1.jpg" class="img-fluid rounded shadow" alt="Portada de El Principito">
+                <div class="d-flex justify-content-center gap-2 mt-4">
+                    <a href="#" class="btn btn-outline-dark px-4 border-2 fw-bold">Solicitar</a>
+                    <a href="#" class="btn btn-outline-warning px-4 text-dark border-2 fw-bold">Editar</a>
+                    <a href="#" class="btn btn-outline-danger px-4 text-dark border-2 fw-bold">Borrar</a>
+                </div>
+            </div>
+            <!-- Details section-->
+            <div class="col-md-6">
+                <div class="border rounded p-4 h-100 shadow-sm d-flex flex-column">
+                    <h3 class="h5 mb-4 border-bottom pb-2">Detalles</h3>
+
+                    <p><strong>Año:</strong> 1943</p>
+                    <p><strong>Género:</strong> Literatura Infantil / Fábula</p>
+                    <p><strong>ISBN:</strong> 978-0156012195</p>
+                    
+                    <hr class="my-4"> <p><strong>Descripción:</strong></p>
+                    <p class="text-justify">
+                        Un joven príncipe visita varios planetas en el espacio, incluida la Tierra, y aborda temas como la soledad, la amistad, el amor y la pérdida. A pesar de su estilo de libro infantil, realiza reflexiones sobre la vida y la naturaleza humana.
+                    </p>
+                    <!-- Rating section -->
+                    <div class="mt-auto pt-4 border-top text-center"> <!-- mt-auto takes the content to the end of the available space -->
+                        <p class="text-muted small mb-1">Valoración Media</p>
+                        <div class="display-6 text-warning">
+                            &#9733; &#9733; &#9733; &#9733; &#9734; <!-- 9733 is a colored star. 9734 is an empty star-->
+                        </div>
+                        <p class="fw-bold h4 mb-0">4.0 / 5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reviews section -->
+        <section class="mt-5 pt-4">
+            <h2 class="mb-4 border-bottom pb-2">¿Qué opinan los que ya lo han leído?</h2>
+            <!-- Made up two comments -->
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
+                    <!-- Justify-content-between makes the items stick to opposite ends -->
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0 fw-bold text-primary">@michael_jordan</h5>
+                        <span class="text-warning fs-5">
+                            &#9733; &#9733; &#9733; &#9733; &#9733; </span>
+                    </div>
+                    <p class="mb-0 text-secondary">
+                        "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la vida, sin importar la edad."
+                    </p>
+                </div>
+
+                <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0 fw-bold text-primary">@kobe_bryant</h5>
+                        <span class="text-warning fs-5">
+                            &#9733; &#9733; &#9733; &#9733; &#9734; </span>
+                    </div>
+                    <p class="mb-0 text-secondary">
+                        "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque me hubiera gustado ver más ilustraciones."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!--    
+        TO DO:
+        The form for the comment and the buttons to manage it 
+        -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-3">
+        <div class="container text-center">
+            <small>Online Library Project</small>
+        </div>
+    </footer>
+
+</body>
+</html>
