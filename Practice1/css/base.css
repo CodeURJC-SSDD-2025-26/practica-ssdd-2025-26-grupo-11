@@ -1,0 +1,54 @@
+.welcome-banner {
+    background: linear-gradient(135deg, #113744 0%, #1a5568 100%);
+    color: white;
+    padding: 60px 0;
+    border-bottom: 3px solid #5bc8e8;
+}
+
+.welcome-banner h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.welcome-banner h1 span {
+    color: #5bc8e8;
+}
+
+.welcome-banner p {
+    opacity: 0.8;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.welcome-banner .btn-light {
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 25px;
+}
+
+.stars {
+    color: #FFD700;
+}
+
+.details-button {
+    background-color: aqua;
+    color: black;
+    display: block;
+    margin: 0.75rem auto 0;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.card-body.d-flex .details-button {
+    align-self: center;
+    width: auto;
+}
+
+.card.h-100 .card-body.d-flex a.details-button,
+.card .card-body.d-flex a.details-button {
+    display: inline-block !important;
+    width: auto !important;
+    align-self: center !important;
+}
