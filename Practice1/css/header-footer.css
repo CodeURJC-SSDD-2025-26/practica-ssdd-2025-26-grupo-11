@@ -3,20 +3,6 @@
     height: auto; 
 }
 
-.navbar{
-    background-color: #113744;
-    border-bottom: #171054a3 2px solid;
-}
-.navbar a{ 
-    color: white; 
-    text-decoration: none; 
-    margin-left: 5px;
-}
-
-.footer{
-    background-color: #113744;
-}
-
 .register-icon{
     color: #28a745; 
 } 
@@ -24,3 +10,78 @@
 .login-icon{
     color: #28a745; 
 } 
+
+.menu {
+    background-color: #113744;
+    padding: 0 ;
+    min-width: 100%;
+    border: 1px solid rgba(91, 200, 232, 0.4) !important;
+}
+
+.menu li {
+    padding: 0;
+    margin: 0;
+}
+
+.menu .dropdown-item {
+    color: white ;
+    padding: 8px 16px ;
+    margin: 0 ;
+    width: 100% ;
+    box-sizing: border-box;
+}
+
+.menu .dropdown-item:hover,
+.menu .dropdown-item:focus {
+    background-color: #1a4f61 ;
+    color: white ;
+    border-radius: 5px;
+}
+
+.navbar{
+    background-color: #113744;
+    border-bottom: #171054a3 2px solid;
+}
+
+.navbar-brand,
+.navbar .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.navbar .nav-item > a {
+    position: relative;
+    padding: 10px 15px;
+}
+
+.navbar .nav-item a.active {
+    background-color: #113744; 
+    border-radius: 5px;
+}
+
+.nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #5bc8e8;
+    margin-right: 6px;
+}
+
+.user-message {
+    color: #fff;
+    font-size: 1rem; 
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.footer{
+    background-color: #113744;
+}

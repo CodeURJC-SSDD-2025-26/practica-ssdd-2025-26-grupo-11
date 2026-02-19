@@ -19,9 +19,9 @@
     font-size: 1.3rem;
 }
 
-.details-button{    background-color: aqua;
+.details-button {
+    background-color: aqua;
     color: black;
-    size: 1.5rem;
     display: block;
     margin: 0.75rem auto 0;
     padding: 0.6rem 1rem;
@@ -29,4 +29,3 @@
     border-radius: 6px;
     border: none;
 }
-
