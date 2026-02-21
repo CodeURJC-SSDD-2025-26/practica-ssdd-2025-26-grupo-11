@@ -66,7 +66,7 @@
             <div class="col-md-6 text-center">
                 <img src="images/book1.jpg" class="img-fluid rounded shadow" alt="Portada de El Principito">
                 <div class="d-flex justify-content-center gap-2 mt-4">
-                    <a href="#" class="btn btn-outline-dark px-4 border-2 fw-bold">Solicitar</a>
+                    <a href="#" class="btn btn-custom-blue px-4 border-2 fw-bold">Solicitar</a>
                     <a href="#" class="btn btn-outline-warning px-4 text-dark border-2 fw-bold">Editar</a>
                     <a href="#" class="btn btn-outline-danger px-4 text-dark border-2 fw-bold">Borrar</a>
                 </div>
@@ -125,17 +125,56 @@
             </div>
         </section>
 
-        <!--    
-        TO DO:
-        The form for the comment and the buttons to manage it 
-        -->
+        <!-- Form -->
+       <section class="mt-5">
+            <div class="card shadow-sm border-2">
+                <div class="card-header bg-custom-blue text-white p-3">
+                    <h5 class="mb-0">¡Tu opinión nos importa!</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form>
+                        <!-- Rating -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Puntuación:</label>
+                            <select class="form-select w-auto border-2">
+                                <option value="5">5 Estrellas (Excelente)</option>
+                                <option value="4">4 Estrellas (Muy bueno)</option>
+                                <option value="3">3 Estrellas (Normal)</option>
+                                <option value="2">2 Estrellas (Malo)</option>
+                                <option value="1">1 Estrella (Pésimo)</option>
+                            </select>
+                        </div>
+
+                        <!-- Fill in text -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Comentarios:</label>
+                            <textarea class="form-control border-2" rows="3" placeholder="Escribe tu opinión sobre el libro..."></textarea>
+                        </div>
+
+                        <!-- Buttons ("Añadir reseña" is submit because it's the one that try to send the information on the form)-->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-custom-blue px-4 border-2 fw-bold">
+                                Añadir Reseña
+                            </button>
+
+                            <button type="button" class="btn btn-outline-warning text-dark px-4 border-2 fw-bold">
+                                Editar Reseña
+                            </button>
+                            <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold">
+                                Eliminar Reseña
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-3">
+    <footer class="text-light py-3 footer">
         <div class="container text-center">
-            <small>Online Library Project</small>
+            <small>BiblioOnline</small>
         </div>
     </footer>
 

@@ -1,3 +1,25 @@
+/* This makes the body fill all the window size */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* This makes the body a flex vertical container */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* With this, main will grow to fill all the space */
+main {
+    flex: 1 0 auto;
+}
+
+/* This assure that the footer does not grow */
+footer {
+    flex-shrink: 0;
+}
+
 .header-logo {
     max-width: 43px;
     height: auto; 
@@ -84,4 +106,23 @@
 
 .footer{
     background-color: #113744;
+}
+
+.bg-custom-blue {
+    background-color: #113744 !important;
+    color: #ffffff !important;
+}
+
+a.btn-custom-blue, 
+button.btn-custom-blue {
+    background-color: #113744 !important;
+    color: #ffffff !important;
+    border: 2px solid #113744 !important;
+}
+
+a.btn-custom-blue:hover, 
+button.btn-custom-blue:hover {
+    background-color: #1a5568 !important;
+    border-color: #5bc8e8 !important;
+    color: #ffffff !important;
 }
