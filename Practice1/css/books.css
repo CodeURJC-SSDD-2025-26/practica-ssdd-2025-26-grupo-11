@@ -1,0 +1,82 @@
+/* Sidebar */
+.search-box,
+.filter-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+}
+
+.search-box h5,
+.filter-box h5 {
+    color: #113744;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-search {
+    background-color: #113744;
+    color: white;
+    border: none;
+}
+
+.btn-search:hover {
+    background-color: #1a4f61;
+    color: white;
+}
+
+.filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filter-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.filter-item:last-child {
+    border-bottom: none;
+}
+
+.filter-item a {
+    color: #495057;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.filter-item a:hover {
+    color: #113744;
+    font-weight: 500;
+}
+
+.filter-item.active a {
+    color: #113744;
+    font-weight: 700;
+}
+
+.filter-item .badge {
+    background-color: #113744;
+    font-size: 0.75rem;
+}
+
+.genre-title {
+    color: #113744;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #5bc8e8;
+    margin-bottom: 16px;
+}
+
+
+.stars {
+    color: #FFD700;
+    font-size: 0.85rem;
+}
