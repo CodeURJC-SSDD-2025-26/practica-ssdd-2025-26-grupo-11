@@ -10,8 +10,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    min-height: 400px;        /* never collapse below this */
+    flex-shrink: 0;           /* don’t let flexbox shrink it */
 }
-
 
 
 .stars{
@@ -29,3 +30,4 @@
     border-radius: 6px;
     border: none;
 }
+ 
