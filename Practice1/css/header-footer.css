@@ -10,6 +10,7 @@ body {
     flex-direction: column;
 }
 
+
 /* With this, main will grow to fill all the space */
 main {
     flex: 1 0 auto;
@@ -125,4 +126,8 @@ button.btn-custom-blue:hover {
     background-color: #1a5568 !important;
     border-color: #5bc8e8 !important;
     color: #ffffff !important;
+}
+
+textarea{
+    resize: none;
 }
