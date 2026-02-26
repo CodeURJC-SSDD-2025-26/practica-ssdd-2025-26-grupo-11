@@ -76,6 +76,11 @@
 }
 
 
+.card-img-top {
+    height: 450px;
+    object-fit: cover;
+}
+
 .stars {
     color: #FFD700;
     font-size: 0.85rem;
