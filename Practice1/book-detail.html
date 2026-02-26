@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Book Detail - Online Library</title>
@@ -9,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/header-footer.css">
 </head>
+
 <body>
 
     <!-- Header -->
@@ -26,21 +28,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="register.html">
                             <i class="fas fa-user-plus register-icon"></i>
-                                Registrate
+                            Registrate
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="login.html">
                             <i class="fas fa-sign-in-alt login-icon"></i>
-                                Inicia sesión
+                            Inicia sesión
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="books.html">
                             <i class="fas fa-search search-icon"></i>
-                                Nuestros libros
+                            Nuestros libros
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="admin/admin-panel.html">
+                            <i class="fa-solid fa-user-shield"></i>
+                            Panel de administrador
                         </a>
                     </li>
 
@@ -59,7 +67,7 @@
         <div class="row mb-4">
             <!-- Book title -->
             <div class="col-6 text-center">
-                <h1 class="display-5 fw-bold mb-0">El principito</h1> 
+                <h1 class="display-5 fw-bold mb-0">El principito</h1>
                 <p class="lead text-muted mt-0">Antoine de Saint-Exupéry</p>
             </div>
         </div>
@@ -81,16 +89,21 @@
                     <p><strong>Año:</strong> 1943</p>
                     <p><strong>Género:</strong> Literatura Infantil / Fábula</p>
                     <p><strong>ISBN:</strong> 978-0156012195</p>
-                    
-                    <hr class="my-4"> <p><strong>Descripción:</strong></p>
+
+                    <hr class="my-4">
+                    <p><strong>Descripción:</strong></p>
                     <p class="text-justify">
-                        Un joven príncipe visita varios planetas en el espacio, incluida la Tierra, y aborda temas como la soledad, la amistad, el amor y la pérdida. A pesar de su estilo de libro infantil, realiza reflexiones sobre la vida y la naturaleza humana.
+                        Un joven príncipe visita varios planetas en el espacio, incluida la Tierra, y aborda temas como
+                        la soledad, la amistad, el amor y la pérdida. A pesar de su estilo de libro infantil, realiza
+                        reflexiones sobre la vida y la naturaleza humana.
                     </p>
                     <!-- Rating section -->
-                    <div class="mt-auto pt-4 border-top text-center"> <!-- mt-auto takes the content to the end of the available space -->
+                    <div class="mt-auto pt-4 border-top text-center">
+                        <!-- mt-auto takes the content to the end of the available space -->
                         <p class="text-muted small mb-1">Valoración Media</p>
                         <div class="display-6 text-warning">
-                            &#9733; &#9733; &#9733; &#9733; &#9734; <!-- 9733 is a colored star. 9734 is an empty star-->
+                            &#9733; &#9733; &#9733; &#9733; &#9734;
+                            <!-- 9733 is a colored star. 9734 is an empty star-->
                         </div>
                         <p class="fw-bold h4 mb-0">4.0 / 5</p>
                     </div>
@@ -110,7 +123,8 @@
                             &#9733; &#9733; &#9733; &#9733; &#9733; </span>
                     </div>
                     <p class="mb-0 text-secondary">
-                        "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la vida, sin importar la edad."
+                        "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la vida, sin
+                        importar la edad."
                     </p>
                 </div>
 
@@ -121,14 +135,15 @@
                             &#9733; &#9733; &#9733; &#9733; &#9734; </span>
                     </div>
                     <p class="mb-0 text-secondary">
-                        "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque me hubiera gustado ver más ilustraciones."
+                        "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque me
+                        hubiera gustado ver más ilustraciones."
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- Form -->
-       <section class="mt-5">
+        <section class="mt-5">
             <div class="card shadow-sm border-2">
                 <div class="card-header bg-custom-blue text-white p-3">
                     <h5 class="mb-0">¡Tu opinión nos importa!</h5>
@@ -150,7 +165,8 @@
                         <!-- Fill in text -->
                         <div class="mb-4">
                             <label class="form-label fw-bold">Comentarios:</label>
-                            <textarea class="form-control border-2" rows="3" placeholder="Escribe tu opinión sobre el libro..."></textarea>
+                            <textarea class="form-control border-2" rows="3"
+                                placeholder="Escribe tu opinión sobre el libro..."></textarea>
                         </div>
 
                         <!-- Buttons ("Añadir reseña" is submit because it's the one that try to send the information on the form)-->
@@ -181,4 +197,5 @@
     </footer>
 
 </body>
+
 </html>
