@@ -154,6 +154,7 @@
     border: none;
     cursor: pointer;
     transition: filter .15s, transform .15s;
+    text-decoration: none;
 }
 .btn-icon:hover { filter: brightness(.88); transform: scale(1.08); }
 .btn-icon.edit   { background: #e3f0f5; color: #113744; }

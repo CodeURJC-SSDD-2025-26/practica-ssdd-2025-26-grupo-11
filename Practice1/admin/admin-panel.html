@@ -36,12 +36,6 @@
                         <span>Hola, <strong>Admin</strong></span>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../books.html">
-                            <i class="fas fa-search search-icon"></i>
-                            Nuestros libros
-                        </a>
-                    </li>
 
                     <!-- Profile dropdown -->
                     <li class="nav-item dropdown">
@@ -161,7 +155,7 @@
             <!-- Toolbar -->
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <div class="input-group" style="max-width: 280px;">
-                    <input type="text" class="form-control form-control-sm" placeholder="Buscar por título o autor...">
+                    <input type="text" class="form-control form-control-sm" placeholder="Buscar por título...">
                     <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
                 </div>
                 <a href="admin-add-book.html" class="btn btn-sm btn-custom-blue">
@@ -213,8 +207,10 @@
                                     <i class="fas fa-star-half-alt stars"></i>
                                 </td>
                                 <td>
-                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                    <a href="admin-book-edit.html" class="btn-icon edit" title="Editar"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -233,8 +229,10 @@
                                     <i class="far fa-star stars"></i>
                                 </td>
                                 <td>
-                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                    <a href="admin-book-edit.html" class="btn-icon edit" title="Editar"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -253,8 +251,10 @@
                                     <i class="fas fa-star stars"></i>
                                 </td>
                                 <td>
-                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                    <a href="admin-book-edit.html" class="btn-icon edit" title="Editar"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -273,8 +273,10 @@
                                     <i class="fas fa-star stars"></i>
                                 </td>
                                 <td>
-                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                    <a href="admin-book-edit.html" class="btn-icon edit" title="Editar"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -293,8 +295,10 @@
                                     <i class="far fa-star stars"></i>
                                 </td>
                                 <td>
-                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                    <a href="admin-book-edit.html" class="btn-icon edit" title="Editar"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -324,6 +328,12 @@
                 <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
             </h2>
 
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="input-group" style="max-width: 280px;">
+                    <input type="text" class="form-control form-control-sm" placeholder="Buscar por id...">
+                    <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
             <div class="admin-card">
                 <div class="admin-card-header">
                     <h5><i class="fas fa-list me-2"></i>Todos los préstamos</h5>
@@ -370,8 +380,9 @@
                                 <td>24/02/2026</td>
                                 <td><span class="badge-activo">Activo</span></td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon edit ms-1" title="Marcar devuelto"><i class="fas fa-check"></i></button>
+                                    <a href="admin-edit-loans.html" class="btn-icon edit" title="Modificar prestamo"><i
+                                            class="fas fa-pencil"></i></a> <button class="btn-icon view ms-1"
+                                        title="Marcar devuelto"><i class="fas fa-check"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -395,8 +406,11 @@
                                 <td class="text-danger fw-bold">15/02/2026 ⚠</td>
                                 <td><span class="badge-vencido">Vencido</span></td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Enviar aviso"><i class="fas fa-envelope"></i></button>
+                                    <a href="admin-edit-loans.html" class="btn-icon edit" title="Modificar prestamo"><i
+                                            class="fas fa-pencil"></i></a> <button class="btn-icon delete ms-1"
+                                        title="Enviar aviso"><i class="fas fa-envelope"></i></button>
+                                    <button class="btn-icon view ms-1" title="Marcar devuelto"><i
+                                            class="fas fa-check"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -420,7 +434,9 @@
                                 <td>19/01/2026</td>
                                 <td><span class="badge-devuelto">Devuelto</span></td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar prestamo"
+                                        data-bs-toggle="modal" data-bs-target="#modalEliminarPrestamo"><i
+                                            class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -436,7 +452,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="../images/la-casa-de-los-espiritus.jpg" class="loan-cover" alt="Portada">
+                                        <img src="../images/la-casa-de-los-espiritus.jpg" class="loan-cover"
+                                            alt="Portada">
                                         <span>La casa de los espíritus</span>
                                     </div>
                                 </td>
@@ -444,14 +461,32 @@
                                 <td>04/03/2026</td>
                                 <td><span class="badge-activo">Activo</span></td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon edit ms-1" title="Marcar devuelto"><i class="fas fa-check"></i></button>
+                                    <a href="admin-edit-loans.html" class="btn-icon edit" title="Modificar prestamo"><i
+                                            class="fas fa-pencil"></i></a>
+                                    <button class="btn-icon view ms-1" title="Marcar devuelto"><i
+                                            class="fas fa-check"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <small class="text-muted">Mostrando 4 de 50 prestamos</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#" style="background:#113744;border-color:#113744;">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">›</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
         </section>
 
         <!-- Reviews section -->
@@ -459,7 +494,13 @@
             <h2 class="section-title">
                 <i class="fas fa-star"></i> Moderación de Reseñas
             </h2>
-
+            <!-- Toolbar -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="input-group" style="max-width: 280px;">
+                    <input type="text" class="form-control form-control-sm" placeholder="Buscar por usuario...">
+                    <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
             <div class="admin-card">
                 <div class="admin-card-header">
                     <h5><i class="fas fa-list me-2"></i>Reseñas publicadas</h5>
@@ -497,8 +538,11 @@
                                 </td>
                                 <td style="font-size:.82rem;">12/02/2026</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view"
+                                        title="Ir a la página del libro"><i class="fas fa-eye"></i></a>
+
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -521,8 +565,11 @@
                                 </td>
                                 <td style="font-size:.82rem;">08/02/2026</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view"
+                                        title="Ir a la página del libro"><i class="fas fa-eye"></i></a>
+
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -545,12 +592,29 @@
                                 </td>
                                 <td style="font-size:.82rem;">03/02/2026</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view"
+                                        title="Ir a la página del libro"><i class="fas fa-eye"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <small class="text-muted">Mostrando 3 de 91 reseñas</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#" style="background:#113744;border-color:#113744;">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">›</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </section>
@@ -563,7 +627,8 @@
 
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <div class="input-group" style="max-width: 280px;">
-                    <input type="text" class="form-control form-control-sm" placeholder="Buscar usuario...">
+                    <input type="text" class="form-control form-control-sm"
+                        placeholder="Buscar por nombre de usuario...">
                     <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
                 </div>
             </div>
@@ -597,9 +662,13 @@
                                 <td>1</td>
                                 <td>8</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view" title="Ver perfil"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="../edit-profile.html" class="btn-icon edit ms-1" title="Editar usuario"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarUsuario"><i
+                                            class="fas fa-user-times"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -614,9 +683,13 @@
                                 <td>1</td>
                                 <td>3</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view" title="Ver perfil"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="../edit-profile.html" class="btn-icon edit ms-1" title="Editar usuario"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarUsuario"><i
+                                            class="fas fa-user-times"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -631,9 +704,13 @@
                                 <td>0</td>
                                 <td>12</td>
                                 <td>
-                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
-                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                    <a href="../book-detail.html" class="btn-icon view" title="Ver perfil"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="../edit-profile.html" class="btn-icon edit ms-1" title="Editar usuario"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarUsuario"><i
+                                            class="fas fa-user-times"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -648,11 +725,27 @@
                                 <td>—</td>
                                 <td>—</td>
                                 <td>
-                                    <button class="btn-icon edit" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn-icon edit" title="Editar usuario"><i
+                                            class="fas fa-pencil-alt"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <small class="text-muted">Mostrando 4 de 318 usuarios</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#" style="background:#113744;border-color:#113744;">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">›</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </section>
@@ -710,7 +803,27 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar este libro del catálogo? Esta acción no se puede deshacer.</p>
+                    <p>¿Estás seguro de que deseas eliminar este libro del catálogo? Esta acción no se puede deshacer.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete loan modal -->
+    <div class="modal fade" id="modalEliminarPrestamo" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este préstamo? Esta acción no se puede deshacer.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -748,7 +861,8 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar este usuario? Se borrarán todos sus préstamos y reseñas asociados.</p>
+                    <p>¿Estás seguro de que deseas eliminar este usuario? Se borrarán todos sus préstamos y reseñas
+                        asociados.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -765,10 +879,10 @@
         new Chart(pieCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía'],
+                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía', 'Infantil', 'Romance', 'Clásicos'],
                 datasets: [{
-                    data: [35, 20, 18, 13, 8, 6],
-                    backgroundColor: ['#113744','#5bc8e8','#1a5568','#28a745','#ffc107','#6c757d'],
+                    data: [35, 20, 18, 13, 8, 6, 7, 5, 4],
+                    backgroundColor: ['#113744', '#5bc8e8', '#1a5568', '#28a745', '#ffc107', '#6c757d', '#ff6f61', '#8e44ad', '#e67e22'],
                     borderWidth: 3,
                     borderColor: '#fff',
                     hoverOffset: 6
@@ -795,11 +909,11 @@
         new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía'],
+                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía', 'Infantil', 'Romance', 'Clásicos'],
                 datasets: [{
                     label: 'Valoración media',
-                    data: [4.6, 4.4, 4.7, 4.2, 3.9, 4.1],
-                    backgroundColor: ['#113744','#5bc8e8','#1a5568','#28a745','#ffc107','#6c757d'],
+                    data: [4.6, 4.4, 4.7, 4.2, 3.9, 4.1, 4.3, 4.0, 4.5],
+                    backgroundColor: ['#113744', '#5bc8e8', '#1a5568', '#28a745', '#ffc107', '#6c757d', '#ff6f61', '#8e44ad', '#e67e22'],
                     borderRadius: 6,
                     borderSkipped: false
                 }]
@@ -830,4 +944,5 @@
     </script>
 
 </body>
+
 </html>
