@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BiblioOnline - Panel de Administrador</title>
+
+    <!-- FavIcon -->
+    <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+    <!-- Font Awesome + Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/header-footer.css" />
+    <link rel="stylesheet" href="../css/admin-panel.css" />
+</head>
+
+<body>
+
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img src="../images/logo.png" class="header-logo" alt="Logo" />
+            <a class="navbar-brand" href="../index.html">BiblioOnline</a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item user-message">
+                        <span>Hola, <strong>Admin</strong></span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../books.html">
+                            <i class="fas fa-search search-icon"></i>
+                            Nuestros libros
+                        </a>
+                    </li>
+
+                    <!-- Profile dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../images/default-avatar.png" class="nav-avatar" alt="Foto de perfil" />
+                            Tu perfil
+                        </a>
+                        <ul class="dropdown-menu menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="../profile.html">
+                                    <i class="fa-solid fa-gear"></i>
+                                    Mi cuenta
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="../my-loans.html">
+                                    <i class="fa-solid fa-book"></i>
+                                    Mis préstamos
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="../index.html">
+                                    <i class="fa-solid fa-sign-out"></i>
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="admin-panel.html">
+                                    <i class="fa-solid fa-user-shield"></i>
+                                    Panel de administrador
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="admin-banner">
+        <div class="container">
+            <h1><i class="fa-solid fa-user-shield me-2"></i>Panel de <span>Administrador</span></h1>
+            <p>Gestión completa de usuarios, libros, préstamos y reseñas de BiblioOnline.</p>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main class="container my-4">
+
+        <!-- Quick navigation -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="#seccion-libros" class="btn btn-sm btn-custom-blue">
+                <i class="fas fa-book me-1"></i>Libros
+            </a>
+            <a href="#seccion-prestamos" class="btn btn-sm btn-custom-blue">
+                <i class="fas fa-exchange-alt me-1"></i>Préstamos
+            </a>
+            <a href="#seccion-resenas" class="btn btn-sm btn-custom-blue">
+                <i class="fas fa-star me-1"></i>Reseñas
+            </a>
+            <a href="#seccion-usuarios" class="btn btn-sm btn-custom-blue">
+                <i class="fas fa-users me-1"></i>Usuarios
+            </a>
+            <a href="#seccion-graficas" class="btn btn-sm btn-custom-blue">
+                <i class="fas fa-chart-pie me-1"></i>Estadísticas
+            </a>
+        </div>
+
+        <!-- Status cards -->
+        <div class="row g-3 mb-5">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-book"></i></div>
+                    <div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Libros en catálogo</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon yellow"><i class="fas fa-exchange-alt"></i></div>
+                    <div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-label">Préstamos activos</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-users"></i></div>
+                    <div>
+                        <div class="stat-value">318</div>
+                        <div class="stat-label">Usuarios registrados</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon cyan"><i class="fas fa-star"></i></div>
+                    <div>
+                        <div class="stat-value">91</div>
+                        <div class="stat-label">Reseñas publicadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Books section -->
+        <section id="seccion-libros" class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-book"></i> Gestión de Libros
+            </h2>
+
+            <!-- Toolbar -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="input-group" style="max-width: 280px;">
+                    <input type="text" class="form-control form-control-sm" placeholder="Buscar por título o autor...">
+                    <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="admin-add-book.html" class="btn btn-sm btn-custom-blue">
+                    <i class="fas fa-plus me-1"></i>Añadir libro
+                </a>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-list me-2"></i>Catálogo completo</h5>
+                    <select class="form-select form-select-sm w-auto">
+                        <option>Todos los géneros</option>
+                        <option>Ficción</option>
+                        <option>Fantasía</option>
+                        <option>Historia</option>
+                        <option>Ciencia</option>
+                        <option>Misterio</option>
+                        <option>Biografía</option>
+                        <option>Clásicos</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-admin mb-0">
+                        <thead>
+                            <tr>
+                                <th>Portada</th>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Género</th>
+                                <th>Disponibilidad</th>
+                                <th>Valoración</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="../images/el-principito.jpg" class="book-thumb" alt="Portada">
+                                </td>
+                                <td class="fw-bold">El principito</td>
+                                <td class="text-muted">Antoine de Saint-Exupéry</td>
+                                <td><span class="badge bg-secondary">Ficción</span></td>
+                                <td><span class="badge bg-success">Disponible</span></td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star-half-alt stars"></i>
+                                </td>
+                                <td>
+                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="../images/la-sombra-del-viento.jpg" class="book-thumb" alt="Portada">
+                                </td>
+                                <td class="fw-bold">La sombra del viento</td>
+                                <td class="text-muted">Carlos Ruiz Zafón</td>
+                                <td><span class="badge bg-secondary">Fantasía</span></td>
+                                <td><span class="badge bg-danger">En préstamo</span></td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="far fa-star stars"></i>
+                                </td>
+                                <td>
+                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="../images/cien-anos-de-soledad.jpg" class="book-thumb" alt="Portada">
+                                </td>
+                                <td class="fw-bold">Cien años de soledad</td>
+                                <td class="text-muted">Gabriel García Márquez</td>
+                                <td><span class="badge bg-secondary">Ficción</span></td>
+                                <td><span class="badge bg-success">Disponible</span></td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                </td>
+                                <td>
+                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="../images/don-quijote-de-la-mancha.jpg" class="book-thumb" alt="Portada">
+                                </td>
+                                <td class="fw-bold">Don Quijote de la Mancha</td>
+                                <td class="text-muted">Miguel de Cervantes</td>
+                                <td><span class="badge bg-secondary">Clásicos</span></td>
+                                <td><span class="badge bg-danger">En préstamo</span></td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                </td>
+                                <td>
+                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="../images/el-codigo-davinci.jpg" class="book-thumb" alt="Portada">
+                                </td>
+                                <td class="fw-bold">El código Da Vinci</td>
+                                <td class="text-muted">Dan Brown</td>
+                                <td><span class="badge bg-secondary">Misterio</span></td>
+                                <td><span class="badge bg-success">Disponible</span></td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="far fa-star stars"></i>
+                                </td>
+                                <td>
+                                    <a href="admin-book-form.html" class="btn-icon edit" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <button class="btn-icon delete ms-1" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarLibro"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <small class="text-muted">Mostrando 5 de 142 libros</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#" style="background:#113744;border-color:#113744;">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">›</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loans section -->
+        <section id="seccion-prestamos" class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
+            </h2>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-list me-2"></i>Todos los préstamos</h5>
+                    <!-- Status filters -->
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-sm btn-custom-blue">Todos</button>
+                        <button class="btn btn-sm btn-outline-success">Activos</button>
+                        <button class="btn btn-sm btn-outline-danger">Vencidos</button>
+                        <button class="btn btn-sm btn-outline-secondary">Devueltos</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-admin mb-0">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Usuario</th>
+                                <th>Libro</th>
+                                <th>Fecha préstamo</th>
+                                <th>Fecha devolución</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-muted">#L-0041</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <div>
+                                            <div class="fw-bold" style="font-size:.88rem;">María García</div>
+                                            <div class="text-muted" style="font-size:.75rem;">m.garcia@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/el-principito.jpg" class="loan-cover" alt="Portada">
+                                        <span>El principito</span>
+                                    </div>
+                                </td>
+                                <td>10/02/2026</td>
+                                <td>24/02/2026</td>
+                                <td><span class="badge-activo">Activo</span></td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit ms-1" title="Marcar devuelto"><i class="fas fa-check"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">#L-0038</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <div>
+                                            <div class="fw-bold" style="font-size:.88rem;">Juan López</div>
+                                            <div class="text-muted" style="font-size:.75rem;">j.lopez@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/cien-anos-de-soledad.jpg" class="loan-cover" alt="Portada">
+                                        <span>Cien años de soledad</span>
+                                    </div>
+                                </td>
+                                <td>15/01/2026</td>
+                                <td class="text-danger fw-bold">15/02/2026 ⚠</td>
+                                <td><span class="badge-vencido">Vencido</span></td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Enviar aviso"><i class="fas fa-envelope"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">#L-0035</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <div>
+                                            <div class="fw-bold" style="font-size:.88rem;">Ana Ruiz</div>
+                                            <div class="text-muted" style="font-size:.75rem;">a.ruiz@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/la-sombra-del-viento.jpg" class="loan-cover" alt="Portada">
+                                        <span>La sombra del viento</span>
+                                    </div>
+                                </td>
+                                <td>05/01/2026</td>
+                                <td>19/01/2026</td>
+                                <td><span class="badge-devuelto">Devuelto</span></td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">#L-0034</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <div>
+                                            <div class="fw-bold" style="font-size:.88rem;">Carlos Vega</div>
+                                            <div class="text-muted" style="font-size:.75rem;">c.vega@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/la-casa-de-los-espiritus.jpg" class="loan-cover" alt="Portada">
+                                        <span>La casa de los espíritus</span>
+                                    </div>
+                                </td>
+                                <td>18/02/2026</td>
+                                <td>04/03/2026</td>
+                                <td><span class="badge-activo">Activo</span></td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver detalle"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit ms-1" title="Marcar devuelto"><i class="fas fa-check"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews section -->
+        <section id="seccion-resenas" class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i> Moderación de Reseñas
+            </h2>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-list me-2"></i>Reseñas publicadas</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-admin mb-0">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Libro</th>
+                                <th>Valoración</th>
+                                <th>Comentario</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">María García</span>
+                                    </div>
+                                </td>
+                                <td>El principito</td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                </td>
+                                <td class="text-muted" style="max-width:220px;font-size:.82rem;">
+                                    "Una obra maestra atemporal que te hace reflexionar sobre la vida..."
+                                </td>
+                                <td style="font-size:.82rem;">12/02/2026</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">Juan López</span>
+                                    </div>
+                                </td>
+                                <td>Cien años de soledad</td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="far fa-star stars"></i>
+                                </td>
+                                <td class="text-muted" style="max-width:220px;font-size:.82rem;">
+                                    "Impresionante narrativa, aunque al principio cuesta seguir el hilo..."
+                                </td>
+                                <td style="font-size:.82rem;">08/02/2026</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">Ana Ruiz</span>
+                                    </div>
+                                </td>
+                                <td>La sombra del viento</td>
+                                <td>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star stars"></i>
+                                    <i class="fas fa-star-half-alt stars"></i>
+                                </td>
+                                <td class="text-muted" style="max-width:220px;font-size:.82rem;">
+                                    "Barcelona como personaje vivo, una atmósfera increíble..."
+                                </td>
+                                <td style="font-size:.82rem;">03/02/2026</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver reseña completa"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar reseña" data-bs-toggle="modal" data-bs-target="#modalEliminarResena"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users section -->
+        <section id="seccion-usuarios" class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i> Gestión de Usuarios
+            </h2>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div class="input-group" style="max-width: 280px;">
+                    <input type="text" class="form-control form-control-sm" placeholder="Buscar usuario...">
+                    <button class="btn btn-sm btn-custom-blue"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-list me-2"></i>Todos los usuarios</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-admin mb-0">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Préstamos activos</th>
+                                <th>Total préstamos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">María García</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" style="font-size:.85rem;">m.garcia@email.com</td>
+                                <td><span class="badge bg-secondary">Usuario</span></td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">Juan López</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" style="font-size:.85rem;">j.lopez@email.com</td>
+                                <td><span class="badge bg-secondary">Usuario</span></td>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">Ana Ruiz</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" style="font-size:.85rem;">a.ruiz@email.com</td>
+                                <td><span class="badge bg-secondary">Usuario</span></td>
+                                <td>0</td>
+                                <td>12</td>
+                                <td>
+                                    <button class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit ms-1" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal" data-bs-target="#modalEliminarUsuario"><i class="fas fa-user-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="../images/default-avatar.png" class="mini-avatar" alt="Avatar">
+                                        <span class="fw-bold" style="font-size:.88rem;">admin</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" style="font-size:.85rem;">admin@biblioonline.es</td>
+                                <td><span class="badge" style="background:#113744;">Admin</span></td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>
+                                    <button class="btn-icon edit" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graphs section -->
+        <section id="seccion-graficas" class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i> Estadísticas
+            </h2>
+
+            <div class="row g-4">
+                <!-- Graph 1: Most loaned genres -->
+                <div class="col-md-5">
+                    <div class="admin-card h-100">
+                        <div class="admin-card-header">
+                            <h5><i class="fas fa-chart-pie me-2"></i>Géneros más prestados</h5>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="genrePieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph 2: Average rating per genre -->
+                <div class="col-md-7">
+                    <div class="admin-card h-100">
+                        <div class="admin-card-header">
+                            <h5><i class="fas fa-chart-bar me-2"></i>Valoración media por género</h5>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ratingBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-light py-3 footer">
+        <div class="container text-center">
+            <small>BiblioOnline</small>
+        </div>
+    </footer>
+
+    <!-- Confirmation modals -->
+
+    <!-- Delete book modal -->
+    <div class="modal fade" id="modalEliminarLibro" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar libro</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este libro del catálogo? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete review modal -->
+    <div class="modal fade" id="modalEliminarResena" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete user modal -->
+    <div class="modal fade" id="modalEliminarUsuario" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este usuario? Se borrarán todos sus préstamos y reseñas asociados.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS JS -->
+    <script>
+        // Graph 1: Doughnut
+        const pieCtx = document.getElementById('genrePieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía'],
+                datasets: [{
+                    data: [35, 20, 18, 13, 8, 6],
+                    backgroundColor: ['#113744','#5bc8e8','#1a5568','#28a745','#ffc107','#6c757d'],
+                    borderWidth: 3,
+                    borderColor: '#fff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { font: { size: 12 }, padding: 12, usePointStyle: true }
+                    },
+                    tooltip: {
+                        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+                    }
+                },
+                cutout: '58%'
+            }
+        });
+
+        // Graph 2: Bar
+        const barCtx = document.getElementById('ratingBarChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ficción', 'Misterio', 'Fantasía', 'Historia', 'Ciencia', 'Biografía'],
+                datasets: [{
+                    label: 'Valoración media',
+                    data: [4.6, 4.4, 4.7, 4.2, 3.9, 4.1],
+                    backgroundColor: ['#113744','#5bc8e8','#1a5568','#28a745','#ffc107','#6c757d'],
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 1, max: 5,
+                        ticks: { stepSize: 1, font: { size: 11 } },
+                        grid: { color: '#e9ecef' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: { label: ctx => ` ${ctx.parsed.y} ★` }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
