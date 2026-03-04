@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modificar Libro - BiblioOnline</title>
+
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="../css/header-footer.css">
+  <link rel="stylesheet" href="../css/base.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img src="../images/logo.png" class="header-logo" alt="Logo">
+            <a class="navbar-brand" href="../base.html">BiblioOnline</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="admin-panel.html" class="nav-link text-info fw-bold"><i class="fas fa-user-shield"></i> Panel Administrador</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <main class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm border-2">
+          <div class="card-header bg-custom-blue text-white p-3">
+            <h5 class="mb-0"><i class="fas fa-pen-nib me-2"></i>Modificar libro</h5>
+          </div>
+
+          <div class="card-body p-4">
+            <form action="admin-panel.html#seccion-libros">
+
+              <!-- ID  -->
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="bookId" class="form-label fw-bold">ID Libro</label>
+                  <input type="text" class="form-control border-2" id="bookId" name="bookId" value="BK-0001" readonly>
+                </div>
+
+                <div class="col-md-8 mb-3">
+                  <label for="availability" class="form-label fw-bold">Disponibilidad</label>
+                  <select class="form-select border-2" id="availability" name="availability">
+                    <option value="AVAILABLE" selected>Disponible</option>
+                    <option value="ON_LOAN">En préstamo</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Book Cover -->
+              <div class="mb-4 text-center p-3 border rounded bg-light">
+                <img src="../images/el-principito.jpg" alt="Portada actual" class="img-fluid rounded mb-3" style="max-height:180px;">
+                <div class="mb-2 fw-bold">Cambiar portada</div>
+                <input class="form-control w-75 mx-auto" type="file" id="bookCover" name="bookCover" accept="image/*">
+                <div class="form-text">Formatos aceptados: .jpg, .png</div>
+              </div>
+
+              <!-- Tittle -->
+              <div class="mb-3">
+                <label for="title" class="form-label fw-bold">Título del Libro</label>
+                <input type="text" class="form-control border-2" id="title" name="title"
+                  value="El principito" required>
+              </div>
+
+              <div class="row">
+                <!-- Author -->
+                <div class="col-md-6 mb-3">
+                  <label for="author" class="form-label fw-bold">Autor</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="fas fa-pen-nib"></i></span>
+                    <input type="text" class="form-control border-2" id="author" name="author"
+                      value="Antoine de Saint-Exupéry" required>
+                  </div>
+                </div>
+
+                <!-- Date -->
+                <div class="col-md-6 mb-3">
+                  <label for="year" class="form-label fw-bold">Año de Publicación</label>
+                  <input type="number" class="form-control border-2" id="year" name="year" min="1000" max="2099"
+                    value="1943">
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Genre -->
+                <div class="col-md-6 mb-3">
+                  <label for="category" class="form-label fw-bold">Género / Categoría</label>
+                  <select class="form-select border-2" id="category" name="category" required>
+                    <option value="" disabled>Selecciona una opción...</option>
+                    <option value="fiction" selected>Ficción</option>
+                    <option value="history">Historia</option>
+                    <option value="science">Ciencia</option>
+                    <option value="fantasy">Fantasía</option>
+                    <option value="children">Infantil</option>
+                    <option value="mystery">Misterio</option>
+                    <option value="romance">Romance</option>
+                    <option value="biography">Biografía</option>
+                    <option value="classics">Clásicos</option>
+                  </select>
+                </div>
+
+                <!-- ISBN -->
+                <div class="col-md-6 mb-3">
+                  <label for="isbn" class="form-label fw-bold">ISBN</label>
+                  <input type="text" class="form-control border-2" id="isbn" name="isbn"
+                    value="978-3-16-148410-0">
+                </div>
+              </div>
+
+              <!-- Synopsis -->
+              <div class="mb-4">
+                <label for="synopsis" class="form-label fw-bold">Sinopsis / Descripción</label>
+                <textarea class="form-control border-2" id="synopsis" name="synopsis" rows="4">Un clásico de la literatura que combina aventura y reflexión...</textarea>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
+                <a href="admin-panel.html#seccion-libros" class="btn btn-outline-secondary fw-bold px-4">Cancelar</a>
+                <button type="submit" class="btn btn-custom-blue fw-bold px-4">
+                  <i class="fas fa-save me-2"></i>Guardar cambios
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer text-light py-3">
+    <div class="container text-center">
+      <small>BiblioOnline - Panel de Administración</small>
+    </div>
+  </footer>
+</body>
+</html>
