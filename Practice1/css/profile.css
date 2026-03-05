@@ -1,0 +1,53 @@
+/* Activity Card Styling */
+.activity-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fff;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    height: 100%;
+}
+
+.activity-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.activity-icon.books {
+    background: #e3f0f5;
+    color: #113744;
+}
+
+.activity-icon.reviews {
+    background: #fff8e1;
+    color: #f57f17;
+}
+
+.activity-icon.loans {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.activity-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #113744;
+    margin: 8px 0 0;
+    line-height: 1;
+}
+
+.activity-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin: 0;
+}

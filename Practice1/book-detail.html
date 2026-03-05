@@ -44,9 +44,6 @@
                             Nuestros libros
                         </a>
                     </li>
-                    <li>
-                        <a href="admin/admin-panel.html" class="nav-link text-info fw-bold"><i class="fas fa-user-shield"></i> Panel Administrador</a>
-                    </li>
 
                 </ul>
             </div>
@@ -72,9 +69,9 @@
             <div class="col-md-6 text-center">
                 <img src="images/el-principito.jpg" class="img-fluid rounded shadow" alt="Portada de El Principito">
                 <div class="d-flex justify-content-center gap-2 mt-4">
-                    <a href="#" class="btn btn-custom-blue px-4 border-2 fw-bold">Solicitar</a>
-                    <a href="#" class="btn btn-outline-warning px-4 text-dark border-2 fw-bold">Editar</a>
-                    <a href="#" class="btn btn-outline-danger px-4 text-dark border-2 fw-bold">Borrar</a>
+                    <a href="#" class="btn btn-custom-blue px-4 border-2 fw-bold"><i class="fas fa-clipboard-list me-2"></i>Solicitar</a>
+                    <a href="#" class="btn btn-outline-warning px-4 border-2 fw-bold text-dark"><i class="fas fa-edit me-2"></i>Editar</a>
+                    <a href="#" class="btn btn-outline-danger px-4 border-2 fw-bold"><i class="fas fa-trash me-2"></i>Borrar</a>
                 </div>
             </div>
             <!-- Details section-->
@@ -98,8 +95,11 @@
                         <!-- mt-auto takes the content to the end of the available space -->
                         <p class="text-muted small mb-1">Valoración Media</p>
                         <div class="display-6 text-warning">
-                            &#9733; &#9733; &#9733; &#9733; &#9734;
-                            <!-- 9733 is a colored star. 9734 is an empty star-->
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
                         </div>
                         <p class="fw-bold h4 mb-0">4.0 / 5</p>
                     </div>
@@ -116,24 +116,50 @@
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="mb-0 fw-bold text-primary">@michael_jordan</h5>
                         <span class="text-warning fs-5">
-                            &#9733; &#9733; &#9733; &#9733; &#9733; </span>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </span>
                     </div>
                     <p class="mb-0 text-secondary">
                         "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la vida, sin
                         importar la edad."
                     </p>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="button" class="btn btn-outline-warning btn-sm border-2 fw-bold text-dark">
+                            <i class="fas fa-edit me-1"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm border-2 fw-bold">
+                            <i class="fas fa-trash me-1"></i> Eliminar
+                        </button>
+                    </div>
                 </div>
 
                 <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="mb-0 fw-bold text-primary">@kobe_bryant</h5>
                         <span class="text-warning fs-5">
-                            &#9733; &#9733; &#9733; &#9733; &#9734; </span>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </span>
                     </div>
                     <p class="mb-0 text-secondary">
                         "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque me
                         hubiera gustado ver más ilustraciones."
                     </p>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="button" class="btn btn-outline-warning btn-sm border-2 fw-bold text-dark">
+                            <i class="fas fa-edit me-1"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm border-2 fw-bold">
+                            <i class="fas fa-trash me-1"></i> Eliminar
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -168,14 +194,7 @@
                         <!-- Buttons ("Añadir reseña" is submit because it's the one that try to send the information on the form)-->
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-custom-blue px-4 border-2 fw-bold">
-                                Añadir Reseña
-                            </button>
-
-                            <button type="button" class="btn btn-outline-warning text-dark px-4 border-2 fw-bold">
-                                Editar Reseña
-                            </button>
-                            <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold">
-                                Eliminar Reseña
+                                <i class="fas fa-pen me-2"></i>Añadir Reseña
                             </button>
                         </div>
                     </form>
