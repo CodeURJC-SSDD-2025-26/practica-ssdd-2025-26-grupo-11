@@ -2,17 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Perfil - BiblioOnline</title>
+    <title>Perfil - BiblioOnline</title>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" type="image/png" href="images/logo.png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/header-footer.css">
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-
+    <!-- Header -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <img src="images/logo.png" class="header-logo" alt="Logo">
@@ -77,7 +78,7 @@
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-4 text-center">
-                <div class="card shadow-sm p-4 border-2">
+                <div class="card shadow-sm p-4 border-2 d-flex flex-column align-items-center">
                     <img src="images/default-avatar.png" class="rounded-circle img-fluid mb-3 border border-3" style="width: 150px; border-color: #5bc8e8 !important;" alt="Avatar">
                     <h3 class="fw-bold">@michael_jordan</h3>
                     <p class="text-muted">Lector Entusiasta</p>
@@ -96,21 +97,42 @@
             <div class="col-md-8">
                 <div class="card shadow-sm border-2 mb-4">
                     <div class="card-header bg-custom-blue text-white">
-                        <h5 class="mb-0">Mi Actividad</h5>
+                        <h5 class="mb-0">Actividad</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <h4 class="fw-bold">12</h4>
-                                <small class="text-muted">Libros Leídos</small>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-4">
+                                <div class="activity-card">
+                                    <div class="activity-icon books">
+                                        <i class="fa-solid fa-book-open"></i>
+                                    </div>
+                                    <div>
+                                        <p class="activity-number">12</p>
+                                        <p class="activity-label">Libros Leídos</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <h4 class="fw-bold">5</h4>
-                                <small class="text-muted">Reseñas</small>
+                            <div class="col-12 col-md-4">
+                                <div class="activity-card">
+                                    <div class="activity-icon reviews">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                    </div>
+                                    <div>
+                                        <p class="activity-number">5</p>
+                                        <p class="activity-label">Reseñas</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <h4 class="fw-bold">2</h4>
-                                <small class="text-muted">Préstamos Activos</small>
+                            <div class="col-12 col-md-4">
+                                <div class="activity-card">
+                                    <div class="activity-icon loans">
+                                        <i class="fa-solid fa-exchange"></i>
+                                    </div>
+                                    <div>
+                                        <p class="activity-number">2</p>
+                                        <p class="activity-label">Préstamos Activos</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,7 +140,7 @@
 
                 <div class="card shadow-sm border-2">
                     <div class="card-header bg-custom-blue text-white">
-                        <h5 class="mb-0">Mis Últimas Lecturas</h5>
+                        <h5 class="mb-0">Últimas Lecturas</h5>
                     </div>
                     <!-- group-flush is to integrate the card and the list borders-->
                     <ul class="list-group list-group-flush">
