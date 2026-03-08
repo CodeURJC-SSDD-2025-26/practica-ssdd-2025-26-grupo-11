@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="admin/admin-panel.html">
+                        <a class="dropdown-item" href="admin/admin-users.html">
                             <i class="fa-solid fa-user-shield"></i>
                             Panel de administrador
                         </a>
@@ -116,28 +116,39 @@
             <!-- Made up two comments -->
             <div class="list-group">
                 <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
-                    <!-- Justify-content-between makes the items stick to opposite ends -->
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h5 class="mb-0 fw-bold text-primary">@michael_jordan</h5>
-                        <span class="text-warning fs-5">
-                            &#9733; &#9733; &#9733; &#9733; &#9733; </span>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0 fw-bold text-primary">@michael_jordan</h5>
+                                <span class="text-warning fs-5">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                            </div>
+                            <p class="mb-0 text-secondary pe-5">
+                                "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la
+                                vida, sin importar la edad."
+                            </p>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm border-0 ms-3" title="Eliminar este comentario">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </div>
-                    <p class="mb-0 text-secondary">
-                        "Simplemente mágico. Es un libro que todo el mundo debería leer al menos una vez en la vida, sin
-                        importar la edad."
-                    </p>
                 </div>
 
                 <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h5 class="mb-0 fw-bold text-primary">@kobe_bryant</h5>
-                        <span class="text-warning fs-5">
-                            &#9733; &#9733; &#9733; &#9733; &#9734; </span>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0 fw-bold text-primary">@kobe_bryant</h5>
+                                <span class="text-warning fs-5">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                            </div>
+                            <p class="mb-0 text-secondary pe-5">
+                                "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque
+                                me hubiera gustado ver más ilustraciones."
+                            </p>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm border-0 ms-3" title="Eliminar este comentario">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </div>
-                    <p class="mb-0 text-secondary">
-                        "Me encanta la metáfora del zorro y la rosa. El diseño de la edición es precioso, aunque me
-                        hubiera gustado ver más ilustraciones."
-                    </p>
                 </div>
             </div>
         </section>
@@ -173,13 +184,6 @@
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-custom-blue px-4 border-2 fw-bold">
                                 Añadir Reseña
-                            </button>
-
-                            <button type="button" class="btn btn-outline-warning text-dark px-4 border-2 fw-bold">
-                                Editar Reseña
-                            </button>
-                            <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold">
-                                Eliminar Reseña
                             </button>
                         </div>
                     </form>
