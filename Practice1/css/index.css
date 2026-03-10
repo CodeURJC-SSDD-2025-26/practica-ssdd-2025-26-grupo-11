@@ -1,52 +1,63 @@
+/* Hero subheader with background image */
 .subheader {
     position: relative;
-    height: 400px;
+    height: 400px;  /* Fixed height for hero section */
     display: flex;
-    color: white;
-    text-shadow: #000000 1px 1px 4px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 400px;
-    flex-shrink: 0;
-    overflow: hidden;
+    color: white;  /* Text color */
+    text-shadow: #000000 1px 1px 4px;  /* Shadow for text legibility */
+    justify-content: center;  /* Center content horizontally */
+    align-items: center;  /* Center content vertically */
+    text-align: center;  /* Center text alignment */
+    min-height: 400px;  /* Ensure minimum height */
+    flex-shrink: 0;  /* Don't shrink below content */
+    overflow: hidden;  /* Hide overflow for clean look */
 }
 
+/* Background image for hero section */
 .subheader-bg {
-    position: absolute;
+    position: absolute;  /* Positioned behind content */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    filter: blur(2px);
+    object-fit: cover;  /* Cover entire container */
+    z-index: -1;  /* Behind text */
+    filter: blur(2px);  /* Slight blur for text readability */
 }
 
+/* Content container in subheader */
 .subheader .container {
     position: relative;
-    z-index: 1;
+    z-index: 1;  /* Above background image */
 }
 
+/* BOOK DISPLAY */
 
+/* Book cover image on detail/listing pages */
 .card-img-top {
-    height: 500px;
-    object-fit: cover;
+    height: 500px;  /* Larger height for featured books */
+    object-fit: cover;  /* Crop to fit */
 }
 
-.stars{
-    color: #FFD700;
-    font-size: 1.3rem;
+/* RATINGS */
+
+/* Star rating display - larger version */
+.stars {
+    color: #FFD700;  /* Gold color */
+    font-size: 1.3rem;  /* Larger than default */
 }
 
+/* BUTTONS */
+
+/* Details/view button styling */
 .details-button {
-    background-color: aqua;
-    color: black;
-    display: block;
-    margin: 0.75rem auto 0;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: none;
+    background-color: aqua;  /* Cyan background */
+    color: black;  /* Black text */
+    display: block;  /* Full width */
+    margin: 0.75rem auto 0;  /* Center with top margin */
+    padding: 0.6rem 1rem;  /* Inner spacing */
+    font-size: 1rem;  /* Standard size */
+    border-radius: 6px;  /* Rounded corners */
+    border: none;  /* No border */
 }
 

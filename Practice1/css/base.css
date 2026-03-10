@@ -1,28 +1,33 @@
 .welcome-banner {
+    /* Blue gradient background (#113744 → #1a5568) with accent bottom border */
     background: linear-gradient(135deg, #113744 0%, #1a5568 100%);
     color: white;
     padding: 60px 0;
-    border-bottom: 3px solid #5bc8e8;
+    border-bottom: 3px solid #5bc8e8;  /* Cyan accent line */
 }
 
+/* Main heading styling */
 .welcome-banner h1 {
     font-size: 2rem;
     font-weight: 700;
 }
 
+/* Highlight text within heading */
 .welcome-banner h1 span {
-    color: #5bc8e8;
+    color: #5bc8e8;  /* Cyan color for emphasis */
 }
 
+/* Subtitle/description text */
 .welcome-banner p {
-    opacity: 0.8;
+    opacity: 0.8;  /* Slightly transparent for hierarchy */
     font-size: 1.1rem;
     margin-bottom: 25px;
 }
 
+/* Call-to-action button */
 .welcome-banner .btn-light {
     font-weight: 600;
     padding: 10px 24px;
-    border-radius: 25px;
+    border-radius: 25px;  /* Rounded pill shape */
 }
 

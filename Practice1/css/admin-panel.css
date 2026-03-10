@@ -1,45 +1,52 @@
-/* ── Admin panel page header banner ── */
+/* Hero banner at top of admin panel */
 .admin-banner {
-    background: linear-gradient(135deg, #113744 0%, #1a5568 100%);
+    background: linear-gradient(135deg, #113744 0%, #1a5568 100%); /* Blue gradient */
     color: white;
     padding: 28px 0;
-    border-bottom: 3px solid #5bc8e8;
+    border-bottom: 3px solid #5bc8e8; /* Cyan line */
     margin-bottom: 0;
 }
 
+/* Banner heading typography */
 .admin-banner h1 {
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 4px;
 }
 
+/* Highlighted text within heading */
 .admin-banner h1 span {
-    color: #5bc8e8;
+    color: #5bc8e8; /* Cyan for emphasis */
 }
 
+/* Banner subtitle or description */
 .admin-banner p {
-    opacity: 0.75;
+    opacity: 0.75; /* Slightly transparent */
     font-size: 0.95rem;
     margin: 0;
 }
 
-/* ── Stat summary cards ── */
+/* STATISTICS CARDS - Dashboard summary stats */
+
+/* Individual stat card container */
 .stat-card {
     background: #fff;
     border-radius: 10px;
     border: 1px solid #e0e0e0;
     padding: 20px;
-    display: flex;
+    display: flex; /* Icon left, text right */
     align-items: center;
-    gap: 16px;
-    transition: box-shadow .2s, transform .2s;
+    gap: 16px; /* Space between icon and text */
+    transition: box-shadow 0.2s, transform 0.2s; /* Smooth animation */
 }
 
+/* Stat card hover effect */
 .stat-card:hover {
-    box-shadow: 0 4px 16px rgba(17, 55, 68, .12);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(17, 55, 68, 0.12);
+    transform: translateY(-2px); /* Lift on hover */
 }
 
+/* Icon container within stat card */
 .stat-icon {
     width: 50px;
     height: 50px;
@@ -48,14 +55,35 @@
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Don't shrink icon */
 }
 
-.stat-icon.blue   { background: #e3f0f5; color: #113744; }
-.stat-icon.cyan   { background: #e0f7fa; color: #00838f; }
-.stat-icon.green  { background: #e8f5e9; color: #2e7d32; }
-.stat-icon.yellow { background: #fff8e1; color: #f57f17; }
+/* Icon color variants for different stat types */
+.stat-icon.blue {
+    background: #e3f0f5;
+    color: #113744;
+}
 
+/* Primary blue icon */
+.stat-icon.cyan {
+    background: #e0f7fa;
+    color: #00838f;
+}
+
+/* Cyan icon */
+.stat-icon.green {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Green icon */
+.stat-icon.yellow {
+    background: #fff8e1;
+    color: #f57f17;
+}
+
+
+/* Large stat number display */
 .stat-value {
     font-size: 1.8rem;
     font-weight: 700;
@@ -63,35 +91,42 @@
     line-height: 1;
 }
 
+/* Label below stat number */
 .stat-label {
     font-size: 0.8rem;
-    color: #6c757d;
+    color: #6c757d; /* Gray */
     margin-top: 3px;
 }
 
-/* ── Section titles ── */
+/* SECTION TITLES - Dashboard section headers */
+
+/* Title with underline and icon */
 .section-title {
-    color: #113744;
+    color: #113744; /* Dark blue */
     font-weight: 700;
     font-size: 1rem;
     padding-bottom: 8px;
-    border-bottom: 2px solid #5bc8e8;
+    border-bottom: 2px solid #5bc8e8;  /* Cyan underline */
     margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px; /* Space between icon and text */
 }
 
-/* ── Admin cards (wrapper for each block) ── */
+
+/* ADMIN CARDS - Content container cards */
+
+/* Main card wrapper */
 .admin-card {
     background: #fff;
     border-radius: 10px;
     border: 1px solid #e0e0e0;
-    overflow: hidden;
+    overflow: hidden; /* Hide overflow for rounded corners */
 }
 
+/* Card header with title and controls */
 .admin-card-header {
-    background: #f8f9fa;
+    background: #f8f9fa; /* Light gray */
     border-bottom: 1px solid #e0e0e0;
     padding: 14px 20px;
     display: flex;
@@ -101,64 +136,132 @@
     gap: 10px;
 }
 
+/* Card header title styling */
 .admin-card-header h5 {
-    color: #113744;
+    color: #113744; /* Dark blue */
     font-weight: 700;
     font-size: 0.95rem;
     margin: 0;
-    text-transform: uppercase;
+    text-transform: uppercase; /* All caps */
     letter-spacing: 0.5px;
 }
 
-/* ── Tables ── */
+/* DATA TABLES */
+
+/* Table header styling */
 .table-admin thead th {
-    background: #113744;
+    background: #113744; /* Primary dark blue */
     color: #fff;
     font-size: 0.78rem;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: uppercase; /* All caps */
     letter-spacing: 0.5px;
     border: none;
     padding: 10px 14px;
 }
 
+/* Table data cell styling */
 .table-admin tbody td {
     padding: 10px 14px;
     vertical-align: middle;
     font-size: 0.88rem;
-    border-color: #f0f0f0;
+    border-color: #f0f0f0; /* Very light gray borders */
     color: #333;
 }
 
+/* Highlight row on hover */
 .table-admin tbody tr:hover td {
-    background: #f0f8fb;
+    background: #f0f8fb; /* Very light blue hover */
 }
 
-/* ── Loan/review status badges ── */
-.badge-activo   { background: #d4edda; color: #155724; font-size: .75rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
-.badge-vencido  { background: #f8d7da; color: #721c24; font-size: .75rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
-.badge-devuelto { background: #e2e3e5; color: #383d41; font-size: .75rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
+/* STATUS BADGES - Loan state indicators */
 
-/* ── Stars ── */
-.stars { color: #FFD700; }
+/* Active/current loan badge */
+.badge-activo {
+    background: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px; /* Pill shape */
+    font-weight: 600;
+}
 
-/* ── Status filter buttons ── */
+/* Expired loan badge */
+.badge-vencido {
+    background: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Returned loan badge */
+.badge-devuelto {
+    background: #e2e3e5; /* Light gray */
+    color: #383d41; /* Dark gray text */
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* RATINGS */
+
+/* Star ratings display */
+.stars {
+    color: #FFD700; /* Gold color */
+}
+
+/* FILTER BUTTONS - Status filter controls */
+
+/* Base filter button styling */
 .btn-filter-status {
     font-size: 0.8rem;
     font-weight: 500;
     border: none;
     padding: 6px 16px;
     border-radius: 6px;
-    transition: filter .15s, transform .15s, opacity .15s;
+    transition: filter 0.15s, transform 0.15s, opacity 0.15s;
     cursor: pointer;
 }
-.btn-filter-status:hover { filter: brightness(.92); transform: translateY(-1px); }
-.btn-filter-status.all      { background: #113744; color: white; }
-.btn-filter-status.active   { background: #d4edda; color: #155724; font-weight: 600; }
-.btn-filter-status.expired  { background: #f8d7da; color: #721c24; font-weight: 600; }
-.btn-filter-status.returned { background: #e2e3e5; color: #383d41; font-weight: 600; }
 
-/* ── Small action buttons ── */
+/* Hover effect: brighten and lift */
+.btn-filter-status:hover {
+    filter: brightness(0.92); /* Darken slightly */
+    transform: translateY(-1px); /* Lift up */
+}
+
+/* "All" filter - dark blue */
+.btn-filter-status.all {
+    background: #113744; /* Primary blue */
+    color: white;
+}
+
+/* Active loans filter - green */
+.btn-filter-status.active {
+    background: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    font-weight: 600;
+}
+
+/* Expired loans filter - red */
+.btn-filter-status.expired {
+    background: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    font-weight: 600;
+}
+
+/* Returned loans filter - gray */
+.btn-filter-status.returned {
+    background: #e2e3e5; /* Light gray */
+    color: #383d41; /* Dark gray text */
+    font-weight: 600;
+}
+
+/* ACTION BUTTONS - Edit/delete/view buttons */
+
+/* Base icon button styling */
 .btn-icon {
     width: 30px;
     height: 30px;
@@ -169,46 +272,72 @@
     font-size: 0.82rem;
     border: none;
     cursor: pointer;
-    transition: filter .15s, transform .15s;
+    transition: filter 0.15s, transform 0.15s;
     text-decoration: none;
     font-weight: 500;
 }
-.btn-icon:hover { filter: brightness(.88); transform: scale(1.08); }
-.btn-icon.edit   { background: #e3f0f5; color: #113744; }
-.btn-icon.delete { background: #f8d7da; color: #721c24; }
-.btn-icon.view   { background: #e8f5e9; color: #2e7d32; }
 
-/* ── User mini avatar ── */
+/* Hover effect: darken and scale */
+.btn-icon:hover {
+    filter: brightness(0.88); /* Darken slightly */
+    transform: scale(1.08); /* Enlarge slightly */
+}
+
+/* Edit button - blue */
+.btn-icon.edit {
+    background: #e3f0f5; /* Light blue background */
+    color: #113744; /* Dark blue icon */
+}
+
+/* Delete button - red */
+.btn-icon.delete {
+    background: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red icon */
+}
+
+/* View button - green */
+.btn-icon.view {
+    background: #e8f5e9; /* Light green background */
+    color: #2e7d32; /* Dark green icon */
+}
+
+/* AVATARS - User profile images */
+
+/* Mini circular user avatar */
 .mini-avatar {
     width: 30px;
     height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #5bc8e8;
+    border-radius: 50%; /* Perfect circle */
+    object-fit: cover; /* Crop image to fit */
+    border: 2px solid #5bc8e8; /* Cyan border */
 }
 
-/* ── Charts ── */
+/* CHARTS */
+
+/* Chart container (for chart.js or similar) */
 .chart-container {
     position: relative;
-    height: 270px;
+    height: 270px; /* Fixed height for consistency */
     padding: 16px 16px 8px;
 }
 
-/* ── Book cover thumbnail ── */
+/* MEDIA THUMBNAILS - Small image previews */
+
+/* Small book cover thumbnail */
 .book-thumb {
     width: 36px;
     height: 50px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+    object-fit: cover; /* Crop to fit */
+    border-radius: 4px; /* Slightly rounded corners */
+    border: 1px solid #ddd; /* Subtle border */
 }
 
-/* ── Loan cover (table) ── */
+/* Loan cover image in table */
 .loan-cover {
     width: 36px;
     height: 50px;
-    object-fit: cover;
+    object-fit: cover; /* Crop to fit */
     border-radius: 4px;
     border: 1px solid #ddd;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Don't shrink in flex container */
 }

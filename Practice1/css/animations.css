@@ -1,10 +1,12 @@
+/* Base card styling with shadow and hover effects */
 .card {
-    border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;  /* Remove default border */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);  /* Subtle shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;  /* Smooth animation */
 }
 
+/* Hover effect: lift card and increase shadow */
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    transform: translateY(-4px);  /* Move up 4px on hover */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);  /* Enhanced shadow */
 }

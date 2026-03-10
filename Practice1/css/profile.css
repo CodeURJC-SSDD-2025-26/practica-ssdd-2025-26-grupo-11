@@ -1,53 +1,59 @@
-/* Activity Card Styling */
+/* Individual activity card (books, reviews, loans) */
 .activity-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    background: #fff;
-    padding: 18px;
+    border: 1px solid #e0e0e0;  /* Subtle border */
+    border-radius: 12px;  /* Rounded corners */
+    background: #fff;  /* White background */
+    padding: 18px;  /* Inner spacing */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-    height: 100%;
+    flex-direction: column;  /* Stack content vertically */
+    align-items: center;  /* Center horizontally */
+    gap: 12px;  /* Space between elements */
+    text-align: center;  /* Center text */
+    height: 100%;  /* Fill available height */
 }
 
+/* Activity icon container */
 .activity-icon {
     width: 50px;
     height: 50px;
-    border-radius: 12px;
+    border-radius: 12px;  /* Rounded square */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    flex-shrink: 0;
+    align-items: center;  /* Center icon vertically */
+    justify-content: center;  /* Center icon horizontally */
+    font-size: 1.4rem;  /* Large icon */
+    flex-shrink: 0;  /* Don't shrink icon */
 }
 
+/* Books activity icon - blue */
 .activity-icon.books {
-    background: #e3f0f5;
-    color: #113744;
+    background: #e3f0f5;  /* Light blue background */
+    color: #113744;  /* Dark blue icon */
 }
 
+/* Reviews activity icon - yellow */
 .activity-icon.reviews {
-    background: #fff8e1;
-    color: #f57f17;
+    background: #fff8e1;  /* Light yellow background */
+    color: #f57f17;  /* Dark yellow/orange icon */
 }
 
+/* Loans activity icon - green */
 .activity-icon.loans {
-    background: #e8f5e9;
-    color: #2e7d32;
+    background: #e8f5e9;  /* Light green background */
+    color: #2e7d32;  /* Dark green icon */
 }
 
+/* Large activity number display */
 .activity-number {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #113744;
-    margin: 8px 0 0;
-    line-height: 1;
+    font-size: 1.8rem;  /* Large number */
+    font-weight: 800;  /* Extra bold */
+    color: #113744;  /* Dark blue */
+    margin: 8px 0 0;  /* Top margin */
+    line-height: 1;  /* Tight line height */
 }
 
+/* Activity label text */
 .activity-label {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin: 0;
+    color: #6c757d;  /* Gray text */
+    font-size: 0.9rem;  /* Slightly smaller */
+    margin: 0;  /* No margin */
 }

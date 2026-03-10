@@ -1,87 +1,103 @@
-/* Sidebar */
-.search-box,
-.filter-box {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 16px;
-    border: 1px solid #e0e0e0;
+/* Search and filter container styling */
+.search-box, .filter-box {
+    background-color: #f8f9fa;  /* Light gray background */
+    border-radius: 8px;  /* Slightly rounded corners */
+    padding: 16px;  /* Inner spacing */
+    border: 1px solid #e0e0e0;  /* Subtle border */
 }
 
-.search-box h5,
-.filter-box h5 {
-    color: #113744;
-    font-weight: 600;
+/* Section heading styling */
+.search-box h5, .filter-box h5 {
+    color: #113744;  /* Dark blue text */
+    font-weight: 600;  /* Semi-bold */
     margin-bottom: 12px;
     font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    text-transform: uppercase;  /* All caps */
+    letter-spacing: 0.5px;  /* Wider spacing */
 }
 
+/* Search button styling */
 .btn-search {
-    background-color: #113744;
+    background-color: #113744;  /* Primary dark blue */
     color: white;
     border: none;
 }
 
+/* Search button hover state */
 .btn-search:hover {
-    background-color: #1a4f61;
+    background-color: #1a4f61;  /* Lighter blue */
     color: white;
 }
 
+/* FILTER LIST */
+
+/* Reset list default styles */
 .filter-list {
-    list-style: none;
+    list-style: none;  /* Remove bullet points */
     padding: 0;
     margin: 0;
 }
 
+/* Individual filter item */
 .filter-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between;  /* Text left, badge right */
+    align-items: center;  /* Vertical center */
     padding: 6px 0;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;  /* Separator line */
 }
 
+/* Remove bottom border from last item */
 .filter-item:last-child {
     border-bottom: none;
 }
 
+/* Filter link styling */
 .filter-item a {
-    color: #495057;
+    color: #495057;  /* Medium gray */
     text-decoration: none;
     font-size: 0.9rem;
 }
 
+/* Filter link hover state */
 .filter-item a:hover {
-    color: #113744;
-    font-weight: 500;
+    color: #113744;  /* Dark blue on hover */
+    font-weight: 500;  /* Slightly bolder */
 }
 
+/* Active filter styling */
 .filter-item.active a {
-    color: #113744;
-    font-weight: 700;
+    color: #113744;  /* Dark blue */
+    font-weight: 700;  /* Bold for emphasis */
 }
 
+/* Badge showing filter count */
 .filter-item .badge {
-    background-color: #113744;
+    background-color: #113744;  /* Primary dark blue */
     font-size: 0.75rem;
 }
 
+/* BOOKS GRID */
+
+/* Genre section title */
 .genre-title {
-    color: #113744;
-    font-weight: 700;
+    color: #113744;  /* Dark blue */
+    font-weight: 700;  /* Bold */
     padding-bottom: 8px;
-    border-bottom: 2px solid #5bc8e8;
+    border-bottom: 2px solid #5bc8e8;  /* Cyan underline */
     margin-bottom: 16px;
 }
 
-
+/* Book cover image height */
 .card-img-top {
-    height: 450px;
-    object-fit: cover;
+    height: 450px;  /* Fixed height for consistency */
+    object-fit: cover;  /* Crop to fit */
 }
 
+/* RATINGS */
+
+/* Star rating display */
 .stars {
-    color: #FFD700;
+    color: #FFD700;  /* Gold color */
     font-size: 0.85rem;
 }

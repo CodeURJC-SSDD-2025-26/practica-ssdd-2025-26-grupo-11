@@ -1,159 +1,193 @@
-
+/* Stats summary card (totals, active, etc) */
 .summary-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background: #fff;
-  padding: 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  border: 1px solid #e0e0e0;  /* Subtle border */
+  border-radius: 12px;  /* Rounded corners */
+  background: #fff;  /* White background */
+  padding: 18px;  /* Inner spacing */
+  display: flex;  /* Icon left, text right */
+  align-items: center;  /* Vertical center */
+  gap: 14px;  /* Space between icon and text */
 }
 
+/* Icon within summary card */
 .summary-icon {
   width: 46px;
   height: 46px;
-  border-radius: 12px;
+  border-radius: 12px;  /* Rounded square */
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
+  justify-content: center;  /* Center icon */
+  font-size: 1.2rem;  /* Medium icon size */
+  flex-shrink: 0;  /* Don't shrink icon */
 }
 
+/* Blue icon variant */
 .summary-icon.blue {
-  background: #e3f0f5;
-  color: #113744;
+  background: #e3f0f5;  /* Light blue background */
+  color: #113744;  /* Dark blue icon */
 }
+
+/* Yellow icon variant */
 .summary-icon.yellow {
-  background: #fff8e1;
-  color: #f57f17;
+  background: #fff8e1;  /* Light yellow background */
+  color: #f57f17;  /* Dark yellow icon */
 }
+
+/* Green icon variant */
 .summary-icon.green {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: #e8f5e9;  /* Light green background */
+  color: #2e7d32;  /* Dark green icon */
 }
 
+/* Large summary number */
 .summary-value {
-  font-size: 1.7rem;
-  font-weight: 800;
-  color: #113744;
-  line-height: 1;
-  margin: 0;
+  font-size: 1.7rem;  /* Large number */
+  font-weight: 800;  /* Extra bold */
+  color: #113744;  /* Dark blue */
+  line-height: 1;  /* Tight line height */
+  margin: 0;  /* No margin */
 }
 
+/* Summary label text */
 .summary-label {
-  margin: 2px 0 0;
-  color: #6c757d;
-  font-size: 0.86rem;
+  margin: 2px 0 0;  /* Top margin */
+  color: #6c757d;  /* Gray text */
+  font-size: 0.86rem;  /* Smaller text */
 }
 
+/* ── Loans Card Container ── */
+
+/* Main card for loans table and controls */
 .loans-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
+  background: #fff;  /* White background */
+  border: 1px solid #e0e0e0;  /* Subtle border */
+  border-radius: 12px;  /* Rounded corners */
+  overflow: hidden;  /* Hide overflow for rounded corners */
 }
 
+/* Header with title and filter buttons */
 .loans-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 14px 18px;
-  border-bottom: 1px solid #e0e0e0;
-  background: #fff;
+  display: flex;  /* Horizontal layout */
+  justify-content: space-between;  /* Title left, buttons right */
+  align-items: center;  /* Vertical center */
+  gap: 12px;  /* Space between items */
+  flex-wrap: wrap;  /* Wrap on small screens */
+  padding: 14px 18px;  /* Inner spacing */
+  border-bottom: 1px solid #e0e0e0;  /* Separator line */
+  background: #fff;  /* White background */
 }
 
+/* Card header title ("My Loans") */
 .loans-card-title {
-  margin: 0;
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  color: #113744;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  margin: 0;  /* No margin */
+  font-weight: 800;  /* Extra bold */
+  font-size: 0.95rem;  /* Slightly smaller */
+  letter-spacing: 0.4px;  /* Wide spacing */
+  text-transform: uppercase;  /* All caps */
+  color: #113744;  /* Dark blue */
+  display: flex;  /* Icon + text layout */
+  align-items: center;  /* Vertical center */
+  gap: 10px;  /* Space between icon and text */
 }
 
+/* Filter buttons in loan card header */
 .loan-filters .btn {
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-weight: 600;
-  font-size: 0.85rem;
+  border-radius: 8px;  /* Rounded corners */
+  padding: 6px 10px;  /* Compact padding */
+  font-weight: 600;  /* Semi-bold */
+  font-size: 0.85rem;  /* Slightly smaller */
 }
 
+/* ── Loans Table ── */
+
+/* Table header styling */
 .table-loans thead th {
-  background: #113744;
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.45px;
-  border: none;
-  padding: 12px 14px;
-  white-space: nowrap;
+  background: #113744;  /* Primary dark blue */
+  color: #fff;  /* White text */
+  font-size: 0.78rem;  /* Small text */
+  font-weight: 700;  /* Bold */
+  text-transform: uppercase;  /* All caps */
+  letter-spacing: 0.45px;  /* Wide spacing */
+  border: none;  /* No borders */
+  padding: 12px 14px;  /* Cell padding */
+  white-space: nowrap;  /* Prevent text wrapping */
 }
 
+/* Table body cell styling */
 .table-loans tbody td {
-  padding: 14px 14px;
-  vertical-align: middle;
-  font-size: 0.92rem;
-  border-color: #f0f0f0;
+  padding: 14px 14px;  /* Cell padding */
+  vertical-align: middle;  /* Vertical center */
+  font-size: 0.92rem;  /* Slightly smaller */
+  border-color: #f0f0f0;  /* Very light borders */
 }
 
+/* Highlight row on hover */
 .table-loans tbody tr:hover td {
-  background: #f0f8fb;
+  background: #f0f8fb;  /* Very light blue background */
 }
 
+/* ── Loan Cover Image ── */
+
+/* Large loan cover image in table */
 .loan-cover {
-  width: 120px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 4px;
+  width: 120px;  /* Fixed width */
+  height: 180px;  /* Fixed height for book aspect ratio */
+  object-fit: cover;  /* Crop to fit */
+  border-radius: 4px;  /* Slightly rounded corners */
 }
 
+/* ── Status Badges ── */
 
+/* Base badge styling for all status types */
 .badge-activo,
 .badge-vencido,
 .badge-devuelto,
 .badge-warning {
-  font-size: 0.78rem;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-weight: 500; 
-  display: inline-block;
+  font-size: 0.78rem;  /* Small text */
+  padding: 5px 12px;  /* Compact padding */
+  border-radius: 999px;  /* Pill shape */
+  font-weight: 500;  /* Medium weight */
+  display: inline-block;  /* Inline display */
 }
 
+/* Active loan badge - green */
 .badge-activo {
-  background: #d4edda;
-  color: #155724;
+  background: #d4edda;  /* Light green background */
+  color: #155724;  /* Dark green text */
 }
 
+/* Expired loan badge - red */
 .badge-vencido {
-  background: #f8d7da;
-  color: #721c24;
+  background: #f8d7da;  /* Light red background */
+  color: #721c24;  /* Dark red text */
 }
 
+/* Returned loan badge - gray */
 .badge-devuelto {
-  background: #e2e3e5;
-  color: #383d41;
+  background: #e2e3e5;  /* Light gray background */
+  color: #383d41;  /* Dark gray text */
 }
 
+/* ── Action Controls ── */
+
+/* Container for action buttons */
 .actions-wrap {
-  display: inline-flex;
-  gap: 10px;
-  justify-content: flex-end;
-  flex-wrap: wrap;
+  display: inline-flex;  /* Inline flex layout */
+  gap: 10px;  /* Space between buttons */
+  justify-content: flex-end;  /* Right-align buttons */
+  flex-wrap: wrap;  /* Wrap on small screens */
 }
 
+/* ── Pagination ── */
+
+/* Active pagination link styling */
 .loans-pagination .page-item.active .page-link {
-  background: #113744;
-  border-color: #113744;
-  color: #fff;
+  background: #113744;  /* Primary dark blue */
+  border-color: #113744;  /* Matching border */
+  color: #fff;  /* White text */
 }
 
+/* Pagination link hover state */
 .loans-pagination .page-link:hover {
-  color: #113744;
+  color: #113744;  /* Primary dark blue */
 }

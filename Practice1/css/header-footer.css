@@ -1,142 +1,180 @@
-/* This makes the body fill all the window size */
+/* Fill full viewport height and remove default margins */
 html, body {
     height: 100%;
     margin: 0;
 }
 
-/* This makes the body a flex vertical container */
+/* Flex column container: header → main (grows) → footer */
 body {
     display: flex;
     flex-direction: column;
 }
 
-
-/* With this, main will grow to fill all the space */
+/* Main content area grows to fill available space */
 main {
     flex: 1 0 auto;
 }
 
-/* This assure that the footer does not grow */
+/* Footer stays at bottom, doesn't grow */
 footer {
     flex-shrink: 0;
 }
 
+/* HEADER LOGO */
+
+/* Logo maximum width constraint */
 .header-logo {
     max-width: 43px;
-    height: auto; 
+    height: auto;  /* Maintain aspect ratio */
 }
 
-.register-icon{
-    color: #28a745; 
-} 
+/* NAVIGATION ICONS */
 
-.login-icon{
-    color: #28a745; 
-} 
+/* Green icon color for registration */
+.register-icon {
+    color: #28a745;  /* Green Bootstrap color */
+}
 
+/* Green icon color for login */
+.login-icon {
+    color: #28a745;  /* Green Bootstrap color */
+}
+
+/* DROPDOWN MENU */
+
+/* Dark blue dropdown menu container */
 .menu {
-    background-color: #113744;
-    padding: 0 ;
-    border: 1px solid rgba(91, 200, 232, 0.4) !important;
+    background-color: #113744;  /* Primary dark blue */
+    padding: 0;
+    border: 1px solid rgba(91, 200, 232, 0.4) !important;  /* Subtle cyan border */
 }
 
+/* Reset menu item spacing */
 .menu li {
     padding: 0;
     margin: 0;
 }
 
+/* Dropdown items with icon alignment */
 .menu .dropdown-item {
-    color: white ;
-    padding: 8px 16px ;
-    margin: 0 ;
+    color: white;
+    padding: 8px 16px;
+    margin: 0;
     display: flex;
-    align-items: center;        /* keep icon and text aligned */
+    align-items: center;  /* Vertical align icons and text */
 }
 
-.menu .dropdown-item:hover,
-.menu .dropdown-item:focus {
-    background-color: #1a4f61 ;
-    color: white ;
+/* Hover state: lighter background */
+.menu .dropdown-item:hover, .menu .dropdown-item:focus {
+    background-color: #1a4f61;  /* Lighter blue on hover */
+    color: white;
     border-radius: 5px;
 }
 
+/* Icon styling within dropdown */
 .menu .dropdown-item i {
-    margin-right: 0.5rem;       /* space between icon and label */
-    width: 1.25em;            /* reserve same horizontal space for every icon */
-    text-align: center;       /* center the glyph inside that box */
-    font-size: 1rem;          /* force identical size across icons */
-}
-.navbar{
-    background-color: #113744;
-    border-bottom: #171054a3 2px solid;
+    margin-right: 0.5rem;  /* Space between icon and text */
+    width: 1.25em;  /* Fixed width for alignment */
+    text-align: center;  /* Center glyph */
+    font-size: 1rem;  /* Consistent icon size */
 }
 
+/* NAVIGATION BAR */
+
+/* Main navbar styling */
+.navbar {
+    background-color: #113744;  /* Primary dark blue */
+    border-bottom: 2px solid #171054a3;  /* Darker blue border */
+}
+
+/* Navbar brand and links styling */
 .navbar-brand,
 .navbar .nav-link {
     color: white;
     text-decoration: none;
     margin-left: 5px;
 }
+
+/* Dropdown toggle button color */
 .navbar .dropdown-toggle {
     color: white !important;
 }
 
+/* Navigation items container */
 .navbar-nav {
-    align-items: center;
+    align-items: center;  /* Vertical center alignment */
 }
 
+/* Navigation item link positioning */
 .navbar .nav-item > a {
     position: relative;
     padding: 10px 15px;
 }
 
+/* Active navigation item styling */
 .navbar .nav-item a.active {
-    background-color: #113744; 
-    border-radius: 5px;
+    background-color: #113744;  /* Same as navbar */
+    border-radius: 5px;  /* Rounded edges */
 }
 
+/* USER PROFILE SECTION */
+
+/* Circular user avatar image */
 .nav-avatar {
     width: 32px;
     height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #5bc8e8;
+    border-radius: 50%;  /* Perfect circle */
+    object-fit: cover;  /* Crop image to circle */
+    border: 2px solid #5bc8e8;  /* Cyan border */
     margin-right: 6px;
 }
 
+/* User name/greeting text */
 .user-message {
     color: #fff;
-    font-size: 1rem; 
+    font-size: 1rem;
     margin-right: 10px;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
-.footer{
-    background-color: #113744;
+/* FOOTER */
+
+/* Footer background color matching navbar */
+.footer {
+    background-color: #113744;  /* Primary dark blue */
 }
 
+/* CUSTOM BUTTON STYLES */
+
+/* Custom blue background utility class */
 .bg-custom-blue {
-    background-color: #113744 !important;
-    color: #ffffff !important;
+    background-color: #113744 !important;  /* Primary dark blue */
+    color: #ffffff !important;  /* White text */
 }
 
-a.btn-custom-blue, 
+/* Custom blue button styling */
+a.btn-custom-blue,
 button.btn-custom-blue {
     background-color: #113744 !important;
     color: #ffffff !important;
     border: 2px solid #113744 !important;
 }
 
-a.btn-custom-blue:hover, 
+/* Hover state: lighter blue with cyan border */
+a.btn-custom-blue:hover,
 button.btn-custom-blue:hover {
-    background-color: #1a5568 !important;
-    border-color: #5bc8e8 !important;
+    background-color: #1a5568 !important;  /* Lighter blue */
+    border-color: #5bc8e8 !important;  /* Cyan border */
     color: #ffffff !important;
 }
 
-textarea{
-    resize: none;
+/* FORM ELEMENTS */
+
+/* Disable textarea resize (use CSS for sizing) */
+textarea {
+    resize: none;  /* Prevents user resizing */
 }
+
 
