@@ -185,11 +185,11 @@ Diagram that shows how to navigate between the different pages of the applicatio
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Book-detail and CSS header-footer](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/5fb4026f4cc8c2f0fb1617d7cf1c35760899833b)  | [Book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/book-detail.html)   |
+|2| [Complete book details, add user profile and global footer fix.](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7dd20264b3e80a73693496420b4ffe5b3d46087)  | [Profile](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/profile.html)   |
+|3| [Add edit-profile page and update profile navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/3726ba2b2b6cc872c4987f1f91e5197b7fd46182)  | [edit-profile](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/edit-profile.html)   |
+|4| [Implement user management by admin and the book creation form](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/67570d8bb5e01d200be98a3b19eabac9d72b977e)  | [admin-add-book](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/admin-add-book.html)   |
+|5| [Improve book detail and fix admin navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/983351fe2e85e4b235e8fd5207d2d6544d491ee2)  | [book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/book-detail.html)   |
 
 ---
 
