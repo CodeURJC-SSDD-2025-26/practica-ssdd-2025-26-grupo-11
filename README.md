@@ -172,8 +172,9 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 |1| [Added MyLoans page and later updated its style to match the admin panel style and fixed issues](d66a099fc125edc550ba40bc36c103664ce44d55)  | [MyLoans/MyLoans css](d66a099fc125edc550ba40bc36c103664ce44d55) / [MyLoans](113ead8b18661410663cf18ff7e866fe7e2e4b91)  |
 |2| [Added Login page](31e38182331066d548df6b167815f80841fb409c)  | [Login](31e38182331066d548df6b167815f80841fb409c)   |
 |3| [Added Register page](31e38182331066d548df6b167815f80841fb409c)  | [Register](31e38182331066d548df6b167815f80841fb409c)   |
-|4| [Added Admin-Edit-book](URL_commit_4)  | [Admin-Edit-Book](d66a099fc125edc550ba40bc36c103664ce44d55)   |
-|5| [Added Admin-Edit-loan](URL_commit_5)  | [Admin-Edit-Loan](d66a099fc125edc550ba40bc36c103664ce44d55)   |
+|4| [Added Admin-Edit-book](d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Book](d66a099fc125edc550ba40bc36c103664ce44d55)   |
+|5| [Added Admin-Edit-loan](d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Loan](d66a099fc125edc550ba40bc36c103664ce44d55)   |
+|6| [Completed README and fixed header issues](c435bade841fd87879a3a8dcd84a3844bf75b0cd)  | [README](c435bade841fd87879a3a8dcd84a3844bf75b0cd)   |
 
 ---
 
