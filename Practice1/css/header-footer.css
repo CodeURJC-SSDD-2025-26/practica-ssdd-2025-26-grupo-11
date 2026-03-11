@@ -31,13 +31,9 @@ footer {
 /* NAVIGATION ICONS */
 
 /* Green icon color for registration */
-.register-icon {
-    color: #28a745;  /* Green Bootstrap color */
-}
-
-/* Green icon color for login */
+.register-icon,
 .login-icon {
-    color: #28a745;  /* Green Bootstrap color */
+    color: #28a745;
 }
 
 /* DROPDOWN MENU */
@@ -85,6 +81,15 @@ footer {
 .navbar {
     background-color: #113744;  /* Primary dark blue */
     border-bottom: 2px solid #171054a3;  /* Darker blue border */
+}
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin: 0;
+    padding: 0;
 }
 
 /* Navbar brand and links styling */

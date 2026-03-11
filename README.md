@@ -84,16 +84,74 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
-#### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+#### **1. Main Page/Index**
+![Index](/Practice1/Diagram-images/index.jpeg)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> Main page of the application, from which users can access the book catalog, register, or log in. It also displays a selection of featured books.
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **2. Register**
+![Register](/Practice1/Diagram-images/Registro.jpeg)
+
+> Registration form that allows new users to create an account on the platform.
+
+#### **3. Login**
+![Login](/Practice1/Diagram-images/Login.jpeg)
+
+> Login form that allows users to access the platform using their email and password.
+
+#### **4. Books**
+![Books](/Practice1/Diagram-images/Books.jpeg)
+
+> Page displaying the catalog of available books, allowing users to browse and filter the library collection.
+
+#### **5. Book Details**
+![Book Details](/Practice1/Diagram-images/Book%20details.jpeg)
+
+> Page showing detailed information about a specific book, including the cover, title, author, description, options related to loggued-in users  or admin and viewing reviews.
+
+#### **6. Base**
+![Base](/Practice1/Diagram-images/Base.jpeg)
+
+> Base page that acts as the main entry point for authenticated users, providing the general navigation structure after logging in.
+
+#### **7. User Profile**
+![UserProfile](/Practice1/Diagram-images/Profile.jpeg)
+
+> User profile page where personal information is displayed and account settings can be managed.
+
+#### **8. Edit User Profile**
+![Edit UserProfile](/Practice1/Diagram-images/Edit%20profile.jpeg)
+
+> Page that allows users to edit and update their personal information.
+
+#### **9. My Loans**
+![My Loans](/Practice1/Diagram-images/Loans.jpeg)
+
+> Page that displays the user's loans, including active, overdue, or returned books along with their corresponding dates
+
+#### **10. AdminPanel**
+![Admin Panel](/Practice1/Diagram-images/Admin%20panel.jpeg)
+
+> Main administration panel that provides an overview of the system and access to the management of books, loans, reviews, and users.
+
+#### **11. New Book**
+![New Book](/Practice1/Diagram-images/New%20book.jpeg)
+
+> Administration form used to add a new book to the library catalog.
+
+#### **12. Edit Book**
+![Edit Book](/Practice1/Diagram-images/Edit%20book.jpeg)
+
+> Administration form used to modify the information of an existing book in the system.
+
+#### **13. Edit Loan**
+![Edit Loan](/Practice1/Diagram-images/Edit%20loan.jpeg)
+
+> Administration form used to modify the information of an existing loan (Extend loan period).
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Alvaro Bravo Pareja**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
@@ -107,35 +165,20 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Alumno 2 - Carlos Asensio Trujillo**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Added MyLoans page and later updated its style to match the admin panel style and fixed issues](d66a099fc125edc550ba40bc36c103664ce44d55)  | [MyLoans/MyLoans css](d66a099fc125edc550ba40bc36c103664ce44d55) / [MyLoans](113ead8b18661410663cf18ff7e866fe7e2e4b91)  |
+|2| [Added Login page](31e38182331066d548df6b167815f80841fb409c)  | [Login](31e38182331066d548df6b167815f80841fb409c)   |
+|3| [Added Register page](31e38182331066d548df6b167815f80841fb409c)  | [Register](31e38182331066d548df6b167815f80841fb409c)   |
+|4| [Added Admin-Edit-book](d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Book](d66a099fc125edc550ba40bc36c103664ce44d55)   |
+|5| [Added Admin-Edit-loan](d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Loan](d66a099fc125edc550ba40bc36c103664ce44d55)   |
+|6| [Completed README and fixed header issues](c435bade841fd87879a3a8dcd84a3844bf75b0cd)  | [README](c435bade841fd87879a3a8dcd84a3844bf75b0cd)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
-
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 3 - Ángel Vila Sanchez**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
