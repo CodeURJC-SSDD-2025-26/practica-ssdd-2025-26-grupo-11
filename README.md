@@ -154,8 +154,6 @@ Diagram that shows how to navigate between the different pages of the applicatio
 
 #### **Student 1 - Alvaro Bravo Pareja**
 
-[I developed the index, base, book search and admin panel pages. I have also fixed other pages I was not originally in charge, mainly css problems, missing buttons, modals and expanding functionalities]
-
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
 |1| [Index page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/5ca695dca9722519bda616b048475a40a19c10ec)  | [index.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/index.html) / [index.css](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/css/index.css)  |
@@ -179,9 +177,7 @@ Diagram that shows how to navigate between the different pages of the applicatio
 
 ---
 
-#### **Alumno 3 - Ángel Vila Sanchez**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Student 3 - Ángel Vila Sanchez**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
