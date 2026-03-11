@@ -75,19 +75,20 @@ Value Proposition:
 
 ## 🛠 **Práctica 1: Maquetación de páginas web con HTML y CSS**
 
-### **Diagrama de Navegación**
-Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
+### **Navigation diagram**
+Diagram that shows how to navigate between the different pages of the application:
 
-![Diagrama de Navegación](images/navigation-diagram.png)
+![Navigation diagram](/Practice1/Diagram-images/NavigationDiagram.png)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> Anonimous users can see the most rated books in their home page and also can see the book catalog page.
+   The registered users have a different home page where, apart from having a different subheader, they have recomendations based on their previous loans. If a user is registered, the header shows a dropdown menu where you can see your profile, your loans and the option to logout. Finally, administrators can access the admin panel
 
-### **Capturas de Pantalla y Descripción de Páginas**
+### **Screenshots and page descriptions**
 
 #### **1. Main Page/Index**
 ![Index](/Practice1/Diagram-images/index.jpeg)
 
-> Main page of the application, from which users can access the book catalog, register, or log in. It also displays a selection of featured books.
+> Main page of the application, from which unregistered users can access the book catalog, register, or log in. It also displays a selection of featured books (the most rated ones).
 
 #### **2. Register**
 ![Register](/Practice1/Diagram-images/Registro.jpeg)
@@ -107,12 +108,12 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 #### **5. Book Details**
 ![Book Details](/Practice1/Diagram-images/Book%20details.jpeg)
 
-> Page showing detailed information about a specific book, including the cover, title, author, description, options related to loggued-in users  or admin and viewing reviews.
+> Page showing detailed information about a specific book, including the cover, title, author, description, options related to loggued-in users  or admin and viewing/writing reviews.
 
 #### **6. Base**
 ![Base](/Practice1/Diagram-images/Base.jpeg)
 
-> Base page that acts as the main entry point for authenticated users, providing the general navigation structure after logging in.
+> Base page that acts as the main entry point for authenticated users, providing the general navigation structure after logging in along with book recomendations based on the user previous loans.
 
 #### **7. User Profile**
 ![UserProfile](/Practice1/Diagram-images/Profile.jpeg)
@@ -127,12 +128,12 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 #### **9. My Loans**
 ![My Loans](/Practice1/Diagram-images/Loans.jpeg)
 
-> Page that displays the user's loans, including active, overdue, or returned books along with their corresponding dates
+> Page that displays the user's loans, including active, overdue, or returned books along with their corresponding dates.
 
 #### **10. AdminPanel**
 ![Admin Panel](/Practice1/Diagram-images/Admin%20panel.jpeg)
 
-> Main administration panel that provides an overview of the system and access to the management of books, loans, reviews, and users.
+> Main administration panel that provides an overview of the system and access to the management of books, loans, reviews, and users. It also shows the graphs.
 
 #### **11. New Book**
 ![New Book](/Practice1/Diagram-images/New%20book.jpeg)
