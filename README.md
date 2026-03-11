@@ -102,7 +102,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 #### **4. Books**
 ![Books](/Practice1/Diagram-images/Books.jpeg)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> Page displaying the catalog of available books, allowing users to browse and filter the library collection.
 
 #### **5. Book Details**
 ![Book Details](/Practice1/Diagram-images/Book%20details.jpeg)
