@@ -75,77 +75,117 @@ Value Proposition:
 
 ## 🛠 **Práctica 1: Maquetación de páginas web con HTML y CSS**
 
-### **Diagrama de Navegación**
-Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
+### **Navigation diagram**
+Diagram that shows how to navigate between the different pages of the application:
 
-![Diagrama de Navegación](images/navigation-diagram.png)
+![Navigation diagram](/Practice1/Diagram-images/NavigationDiagram.png)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> Anonimous users can see the most rated books in their home page and also can see the book catalog page.
+   The registered users have a different home page where, apart from having a different subheader, they have recomendations based on their previous loans. If a user is registered, the header shows a dropdown menu where you can see your profile, your loans and the option to logout. Finally, administrators can access the admin panel
 
-### **Capturas de Pantalla y Descripción de Páginas**
+### **Screenshots and page descriptions**
 
-#### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+#### **1. Main Page/Index**
+![Index](/Practice1/Diagram-images/index.jpeg)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> Main page of the application, from which unregistered users can access the book catalog, register, or log in. It also displays a selection of featured books (the most rated ones).
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **2. Register**
+![Register](/Practice1/Diagram-images/Registro.jpeg)
 
-### **Participación de Miembros en la Práctica 1**
+> Registration form that allows new users to create an account on the platform.
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **3. Login**
+![Login](/Practice1/Diagram-images/Login.jpeg)
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+> Login form that allows users to access the platform using their email and password.
+
+#### **4. Books**
+![Books](/Practice1/Diagram-images/Books.jpeg)
+
+> Page displaying the catalog of available books, allowing users to browse and filter the library collection.
+
+#### **5. Book Details**
+![Book Details](/Practice1/Diagram-images/Book%20details.jpeg)
+
+> Page showing detailed information about a specific book, including the cover, title, author, description, options related to loggued-in users  or admin and viewing/writing reviews.
+
+#### **6. Base**
+![Base](/Practice1/Diagram-images/Base.jpeg)
+
+> Base page that acts as the main entry point for authenticated users, providing the general navigation structure after logging in along with book recomendations based on the user previous loans.
+
+#### **7. User Profile**
+![UserProfile](/Practice1/Diagram-images/Profile.jpeg)
+
+> User profile page where personal information is displayed and account settings can be managed.
+
+#### **8. Edit User Profile**
+![Edit UserProfile](/Practice1/Diagram-images/Edit%20profile.jpeg)
+
+> Page that allows users to edit and update their personal information.
+
+#### **9. My Loans**
+![My Loans](/Practice1/Diagram-images/Loans.jpeg)
+
+> Page that displays the user's loans, including active, overdue, or returned books along with their corresponding dates.
+
+#### **10. AdminPanel**
+![Admin Panel](/Practice1/Diagram-images/Admin%20panel.jpeg)
+
+> Main administration panel that provides an overview of the system and access to the management of books, loans, reviews, and users. It also shows the graphs.
+
+#### **11. New Book**
+![New Book](/Practice1/Diagram-images/New%20book.jpeg)
+
+> Administration form used to add a new book to the library catalog.
+
+#### **12. Edit Book**
+![Edit Book](/Practice1/Diagram-images/Edit%20book.jpeg)
+
+> Administration form used to modify the information of an existing book in the system.
+
+#### **13. Edit Loan**
+![Edit Loan](/Practice1/Diagram-images/Edit%20loan.jpeg)
+
+> Administration form used to modify the information of an existing loan (Extend loan period).
+
+### **Member Participation in Practice 1**
+
+#### **Student 1 - Alvaro Bravo Pareja**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Index page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/5ca695dca9722519bda616b048475a40a19c10ec)  | [index.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/index.html) / [index.css](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/css/index.css)  |
+|2| [Base page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/2f8a91bb7fc0ba6f99e2209003820baba0157a51)  | [base.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/base.html)   |
+|3| [Book search page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/a134a0ecedabf2009ed432e08a2db0990acc1895)  | [books.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/books.html) / [books.css](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/css/books.css)  |
+|4| [Admin panel](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/bc9906b43256ade8bbf8b62eaef649147b498bd1)  | [admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/admin-panel.html) / [admin-panel.css](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/css/admin-panel.css)   |
+|5| [Modals added](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/5fb06ff314d853dd9404824c2befe086242eafe6)  | [book-details.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/book-details.html)   |
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Student 2 - Carlos Asensio Trujillo**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Added MyLoans page and later updated its style to match the admin panel style and fixed issues](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/d66a099fc125edc550ba40bc36c103664ce44d55)  | [MyLoans/MyLoans css](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/my-loans.css) / [MyLoans](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/my-loans.html)  |
+|2| [Added Login page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/31e38182331066d548df6b167815f80841fb409c)  | [Login](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/login.html)   |
+|3| [Added Register page](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/31e38182331066d548df6b167815f80841fb409c)  | [Register](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/register.html)   |
+|4| [Added Admin-Edit-book](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Book](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/admin-edit-book.html)   |
+|5| [Added Admin-Edit-loan](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/d66a099fc125edc550ba40bc36c103664ce44d55)  | [Admin-Edit-Loan](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/admin-edit-loans.html)   |
+|6| [Completed README and fixed header issues](https://github.com/CodeURJC-SSDD-2025-26/ssdd-2025-26-project-base/commit/c435bade841fd87879a3a8dcd84a3844bf75b0cd)  | [README](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/edit/main/README.md)   |
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Student 3 - Ángel Vila Sanchez**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
-
-#### **Alumno 4 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Book-detail and CSS header-footer](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/5fb4026f4cc8c2f0fb1617d7cf1c35760899833b)  | [Book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/book-detail.html)   |
+|2| [Complete book details, add user profile and global footer fix.](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7dd20264b3e80a73693496420b4ffe5b3d46087)  | [Profile](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/profile.html)   |
+|3| [Add edit-profile page and update profile navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/3726ba2b2b6cc872c4987f1f91e5197b7fd46182)  | [edit-profile](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/edit-profile.html)   |
+|4| [Implement user management by admin and the book creation form](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/67570d8bb5e01d200be98a3b19eabac9d72b977e)  | [admin-add-book](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/admin/admin-add-book.html)   |
+|5| [Improve book detail and fix admin navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/983351fe2e85e4b235e8fd5207d2d6544d491ee2)  | [book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/blob/main/Practice1/book-detail.html)   |
 
 ---
 

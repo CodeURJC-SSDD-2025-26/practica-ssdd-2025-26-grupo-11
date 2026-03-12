@@ -71,9 +71,13 @@
             <div class="col-md-6 text-center">
                 <img src="images/el-principito.jpg" class="img-fluid rounded shadow" alt="Portada de El Principito">
                 <div class="d-flex justify-content-center gap-2 mt-4">
-                    <button type="button" class="btn btn-custom-blue px-4 border-2 fw-bold" data-bs-toggle="modal" data-bs-target="#loanRequestModal"><i class="fas fa-clipboard-list me-2"></i>Solicitar</button>
-                    <a href="admin/admin-edit-book.html" class="btn btn-outline-warning px-4 border-2 fw-bold text-dark"><i class="fas fa-edit me-2"></i>Editar</a>
-                    <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash me-2"></i>Borrar</button>
+                    <button type="button" class="btn btn-custom-blue px-4 border-2 fw-bold" data-bs-toggle="modal"
+                        data-bs-target="#loanRequestModal"><i class="fas fa-clipboard-list me-2"></i>Solicitar</button>
+                    <a href="admin/admin-edit-book.html"
+                        class="btn btn-outline-warning px-4 border-2 fw-bold text-dark"><i
+                            class="fas fa-edit me-2"></i>Editar</a>
+                    <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold" data-bs-toggle="modal"
+                        data-bs-target="#deleteBookModal"><i class="fas fa-trash me-2"></i>Borrar</button>
                 </div>
             </div>
             <!-- Details section-->
@@ -124,8 +128,17 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                         </span>
+
                     </div>
-                    <p class="mb-0 text-muted">Un clásico absoluto que no puede faltar en ninguna biblioteca. La prosa es hermosa y los mensajes son profundos. Perfectamente ilustrado. ¡Altamente recomendado para todas las edades!</p>
+                    <p class="mb-0 text-muted">Un clásico absoluto que no puede faltar en ninguna biblioteca. La prosa
+                        es hermosa y los mensajes son profundos. Perfectamente ilustrado. ¡Altamente recomendado para
+                        todas las edades!</p>
+                    <div class="d-flex justify-content-end mt-2">
+                        <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold"
+                            data-bs-toggle="modal" data-bs-target="#deleteReviewModal">
+                            <i class="fas fa-trash me-2"></i>Borrar
+                        </button>
+                    </div>
                 </div>
 
                 <div class="list-group-item list-group-item-action p-4 mb-3 border rounded shadow-sm">
@@ -139,7 +152,15 @@
                             <i class="fa-regular fa-star"></i>
                         </span>
                     </div>
-                    <p class="mb-0 text-muted">Muy bonito aunque a veces resulta un poco triste. Las reflexiones sobre la amistad y la responsabilidad son muy tocantes. Me hizo pensar en cosas importantes de la vida.</p>
+                    <p class="mb-0 text-muted">Muy bonito aunque a veces resulta un poco triste. Las reflexiones sobre
+                        la amistad y la responsabilidad son muy tocantes. Me hizo pensar en cosas importantes de la
+                        vida.</p>
+                    <div class="d-flex justify-content-end mt-2">
+                        <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold"
+                            data-bs-toggle="modal" data-bs-target="#deleteReviewModal">
+                            <i class="fas fa-trash me-2"></i>Borrar
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -202,11 +223,13 @@
                             <p class="mb-0"><strong>Duración del préstamo:</strong> 30 días</p>
                         </div>
                     </div>
-                    <p class="text-muted small mb-0">Los detalles del préstamo serán enviados a tu correo electrónico registrado.</p>
+                    <p class="text-muted small mb-0">Los detalles del préstamo serán enviados a tu correo electrónico
+                        registrado.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-custom-blue" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loanSuccessModal">Confirmar Solicitud</button>
+                    <button type="button" class="btn btn-custom-blue" data-bs-dismiss="modal" data-bs-toggle="modal"
+                        data-bs-target="#loanSuccessModal">Confirmar Solicitud</button>
                 </div>
             </div>
         </div>
@@ -225,7 +248,8 @@
                     </div>
                     <h5 class="mb-3">Tu préstamo ha sido solicitado exitosamente</h5>
                     <p class="mb-2">El libro <strong>El Principito</strong> ha sido añadido a tu lista de préstamos.</p>
-                    <p class="mb-3">Los detalles del préstamo y la fecha de recogida serán enviados a tu correo electrónico en los próximos 24 horas.</p>
+                    <p class="mb-3">Los detalles del préstamo y la fecha de recogida serán enviados a tu correo
+                        electrónico en los próximos 24 horas.</p>
                     <div class="alert alert-info" role="alert">
                         <small><strong>Fecha de devolución estimada:</strong> 30 días desde la recogida</small>
                     </div>
@@ -236,8 +260,8 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <!-- Modal 3: Delete Book Confirmation -->
+    <div class="modal fade" id="deleteBookModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
@@ -246,6 +270,26 @@
                 </div>
                 <div class="modal-body">
                     <p>¿Estás seguro de que deseas eliminar este libro del catálogo? Esta acción no se puede deshacer.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Delete Review Confirmation -->
+    <div class="modal fade" id="deleteReviewModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede deshacer.
                     </p>
                 </div>
                 <div class="modal-footer">

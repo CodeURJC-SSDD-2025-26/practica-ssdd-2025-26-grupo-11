@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,19 +17,20 @@
 
 <body>
   <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <img src="../images/logo.png" class="header-logo" alt="Logo">
-            <a class="navbar-brand" href="../base.html">BiblioOnline</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="admin-panel.html" class="nav-link text-info fw-bold"><i class="fas fa-user-shield"></i> Panel Administrador</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <img src="../images/logo.png" class="header-logo" alt="Logo">
+      <a class="navbar-brand" href="../base.html">BiblioOnline</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="admin-panel.html" class="nav-link text-info fw-bold"><i class="fas fa-user-shield"></i> Panel
+              Administrador</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <main class="container mt-5 mb-5">
     <div class="row justify-content-center">
@@ -59,7 +61,8 @@
 
               <!-- Book Cover -->
               <div class="mb-4 text-center p-3 border rounded bg-light">
-                <img src="../images/el-principito.jpg" alt="Portada actual" class="img-fluid rounded mb-3" style="max-height:180px;">
+                <img src="../images/el-principito.jpg" alt="Portada actual" class="img-fluid rounded mb-3"
+                  style="max-height:180px;">
                 <div class="mb-2 fw-bold">Cambiar portada</div>
                 <input class="form-control w-75 mx-auto" type="file" id="bookCover" name="bookCover" accept="image/*">
                 <div class="form-text">Formatos aceptados: .jpg, .png</div>
@@ -68,8 +71,7 @@
               <!-- Tittle -->
               <div class="mb-3">
                 <label for="title" class="form-label fw-bold">Título del Libro</label>
-                <input type="text" class="form-control border-2" id="title" name="title"
-                  value="El principito" required>
+                <input type="text" class="form-control border-2" id="title" name="title" value="El principito" required>
               </div>
 
               <div class="row">
@@ -112,15 +114,15 @@
                 <!-- ISBN -->
                 <div class="col-md-6 mb-3">
                   <label for="isbn" class="form-label fw-bold">ISBN</label>
-                  <input type="text" class="form-control border-2" id="isbn" name="isbn"
-                    value="978-3-16-148410-0">
+                  <input type="text" class="form-control border-2" id="isbn" name="isbn" value="978-3-16-148410-0">
                 </div>
               </div>
 
               <!-- Synopsis -->
               <div class="mb-4">
                 <label for="synopsis" class="form-label fw-bold">Sinopsis / Descripción</label>
-                <textarea class="form-control border-2" id="synopsis" name="synopsis" rows="4">Un clásico de la literatura que combina aventura y reflexión...</textarea>
+                <textarea class="form-control border-2" id="synopsis" name="synopsis"
+                  rows="4">Un clásico de la literatura que combina aventura y reflexión...</textarea>
               </div>
 
               <div class="d-flex justify-content-end gap-2">
@@ -143,4 +145,5 @@
     </div>
   </footer>
 </body>
+
 </html>
