@@ -1,0 +1,183 @@
+/* Fill full viewport height and remove default margins */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Flex column container: header → main (grows) → footer */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content area grows to fill available space */
+main {
+    flex: 1 0 auto;
+}
+
+/* Footer stays at bottom, doesn't grow */
+footer {
+    flex-shrink: 0;
+}
+
+/* HEADER LOGO */
+
+/* Logo maximum width constraint */
+.header-logo {
+    max-width: 43px;
+    height: auto;  /* Maintain aspect ratio */
+}
+
+/* NAVIGATION ICONS */
+
+/* Green icon color for registration */
+.register-icon,
+.login-icon {
+    color: #28a745;
+}
+
+/* DROPDOWN MENU */
+
+/* Dark blue dropdown menu container */
+.menu {
+    background-color: #113744;  /* Primary dark blue */
+    padding: 0;
+    border: 1px solid rgba(91, 200, 232, 0.4) !important;  /* Subtle cyan border */
+}
+
+/* Reset menu item spacing */
+.menu li {
+    padding: 0;
+    margin: 0;
+}
+
+/* Dropdown items with icon alignment */
+.menu .dropdown-item {
+    color: white;
+    padding: 8px 16px;
+    margin: 0;
+    display: flex;
+    align-items: center;  /* Vertical align icons and text */
+}
+
+/* Hover state: lighter background */
+.menu .dropdown-item:hover, .menu .dropdown-item:focus {
+    background-color: #1a4f61;  /* Lighter blue on hover */
+    color: white;
+    border-radius: 5px;
+}
+
+/* Icon styling within dropdown */
+.menu .dropdown-item i {
+    margin-right: 0.5rem;  /* Space between icon and text */
+    width: 1.25em;  /* Fixed width for alignment */
+    text-align: center;  /* Center glyph */
+    font-size: 1rem;  /* Consistent icon size */
+}
+
+/* NAVIGATION BAR */
+
+/* Main navbar styling */
+.navbar {
+    background-color: #113744;  /* Primary dark blue */
+    border-bottom: 2px solid #171054a3;  /* Darker blue border */
+}
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar brand and links styling */
+.navbar-brand,
+.navbar .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+/* Dropdown toggle button color */
+.navbar .dropdown-toggle {
+    color: white !important;
+}
+
+/* Navigation items container */
+.navbar-nav {
+    align-items: center;  /* Vertical center alignment */
+}
+
+/* Navigation item link positioning */
+.navbar .nav-item > a {
+    position: relative;
+    padding: 10px 15px;
+}
+
+/* Active navigation item styling */
+.navbar .nav-item a.active {
+    background-color: #113744;  /* Same as navbar */
+    border-radius: 5px;  /* Rounded edges */
+}
+
+/* USER PROFILE SECTION */
+
+/* Circular user avatar image */
+.nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;  /* Perfect circle */
+    object-fit: cover;  /* Crop image to circle */
+    border: 2px solid #5bc8e8;  /* Cyan border */
+    margin-right: 6px;
+}
+
+/* User name/greeting text */
+.user-message {
+    color: #fff;
+    font-size: 1rem;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FOOTER */
+
+/* Footer background color matching navbar */
+.footer {
+    background-color: #113744;  /* Primary dark blue */
+}
+
+/* CUSTOM BUTTON STYLES */
+
+/* Custom blue background utility class */
+.bg-custom-blue {
+    background-color: #113744 !important;  /* Primary dark blue */
+    color: #ffffff !important;  /* White text */
+}
+
+/* Custom blue button styling */
+a.btn-custom-blue,
+button.btn-custom-blue {
+    background-color: #113744 !important;
+    color: #ffffff !important;
+    border: 2px solid #113744 !important;
+}
+
+/* Hover state: lighter blue with cyan border */
+a.btn-custom-blue:hover,
+button.btn-custom-blue:hover {
+    background-color: #1a5568 !important;  /* Lighter blue */
+    border-color: #5bc8e8 !important;  /* Cyan border */
+    color: #ffffff !important;
+}
+
+/* FORM ELEMENTS */
+
+/* Disable textarea resize (use CSS for sizing) */
+textarea {
+    resize: none;  /* Prevents user resizing */
+}

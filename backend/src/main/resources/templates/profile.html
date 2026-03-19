@@ -1,0 +1,93 @@
+{{>header}}
+
+<main class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm p-4 border-2 d-flex flex-column align-items-center">
+                <img src="/users/{{user.id}}/image"
+                     class="rounded-circle img-fluid mb-3 border border-3"
+                     style="width: 150px; border-color: #5bc8e8 !important;"
+                     alt="Avatar">
+                <h3 class="fw-bold">@{{user.name}}</h3>
+                <p class="text-muted">{{user.description}}</p>
+                <hr>
+                <div class="text-start">
+                    <p><strong><i class="fas fa-envelope me-2"></i>Email:</strong> {{user.email}}</p>
+                    <p><strong><i class="fas fa-calendar me-2"></i>Miembro desde:</strong> {{user.registrationDate}}</p>
+                </div>
+                <a href="/profile/edit" class="btn btn-custom-blue w-100 mt-3 border-2 fw-bold">
+                    <i class="fas fa-edit"></i> Editar Perfil
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-2 mb-4">
+                <div class="card-header bg-custom-blue text-white">
+                    <h5 class="mb-0">Actividad</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
+                            <div class="activity-card">
+                                <div class="activity-icon books">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <div>
+                                    <p class="activity-number">{{totalLoans}}</p>
+                                    <p class="activity-label">Libros Leídos</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="activity-card">
+                                <div class="activity-icon reviews">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </div>
+                                <div>
+                                    <p class="activity-number">{{totalReviews}}</p>
+                                    <p class="activity-label">Reseñas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="activity-card">
+                                <div class="activity-icon loans">
+                                    <i class="fa-solid fa-exchange"></i>
+                                </div>
+                                <div>
+                                    <p class="activity-number">{{activeLoans}}</p>
+                                    <p class="activity-label">Préstamos Activos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-2">
+                <div class="card-header bg-custom-blue text-white">
+                    <h5 class="mb-0">Últimas Lecturas</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {{#recentLoans}}
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <span>{{book.title}}</span>
+                        {{#returned}}
+                        <span class="badge bg-success rounded-pill">Devuelto</span>
+                        {{/returned}}
+                        {{^returned}}
+                        <span class="badge bg-primary rounded-pill">En curso</span>
+                        {{/returned}}
+                    </li>
+                    {{/recentLoans}}
+                    {{^recentLoans}}
+                    <li class="list-group-item p-3">No tienes lecturas aún.</li>
+                    {{/recentLoans}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+{{>footer}}
