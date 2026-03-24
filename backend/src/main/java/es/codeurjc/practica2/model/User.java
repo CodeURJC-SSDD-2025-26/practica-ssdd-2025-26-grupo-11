@@ -2,7 +2,9 @@ package es.codeurjc.practica2.model;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -12,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
-import java.util.Date;
 
 
 @Entity
@@ -51,6 +52,8 @@ public class User {
         this.roles = roles;
         this.imageFile = imageFile;
         this.description = "Añade una descripción a tu perfil.";
+    }
+    public User() {
     }
 
     public Long getId() {
