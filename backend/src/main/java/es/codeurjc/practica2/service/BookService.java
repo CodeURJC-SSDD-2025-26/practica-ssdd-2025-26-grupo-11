@@ -23,11 +23,19 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public boolean exist(long id) {
+		return bookRepository.existsById(id);
+	}
+
+    public void save(Book book) {
+        bookRepository.save(book);
     }
 
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> findTopRatedBooks() {
+        return bookRepository.findTop4ByOrderByRatingDesc();
     }
 }

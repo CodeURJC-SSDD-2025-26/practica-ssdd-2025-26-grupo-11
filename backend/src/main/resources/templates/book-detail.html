@@ -5,52 +5,19 @@
     <meta charset="UTF-8">
     <title>Detalles</title>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/header-footer.css">
-    <link rel="stylesheet" href="css/book-detail.css">
+    <link rel="stylesheet" href="/css/header-footer.css">
+    <link rel="stylesheet" href="/css/book-detail.css">
     <!-- Bootstrap Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
 
-    <!-- Header with navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <img src="images/logo.png" class="header-logo" alt="Logo">
-            <a class="navbar-brand" href="index.html">
-                BiblioOnline
-            </a>
+    {{>header}}
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">
-                            <i class="fas fa-user-plus register-icon"></i>
-                            Registrate
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">
-                            <i class="fas fa-sign-in-alt login-icon"></i>
-                            Inicia sesión
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="books.html">
-                            <i class="fas fa-search search-icon"></i>
-                            Nuestros libros
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <main class="container mt-2 mb-5">
         <!-- Return Button -->
@@ -62,18 +29,20 @@
         <div class="row mb-4">
             <!-- Book title -->
             <div class="col-6 text-center">
-                <h1 class="display-5 fw-bold mb-0">El principito</h1>
-                <p class="lead text-muted mt-0">Antoine de Saint-Exupéry</p>
+                <h1 class="display-5 fw-bold mb-0">{{title}}</h1>
+                <p class="lead text-muted mt-0">{{author}}</p>
             </div>
         </div>
         <div class="row">
             <!-- Book cover and "Request" "Edit" and "Delete" buttons -->
             <div class="col-md-6 text-center">
-                <img src="images/el-principito.jpg" class="img-fluid rounded shadow" alt="Portada de El Principito">
+                <img src="/books/{{id}}/cover" class="img-fluid rounded shadow" alt="Portada de {{title}}">
                 <div class="d-flex justify-content-center gap-2 mt-4">
+                    {{#logged}}
                     <button type="button" class="btn btn-custom-blue px-4 border-2 fw-bold" data-bs-toggle="modal"
                         data-bs-target="#loanRequestModal"><i class="fas fa-clipboard-list me-2"></i>Solicitar</button>
-                    <a href="admin/admin-edit-book.html"
+                    {{/logged}}
+                    <a href="/admin/edit-book/{{id}}"
                         class="btn btn-outline-warning px-4 border-2 fw-bold text-dark"><i
                             class="fas fa-edit me-2"></i>Editar</a>
                     <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold" data-bs-toggle="modal"
@@ -92,9 +61,7 @@
                     <hr class="my-4">
                     <p><strong>Descripción:</strong></p>
                     <p class="text-justify">
-                        Un joven príncipe visita varios planetas en el espacio, incluida la Tierra, y aborda temas como
-                        la soledad, la amistad, el amor y la pérdida. A pesar de su estilo de libro infantil, realiza
-                        reflexiones sobre la vida y la naturaleza humana.
+                        {{description}}
                     </p>
                     <!-- Rating section -->
                     <div class="mt-auto pt-4 border-top text-center">
@@ -107,7 +74,7 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-regular fa-star"></i>
                         </div>
-                        <p class="fw-bold h4 mb-0">4.0 / 5</p>
+                        <p class="fw-bold h4 mb-0">{{rating}} / 5</p>
                     </div>
                 </div>
             </div>
@@ -165,6 +132,7 @@
             </div>
         </section>
 
+        {{#logged}}
         <!-- Form -->
         <section class="mt-5">
             <div class="card shadow-sm border-2">
@@ -202,7 +170,7 @@
                 </div>
             </div>
         </section>
-
+        {{/logged}}
     </main>
 
     <!-- Modal 1: Loan Request Confirmation -->

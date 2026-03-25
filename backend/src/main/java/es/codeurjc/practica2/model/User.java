@@ -14,9 +14,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -24,6 +26,7 @@ public class User {
     private Long id;
 
     private String name;
+    private String surname;
     private String encodedPassword;
     private String description;
 
@@ -43,15 +46,16 @@ public class User {
     private List<Review> reviews = new ArrayList<>();
 
 
-    public User(Long id, String name, String encodedPassword, String email, Date registrationDate, List<String> roles, Blob imageFile) {
-        this.id = id;
+    public User(String name, String surname,String encodedPassword, String email, Date registrationDate, String... roles) {
         this.name = name;
+        this.surname = surname;
         this.encodedPassword = encodedPassword;
         this.email = email;
         this.registrationDate = registrationDate;
-        this.roles = roles;
-        this.imageFile = imageFile;
+        this.roles = List.of(roles);
         this.description = "Añade una descripción a tu perfil.";
+        this.loans = new ArrayList<>();
+        this.reviews = new ArrayList<>();
     }
     public User() {
     }
