@@ -20,17 +20,17 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        <img src="/users/{{userId}}/image" class="nav-avatar" alt="Foto de perfil"> Tu perfil
+                        <img src="/users/{{id}}/image" class="nav-avatar" alt="Foto de perfil"> Tu perfil
                     </a>
                     <ul class="dropdown-menu menu">
-                        <li><a class="dropdown-item" href="/profile">
+                        <li><a class="dropdown-item" href="/profile/{id}">
                             <i class="fa-solid fa-gear"></i> Mi cuenta</a></li>
-                        <li><a class="dropdown-item" href="/my-loans">
+                        <li><a class="dropdown-item" href="/my-loans/{id}">
                             <i class="fa-solid fa-book"></i> Mis préstamos</a></li>
                         <li><a class="dropdown-item" href="/logout">
                             <i class="fa-solid fa-sign-out"></i> Cerrar sesión</a></li>
                         {{#admin}}
-                        <li><a class="dropdown-item" href="/admin">
+                        <li><a class="dropdown-item" href="/admin-panel">
                             <i class="fa-solid fa-user-shield"></i> Panel de administrador</a></li>
                         {{/admin}}
                     </ul>

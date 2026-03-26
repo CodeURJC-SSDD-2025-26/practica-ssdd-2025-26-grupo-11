@@ -20,76 +20,16 @@
 
 <body>
 
-    <!-- Header with navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <img src="images/logo.png" class="header-logo" alt="Logo">
-            <a class="navbar-brand" href="base.html">
-                BiblioOnline
-            </a>
-
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item user-message">
-                        <span>Hola, [Nombre de usuario]</span>
-                    </li>
-
-                    <!-- Link to books page -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="books.html">
-                            <i class="fas fa-search search-icon"></i>
-                            Nuestros libros
-                        </a>
-                    </li>
-
-                    <!-- Dropdown for profile -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="images/default-avatar.png" class="nav-avatar" alt="Foto de perfil"> Tu perfil
-                        </a>
-                        <ul class="dropdown-menu menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="profile.html">
-                                    <i class="fa-solid fa-gear"></i>
-                                    Mi cuenta
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="my-loans.html">
-                                    <i class="fa-solid fa-book"></i>
-                                    Mis préstamos
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="index.html">
-                                    <i class="fa-solid fa-sign-out"></i>
-                                    Cerrar sesión
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="admin/admin-panel.html">
-                                    <i class="fa-solid fa-user-shield"></i>
-                                    Panel de administrador
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {{>header}}
 
     <main>
         <!-- Welcome banner -->
 
         <section class="welcome-banner">
             <div class="container">
-                <h1>Bienvenido de nuevo, <span>[Nombre de usuario]</span></h1>
+                <h1>Bienvenido de nuevo, <span>{{name}}</span></h1>
                 <p>Continúa explorando tu próxima lectura</p>
-                <a href="books.html" class="btn btn-light">
+                <a href="/books" class="btn btn-light">
                     <i class="fas fa-search"></i> Buscar libros
                 </a>
             </div>
@@ -203,14 +143,17 @@
 
             <div class="row">
 
-                <!--Book card-->
+                {{#featuredBooks}}
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
-                        <img src="images/el-principito.jpg" class="card-img-top" alt="Portada">
+                        {{#image}}
+                        <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
+                        {{/image}}
                         <div class="card-body">
-                            <h5 class="card-title">El principito</h5>
-                            <p class="card-author">Antoine de Saint-Exupéry</p>
-                            <h6 class="card-rating">Calificacion:</h6>
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-author">{{author}}</p>
+
+                            <h6 class="card-rating">Calificación:</h6>
                             <div>
                                 <i class="fas fa-star stars"></i>
                                 <i class="fas fa-star stars"></i>
@@ -218,78 +161,14 @@
                                 <i class="fas fa-star stars"></i>
                                 <i class="fas fa-star-half-alt stars"></i>
                             </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!--Book card-->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/cien-anos-de-soledad.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">Cien años de soledad</h5>
-                            <p class="card-author">Gabriel García Márquez</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="far fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
+                            <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
                                 Ver detalles
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <!--Book card-->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/rayuela.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">Rayuela</h5>
-                            <p class="card-author">Julio Cortázar</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star-half-alt stars"></i>
-                                <i class="far fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Book card-->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/asesinato-en-el-orient-express.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">Asesinato en el Orient Express</h5>
-                            <p class="card-author">Agatha Christie</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {{/featuredBooks}}
 
             </div>
         </section>
