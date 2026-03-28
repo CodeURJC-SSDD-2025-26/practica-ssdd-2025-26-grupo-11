@@ -3,13 +3,14 @@ package es.codeurjc.practica2.model;
 import java.sql.Blob;
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 import java.util.List;
@@ -38,10 +39,9 @@ public class Book {
     private Image image;
 
     //A book can have many reviews, but a review belongs to one book
-    @ManyToOne(optional = true)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    // --- CONSTRUCTORES ---
     public Book() {}
 
     public Book(String title, String author, String description, String genre, float rating, int date, long isbn) {
@@ -54,8 +54,6 @@ public class Book {
         this.isbn = isbn;
     }
 
-
-    // --- GETTERS Y SETTERS ---
     public Long getId() {
         return id;
     }
