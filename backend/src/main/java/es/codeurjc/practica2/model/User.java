@@ -148,4 +148,10 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
+
+
+    public void addReview(Review review) {
+    reviews.add(review);
+    review.setUser(this);
+}
 }

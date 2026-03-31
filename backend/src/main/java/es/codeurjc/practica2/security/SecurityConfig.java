@@ -9,78 +9,87 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    RepositoryUserDetailsService userDetailsService;
+        @Autowired
+        RepositoryUserDetailsService userDetailsService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
+        @Bean
+        public DaoAuthenticationProvider authenticationProvider() {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder());
+                return authProvider;
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+                return new HiddenHttpMethodFilter();
+        }
 
-        http.authenticationProvider(authenticationProvider());
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-            .authorizeHttpRequests(authorize -> authorize
-                // ---------------------
-                // PUBLIC PAGES
-                // ---------------------
-                .requestMatchers(
-                    "/", "/index",
-                    "/login", "/loginerror",
-                    "/register",
-                    "/books", "/books/**",
-                    "/book-detail/**",
-                    "/css/**", "/js/**", "/images/**", "/image/**"
-                ).permitAll()
+                http.authenticationProvider(authenticationProvider());
 
-                // ---------------------
-                // PRIVATE PAGES FOR USER
-                // ---------------------
-                .requestMatchers(
-                    "/base",
-                    "/profile",
-                    "/edit-profile",
-                    "/my-loans"
-                ).hasRole("USER")
+                http
+                                .authorizeHttpRequests(authorize -> authorize
+                                                // ---------------------
+                                                // PUBLIC PAGES
+                                                // ---------------------
+                                                .requestMatchers(
+                                                                "/",
+                                                                "/login", "/loginerror",
+                                                                "/register",
+                                                                "/books",
+                                                                "/book-detail/**",
+                                                                "/css/**", "/js/**", "/images/**", "/image/**")
+                                                .permitAll()
 
-                // ---------------------
-                // PRIVATE PAGES FOR ADMIN
-                // ---------------------
-                .requestMatchers(
-                    "/admin/admin-panel",
-                    "/admin/admin-edit-book/**",
-                    "/admin/admin-add-book",
-                    "/admin/admin-edit-loan/**"
-                ).hasRole("ADMIN")
+                                                // ---------------------
+                                                // PRIVATE PAGES FOR USER
+                                                // ---------------------
+                                                .requestMatchers(
+                                                                "/base",
+                                                                "/profile",
+                                                                "/edit-profile",
+                                                                "/my-loans")
+                                                .hasRole("USER")
 
-                // ---------------------
-                // ANY OTHER REQUEST NEEDS AUTH
-                // ---------------------
-                .anyRequest().authenticated()
-            )
-            .formLogin(formLogin -> formLogin
-                .loginPage("/login")
-                .failureUrl("/loginerror")
-                .defaultSuccessUrl("/base")
-                .permitAll()
-            )
-            .logout(logout -> logout.permitAll());
+                                                // ---------------------
+                                                // PRIVATE PAGES FOR ADMIN
+                                                // ---------------------
+                                                .requestMatchers(
+                                                                "/admin/admin-panel",
+                                                                "/admin/admin-edit-book/**",
+                                                                "/admin/admin-add-book",
+                                                                "/admin/admin-edit-loan/**")
+                                                .hasRole("ADMIN")
 
-        return http.build();
-    }
+                                                // ---------------------
+                                                // ANY OTHER REQUEST NEEDS AUTH
+                                                // ---------------------
+                                                .anyRequest().authenticated())
+                                .formLogin(formLogin -> formLogin
+                                                .loginPage("/login")
+                                                .failureUrl("/loginerror")
+                                                .defaultSuccessUrl("/base")
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout") // URL para hacer logout
+                                                .logoutSuccessUrl("/") // adonde redirige después de cerrar sesión
+                                                .invalidateHttpSession(true) // borra la sesión
+                                                .deleteCookies("JSESSIONID") // borra la cookie de sesión
+                                                .permitAll());
+
+                return http.build();
+        }
 }

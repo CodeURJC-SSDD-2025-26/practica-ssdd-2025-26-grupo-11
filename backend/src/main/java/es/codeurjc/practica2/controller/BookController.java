@@ -1,21 +1,16 @@
 package es.codeurjc.practica2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.sql.Blob;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 
-import java.util.Optional;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.codeurjc.practica2.model.Book;
@@ -55,11 +50,32 @@ public class BookController {
 
     @GetMapping("/book-detail/{id}")
     public String showBookDetail(@PathVariable Long id, Model model) {
-        Book book = bookService.findById(id).orElse(null);
+        Book book = bookService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado con id " + id));
+
         model.addAttribute("title", book.getTitle());
         model.addAttribute("author", book.getAuthor());
+        model.addAttribute("year", book.getYear());
+        model.addAttribute("genre", book.getGenre());
+        model.addAttribute("isbn", book.getIsbn());
         model.addAttribute("description", book.getDescription());
-        model.addAttribute("rating", book.getRating());
+        model.addAttribute("book_rating", book.getRating());
+        model.addAttribute("id", book.getId());
+        model.addAttribute("reviews", book.getReviews());
+
+        List<String> stars = new ArrayList<>();
+        float rating = book.getRating();
+        for (int i = 1; i <= 5; i++) {
+            if (rating >= i) {
+                stars.add("fa-solid fa-star"); 
+            } else if (rating >= i - 0.5) {
+                stars.add("fa-solid fa-star-half-stroke");
+            } else {
+                stars.add("fa-regular fa-star");
+            }
+        }
+        model.addAttribute("stars", stars);
+
         return "book-detail";
     }
 
@@ -90,8 +106,9 @@ public class BookController {
 
     // DELETE BOOK
     @DeleteMapping("/book/{id}")
-    public void deleteBook(@PathVariable Long id) {
+    public String deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
+        return "redirect:/books";
     }
 
     private void updateImage(Book book, boolean removeImage, MultipartFile imageField)

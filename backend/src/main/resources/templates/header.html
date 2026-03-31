@@ -24,14 +24,20 @@
                     </a>
                     <ul class="dropdown-menu menu">
                         <li><a class="dropdown-item" href="/profile/{id}">
-                            <i class="fa-solid fa-gear"></i> Mi cuenta</a></li>
+                                <i class="fa-solid fa-gear"></i> Mi cuenta</a></li>
                         <li><a class="dropdown-item" href="/my-loans/{id}">
-                            <i class="fa-solid fa-book"></i> Mis préstamos</a></li>
-                        <li><a class="dropdown-item" href="/logout">
-                            <i class="fa-solid fa-sign-out"></i> Cerrar sesión</a></li>
+                                <i class="fa-solid fa-book"></i> Mis préstamos</a></li>
+                        <li>
+                            <form action="/logout" method="post" style="margin:0;">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fa-solid fa-sign-out"></i> Cerrar sesión
+                                </button>
+                            </form>
+                        </li>
                         {{#admin}}
                         <li><a class="dropdown-item" href="/admin-panel">
-                            <i class="fa-solid fa-user-shield"></i> Panel de administrador</a></li>
+                                <i class="fa-solid fa-user-shield"></i> Panel de administrador</a></li>
                         {{/admin}}
                     </ul>
                 </li>
@@ -40,11 +46,13 @@
                 {{^logged}}
                 <li class="nav-item">
                     <a class="nav-link" href="/register">
-                        <i class="fas fa-user-plus register-icon"></i> Registrate</a></li>
+                        <i class="fas fa-user-plus register-icon"></i> Registrate</a>
+                </li>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">
-                        <i class="fas fa-sign-in-alt login-icon"></i> Inicia sesión</a></li>
+                        <i class="fas fa-sign-in-alt login-icon"></i> Inicia sesión</a>
+                </li>
                 </li>
                 {{/logged}}
             </ul>

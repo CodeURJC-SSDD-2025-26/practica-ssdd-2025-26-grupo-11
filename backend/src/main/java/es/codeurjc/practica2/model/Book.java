@@ -1,7 +1,6 @@
 package es.codeurjc.practica2.model;
 
 import java.sql.Blob;
-import java.sql.Date;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,6 +12,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,25 +32,26 @@ public class Book {
     private String genre;
 
     private float rating;
-    private int date;
+    private int year;
     private long isbn;
 
     @OneToOne
     private Image image;
 
-    //A book can have many reviews, but a review belongs to one book
+    // A book can have many reviews, but a review belongs to one book
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
-    public Book() {}
+    public Book() {
+    }
 
-    public Book(String title, String author, String description, String genre, float rating, int date, long isbn) {
+    public Book(String title, String author, String description, String genre, float rating, int year, long isbn) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.genre = genre;
         this.rating = rating;
-        this.date = date;
+        this.year = year;
         this.isbn = isbn;
     }
 
@@ -98,12 +99,12 @@ public class Book {
         this.rating = rating;
     }
 
-    public int getDate() {
-        return date;
+    public int getYear() {
+        return year;
     }
 
-    public void setDate(int date) {
-        this.date = date;
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public long getIsbn() {
@@ -113,11 +114,21 @@ public class Book {
     public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
+
     public Image getImage() {
         return image;
     }
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setBook(this);
     }
 }
