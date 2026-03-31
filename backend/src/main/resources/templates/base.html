@@ -5,183 +5,126 @@
     <meta charset="UTF-8">
     <title>BiblioOnline</title>
 
-    <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="images/logo.png" />
-    <!-- Bootstrap -->
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/header-footer.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
 
-    {{>header}}
+{{>header}}
 
-    <main>
-        <!-- Welcome banner -->
+<main>
 
-        <section class="welcome-banner">
-            <div class="container">
-                <h1>Bienvenido de nuevo, <span>{{name}}</span></h1>
-                <p>Continúa explorando tu próxima lectura</p>
-                <a href="/books" class="btn btn-light">
-                    <i class="fas fa-search"></i> Buscar libros
-                </a>
-            </div>
-        </section>
+    <section class="welcome-banner">
+        <div class="container">
+            <h1>Bienvenido de nuevo, <span>{{name}}</span></h1>
+            <p>Continúa explorando tu próxima lectura</p>
+            <a href="/books" class="btn btn-light">
+                <i class="fas fa-search"></i> Buscar libros
+            </a>
+        </div>
+    </section>
 
-        <!-- Recommendations -->
-        <section class="container my-5">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>Recomendados para ti</h2>
-                <span class="text-muted small"><i class="fas fa-magic"></i> Basado en tus lecturas</span>
-            </div>
 
-            <!--Book card-->
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/el-principito.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">El principito</h5>
-                            <p class="card-author">Antoine de Saint-Exupéry</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star-half-alt stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
+    <section class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Recomendados para ti</h2>
+            <span class="text-muted small">
+                <i class="fas fa-magic"></i> Basado en tus lecturas
+            </span>
+        </div>
+
+        {{#recommendedBooks}}
+        <div class="row">
+            {{#.}}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+
+                    {{#image}}
+                    <img src="/image/{{id}}" class="card-img-top" alt="Portada">
+                    {{/image}}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-author">{{author}}</p>
+
+                        <h6 class="card-rating">Calificación:</h6>
+                        <div>
+                            {{#stars}}
+                            <i class="{{.}}"></i>
+                            {{/stars}}
                         </div>
-                    </div>
-                </div>
 
-                <!--Book card-->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/la-sombra-del-viento.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">La sombra del viento</h5>
-                            <p class="card-author">Carlos Ruiz Zafón</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="far fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Book card-->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/don-quijote-de-la-mancha.jpg" class="card-img-top" alt="Portada">
-                        <div class="card-body">
-                            <h5 class="card-title">Don Quijote de la Mancha</h5>
-                            <p class="card-author">Miguel de Cervantes</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star-half-alt stars"></i>
-                                <i class="far fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Book card -->
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="images/la-chica-del-tren.jpg" class="card-img-top" alt="Portada" />
-                        <div class="card-body">
-                            <h5 class="card-title">La chica del tren</h5>
-                            <p class="card-author">Paula Hawkins</p>
-                            <h6 class="card-rating">Calificacion:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="far fa-star stars"></i>
-                            </div>
-                            <a href="book-detail.html" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
-                        </div>
+                        <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
+                            Ver detalles
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
+            {{/.}}
+        </div>
+        {{/recommendedBooks}}
 
-        <!-- Best books -->
-        <section class="container my-5">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>Libros destacados</h2>
-                <span class="text-muted small"><i class="fas fa-star"></i>Según las reseñas de nuestros
-                    usuarios</span>
-            </div>
+        {{^recommendedBooks}}
+        <div class="text-center text-muted mt-4">
+            <i class="fas fa-info-circle fa-2x mb-2"></i>
+            <p class="fw-bold">Todavía no hay recomendaciones</p>
+            <p>Haz algún préstamo para empezar a recibir sugerencias</p>
+        </div>
+        {{/recommendedBooks}}
 
-            <div class="row">
+    </section>
 
-                {{#featuredBooks}}
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        {{#image}}
-                        <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
-                        {{/image}}
-                        <div class="card-body">
-                            <h5 class="card-title">{{title}}</h5>
-                            <p class="card-author">{{author}}</p>
+    <section class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Libros destacados</h2>
+            <span class="text-muted small">
+                <i class="fas fa-star"></i> Según las reseñas
+            </span>
+        </div>
 
-                            <h6 class="card-rating">Calificación:</h6>
-                            <div>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star stars"></i>
-                                <i class="fas fa-star-half-alt stars"></i>
-                            </div>
+        <div class="row">
 
-                            <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
-                                Ver detalles
-                            </a>
+            {{#featuredBooks}}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+
+                    {{#image}}
+                    <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
+                    {{/image}}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-author">{{author}}</p>
+
+                        <h6 class="card-rating">Calificación:</h6>
+                        <div>
+                            {{#stars}}
+                            <i class="{{.}}"></i>
+                            {{/stars}}
                         </div>
+
+                        <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
+                            Ver detalles
+                        </a>
                     </div>
                 </div>
-                {{/featuredBooks}}
-
             </div>
-        </section>
+            {{/featuredBooks}}
 
         </div>
-    </main>
+    </section>
 
-    <footer class="text-light py-3 footer">
-        <div class="container text-center">
-            <small>BiblioOnline</small>
-        </div>
-    </footer>
+</main>
+
+{{>footer}}
 
 </body>
-
 </html>

@@ -131,4 +131,25 @@ public class Book {
         reviews.add(review);
         review.setBook(this);
     }
+
+    public List<String> getStars() {
+        List<String> stars = new ArrayList<>();
+
+        int fullStars = (int) this.rating;
+        boolean halfStar = (this.rating - fullStars) >= 0.5;
+
+        for (int i = 0; i < fullStars; i++) {
+            stars.add("fas fa-star stars");
+        }
+
+        if (halfStar) {
+            stars.add("fas fa-star-half-alt stars");
+        }
+
+        while (stars.size() < 5) {
+            stars.add("far fa-star stars");
+        }
+
+        return stars;
+    }
 }

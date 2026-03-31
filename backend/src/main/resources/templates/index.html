@@ -35,44 +35,38 @@
     </header>
 
     <!-- Container with books -->
-<main class="container my-5">
-    <h2 class="mb-4">Libros destacados</h2>
+    <main class="container my-5">
+        <h2 class="mb-4">Libros destacados</h2>
 
-    <div class="row">
-        {{#featuredBooks}}
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                {{#image}}
-                <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
-                {{/image}}
-                <div class="card-body">
-                    <h5 class="card-title">{{title}}</h5>
-                    <p class="card-author">{{author}}</p>
+        <div class="row">
+            {{#featuredBooks}}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    {{#image}}
+                    <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
+                    {{/image}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-author">{{author}}</p>
 
-                    <h6 class="card-rating">Calificación:</h6>
-                    <div>
-                        <i class="fas fa-star stars"></i>
-                        <i class="fas fa-star stars"></i>
-                        <i class="fas fa-star stars"></i>
-                        <i class="fas fa-star stars"></i>
-                        <i class="fas fa-star-half-alt stars"></i>
+                        <h6 class="card-rating">Calificación:</h6>
+                        <div>
+                            {{#stars}}
+                            <i class="{{.}}"></i>
+                            {{/stars}}
+                        </div>
+
+                        <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
+                            Ver detalles
+                        </a>
                     </div>
-
-                    <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
-                        Ver detalles
-                    </a>
                 </div>
             </div>
+            {{/featuredBooks}}
         </div>
-        {{/featuredBooks}}
-    </div>
-</main>
+    </main>
 
-    <footer class="text-light py-3 footer">
-        <div class="container text-center">
-            <small>BiblioOnline</small>
-        </div>
-    </footer>
+    {{> footer}}
 </body>
 
 </html>

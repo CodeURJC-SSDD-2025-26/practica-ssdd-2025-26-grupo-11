@@ -33,7 +33,9 @@ public class UserController {
 
     @GetMapping("/base")
     public String base(Model model, HttpServletRequest request) {
-        String email = request.getUserPrincipal().getName(); // ahora email
+
+        String email = request.getUserPrincipal().getName();
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
@@ -41,6 +43,12 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("loans", user.getLoans());
         model.addAttribute("name", user.getName());
+
+        if (user.getLoans() == null || user.getLoans().isEmpty()) {
+            model.addAttribute("recommendedBooks", null);
+        } else {
+            model.addAttribute("recommendedBooks", List.of()); //Aquí iría la query (userService.getRecommendedBooks(user) por ejemplo) 
+        }
 
         return "base";
     }
