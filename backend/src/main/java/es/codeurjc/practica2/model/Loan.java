@@ -10,8 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-   
-
 
 @Entity
 @Table(name = "loans")
@@ -93,5 +91,17 @@ public class Loan {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public boolean isActive() {
+        return status == Status.ACTIVE;
+    }
+
+    public boolean isOverdue() {
+        return status == Status.OVERDUE;
+    }
+
+    public boolean isReturned() {
+        return status == Status.RETURNED;
     }
 }

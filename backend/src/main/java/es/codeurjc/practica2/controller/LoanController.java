@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.practica2.model.Loan;
+import es.codeurjc.practica2.repository.BookRepository;
+import es.codeurjc.practica2.repository.UserRepository;
 import es.codeurjc.practica2.service.LoanService;
 
 @RestController
@@ -22,6 +24,12 @@ public class LoanController {
 
     @Autowired
     private LoanService loanService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @GetMapping
     public List<Loan> getAllLoans() {
