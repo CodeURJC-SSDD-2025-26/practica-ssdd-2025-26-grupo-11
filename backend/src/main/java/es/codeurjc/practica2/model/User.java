@@ -16,7 +16,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -45,8 +44,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
-
-    public User(String name, String surname,String encodedPassword, String email, Date registrationDate, String... roles) {
+    public User(String name, String surname, String encodedPassword, String email, Date registrationDate, String... roles) {
         this.name = name;
         this.surname = surname;
         this.encodedPassword = encodedPassword;
@@ -57,6 +55,7 @@ public class User {
         this.loans = new ArrayList<>();
         this.reviews = new ArrayList<>();
     }
+
     public User() {
     }
 
@@ -116,7 +115,7 @@ public class User {
         this.reviews = reviews;
     }
 
-    public boolean addLoan(Loan loan){
+    public boolean addLoan(Loan loan) {
         if (loans.contains(loan)) {
             return false;
         }
@@ -124,7 +123,7 @@ public class User {
         return true;
     }
 
-      public String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -140,6 +139,14 @@ public class User {
         this.email = email;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public Date getRegistrationDate() {
         return registrationDate;
     }
@@ -148,10 +155,8 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
-
-
     public void addReview(Review review) {
-    reviews.add(review);
-    review.setUser(this);
-}
+        reviews.add(review);
+        review.setUser(this);
+    }
 }

@@ -23,9 +23,9 @@
                         <img src="/users/{{id}}/image" class="nav-avatar" alt="Foto de perfil"> Tu perfil
                     </a>
                     <ul class="dropdown-menu menu">
-                        <li><a class="dropdown-item" href="/profile/{id}">
+                        <li><a class="dropdown-item" href="/profile">
                                 <i class="fa-solid fa-gear"></i> Mi cuenta</a></li>
-                        <li><a class="dropdown-item" href="/my-loans/{id}">
+                        <li><a class="dropdown-item" href="/my-loans">
                                 <i class="fa-solid fa-book"></i> Mis préstamos</a></li>
                         <li>
                             <form action="/logout" method="post" style="margin:0;">
@@ -36,7 +36,7 @@
                             </form>
                         </li>
                         {{#admin}}
-                        <li><a class="dropdown-item" href="/admin-panel">
+                        <li><a class="dropdown-item" href="/admin/admin-panel">
                                 <i class="fa-solid fa-user-shield"></i> Panel de administrador</a></li>
                         {{/admin}}
                     </ul>
@@ -48,11 +48,9 @@
                     <a class="nav-link" href="/register">
                         <i class="fas fa-user-plus register-icon"></i> Registrate</a>
                 </li>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">
                         <i class="fas fa-sign-in-alt login-icon"></i> Inicia sesión</a>
-                </li>
                 </li>
                 {{/logged}}
             </ul>
