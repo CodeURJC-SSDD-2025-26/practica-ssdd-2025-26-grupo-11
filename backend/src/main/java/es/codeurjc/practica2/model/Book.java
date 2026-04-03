@@ -1,19 +1,16 @@
 package es.codeurjc.practica2.model;
 
-import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
@@ -131,6 +128,10 @@ public class Book {
         reviews.add(review);
         review.setBook(this);
     }
+    
+    public void setId(Long id) {
+    this.id = id;
+}
 
     public List<String> getStars() {
         List<String> stars = new ArrayList<>();
