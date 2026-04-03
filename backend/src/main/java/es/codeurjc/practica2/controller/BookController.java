@@ -1,22 +1,30 @@
 package es.codeurjc.practica2.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
-import java.sql.Blob;
-import org.springframework.ui.Model;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Image;
+import es.codeurjc.practica2.model.Loan;
+import es.codeurjc.practica2.model.User;
+import es.codeurjc.practica2.repository.LoanRepository;
+import es.codeurjc.practica2.repository.ReviewRepository;
+import es.codeurjc.practica2.repository.UserRepository;
 import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.ImageService;
+import es.codeurjc.practica2.service.LoanService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -27,6 +35,18 @@ public class BookController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private LoanService loanService;
+
+    @Autowired
+    private LoanRepository loanRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     // Get first 4 most rated books
     @GetMapping("/")
@@ -59,15 +79,16 @@ public class BookController {
         model.addAttribute("genre", book.getGenre());
         model.addAttribute("isbn", book.getIsbn());
         model.addAttribute("description", book.getDescription());
-        model.addAttribute("book_rating", book.getRating());
-        model.addAttribute("id", book.getId());
+        float roundedRating = Math.round(book.getRating() * 10f) / 10f;
+        model.addAttribute("book_rating", roundedRating);
+        model.addAttribute("bookId", book.getId());
         model.addAttribute("reviews", book.getReviews());
 
         List<String> stars = new ArrayList<>();
         float rating = book.getRating();
         for (int i = 1; i <= 5; i++) {
             if (rating >= i) {
-                stars.add("fa-solid fa-star"); 
+                stars.add("fa-solid fa-star");
             } else if (rating >= i - 0.5) {
                 stars.add("fa-solid fa-star-half-stroke");
             } else {
@@ -77,13 +98,6 @@ public class BookController {
         model.addAttribute("stars", stars);
 
         return "book-detail";
-    }
-
-    // GET BOOK BY ID
-    @GetMapping("/book/{id}")
-    public String getBookById(Model model, @PathVariable Long id) {
-        model.addAttribute("book", bookService.findById(id).orElse(null));
-        return "book";
     }
 
     @PostMapping("/admin/admin-add-book")
@@ -98,17 +112,62 @@ public class BookController {
         bookService.save(book);
 
         model.addAttribute("id", book.getId());
-
         model.addAttribute("date", year);
 
-        return "redirect:/book/" + book.getId();
+        return "redirect:/book-detail/" + book.getId();
     }
 
     // DELETE BOOK
     @DeleteMapping("/book/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
-        return "redirect:/books";
+        return "redirect:/admin/admin-panel";
+    }
+
+    @PostMapping("/book-detail/{id}/loan")
+    public String requestLoan(@PathVariable Long id, HttpServletRequest request, Model model) {
+        String email = request.getUserPrincipal().getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Book book = bookService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+
+        if (loanService.hasActiveOrOverdueLoan(user, book)) {
+            model.addAttribute("title", book.getTitle());
+            model.addAttribute("author", book.getAuthor());
+            model.addAttribute("year", book.getYear());
+            model.addAttribute("genre", book.getGenre());
+            model.addAttribute("isbn", book.getIsbn());
+            model.addAttribute("description", book.getDescription());
+
+            float roundedRating = Math.round(book.getRating() * 10f) / 10f;
+            model.addAttribute("book_rating", roundedRating);
+
+            model.addAttribute("bookId", book.getId());
+            model.addAttribute("reviews", book.getReviews());
+
+            List<String> stars = new ArrayList<>();
+            float rating = book.getRating();
+            for (int i = 1; i <= 5; i++) {
+                if (rating >= i) {
+                    stars.add("fa-solid fa-star");
+                } else if (rating >= i - 0.5) {
+                    stars.add("fa-solid fa-star-half-stroke");
+                } else {
+                    stars.add("fa-regular fa-star");
+                }
+            }
+            model.addAttribute("stars", stars);
+
+            model.addAttribute("loanError", "Ya tienes este libro prestado o pendiente de devolución.");
+            return "book-detail";
+        }
+
+        loanService.createLoan(user, book);
+
+        return "redirect:/my-loans";
     }
 
     private void updateImage(Book book, boolean removeImage, MultipartFile imageField)
@@ -136,5 +195,55 @@ public class BookController {
                 book.setImage(dbBook.getImage());
             }
         }
+    }
+
+    @GetMapping("/admin/admin-panel")
+    public String showAdminPanel(Model model) {
+        List<Book> books = bookService.findAll();
+
+        model.addAttribute("books", books);
+        model.addAttribute("booksCount", books.size());
+        model.addAttribute("usersCount", userRepository.count());
+        model.addAttribute("reviewsCount", reviewRepository.count());
+        model.addAttribute("activeLoansCount", loanRepository.findAll().stream().filter(loan -> loan.getStatus() == Loan.Status.ACTIVE).count());
+        return "admin/admin-panel";
+    }
+
+    @GetMapping("/admin/admin-add-book")
+    public String showAdminAddBook() {
+        return "admin/admin-add-book";
+    }
+
+    @GetMapping("/admin/admin-edit-book/{id}")
+    public String showAdminEditBook(@PathVariable Long id, Model model) {
+        Book book = bookService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+
+        model.addAttribute("book", book);
+        return "admin/admin-edit-book";
+    }
+
+    @PostMapping("/admin/admin-edit-book/{id}")
+    public String editBookProcess(
+            @PathVariable Long id,
+            Book book,
+            @RequestParam(required = false, defaultValue = "false") boolean removeImage,
+            @RequestParam(required = false) MultipartFile imageField) throws IOException, SQLException {
+
+        Book dbBook = bookService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+
+        dbBook.setTitle(book.getTitle());
+        dbBook.setAuthor(book.getAuthor());
+        dbBook.setYear(book.getYear());
+        dbBook.setGenre(book.getGenre());
+        dbBook.setIsbn(book.getIsbn());
+        dbBook.setDescription(book.getDescription());
+
+        updateImage(dbBook, removeImage, imageField);
+
+        bookService.save(dbBook);
+
+        return "redirect:/admin/admin-panel";
     }
 }
