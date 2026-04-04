@@ -6,4 +6,5 @@ import es.codeurjc.practica2.model.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
    List<Book> findTop4ByOrderByRatingDesc();
+   List<Book> findByGenreOrderByRatingDesc(String genre);
 }

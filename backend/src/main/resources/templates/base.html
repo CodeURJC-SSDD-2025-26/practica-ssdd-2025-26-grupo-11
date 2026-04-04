@@ -18,113 +18,104 @@
 
 <body>
 
-{{>header}}
+    {{>header}}
 
-<main>
+    <main>
 
-    <section class="welcome-banner">
-        <div class="container">
-            <h1>Bienvenido de nuevo, <span>{{name}}</span></h1>
-            <p>Continúa explorando tu próxima lectura</p>
-            <a href="/books" class="btn btn-light">
-                <i class="fas fa-search"></i> Buscar libros
-            </a>
-        </div>
-    </section>
+        <section class="welcome-banner">
+            <div class="container">
+                <h1>Bienvenido de nuevo, <span>{{name}}</span></h1>
+                <p>Continúa explorando tu próxima lectura</p>
+                <a href="/books" class="btn btn-light">
+                    <i class="fas fa-search"></i> Buscar libros
+                </a>
+            </div>
+        </section>
 
 
-    <section class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Recomendados para ti</h2>
-            <span class="text-muted small">
-                <i class="fas fa-magic"></i> Basado en tus lecturas
-            </span>
-        </div>
+        <section class="container my-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Recomendados para ti</h2>
+                <span class="text-muted small">
+                    <i class="fas fa-magic"></i> Basado en tus lecturas
+                </span>
+            </div>
 
-        {{#recommendedBooks}}
-        <div class="row">
-            {{#.}}
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
+            <div class="row">
+                {{#recommendedBooks}}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        {{#image}}
+                        <img src="/image/{{id}}" class="card-img-top" alt="Portada">
+                        {{/image}}
 
-                    {{#image}}
-                    <img src="/image/{{id}}" class="card-img-top" alt="Portada">
-                    {{/image}}
+                        <div class="card-body">
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-author text-muted">{{author}}</p>
 
-                    <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
-                        <p class="card-author">{{author}}</p>
+                            <h6 class="card-rating">Valoración:</h6>
+                            <p class="text-warning fw-bold">{{rating}} / 5 <i class="fas fa-star"></i></p>
 
-                        <h6 class="card-rating">Calificación:</h6>
-                        <div>
-                            {{#stars}}
-                            <i class="{{.}}"></i>
-                            {{/stars}}
+                            <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm w-100">
+                                Ver detalles
+                            </a>
                         </div>
-
-                        <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
-                            Ver detalles
-                        </a>
                     </div>
                 </div>
+                {{/recommendedBooks}}
+
+                {{^recommendedBooks}}
+                <div class="col-12 text-center text-muted mt-4">
+                    <i class="fas fa-info-circle fa-2x mb-2"></i>
+                    <p class="fw-bold">Todavía no hay recomendaciones personalizadas</p>
+                    <p>Alquila algún libro para que nuestro sistema aprenda tus gustos.</p>
+                </div>
+                {{/recommendedBooks}}
             </div>
-            {{/.}}
-        </div>
-        {{/recommendedBooks}}
+        </section>
+        <section class="container my-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Libros destacados</h2>
+                <span class="text-muted small">
+                    <i class="fas fa-star"></i> Según las reseñas
+                </span>
+            </div>
 
-        {{^recommendedBooks}}
-        <div class="text-center text-muted mt-4">
-            <i class="fas fa-info-circle fa-2x mb-2"></i>
-            <p class="fw-bold">Todavía no hay recomendaciones</p>
-            <p>Haz algún préstamo para empezar a recibir sugerencias</p>
-        </div>
-        {{/recommendedBooks}}
+            <div class="row">
 
-    </section>
+                {{#featuredBooks}}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
 
-    <section class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Libros destacados</h2>
-            <span class="text-muted small">
-                <i class="fas fa-star"></i> Según las reseñas
-            </span>
-        </div>
+                        {{#image}}
+                        <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
+                        {{/image}}
 
-        <div class="row">
+                        <div class="card-body">
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-author">{{author}}</p>
 
-            {{#featuredBooks}}
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
+                            <h6 class="card-rating">Calificación:</h6>
+                            <div>
+                                {{#stars}}
+                                <i class="{{.}}"></i>
+                                {{/stars}}
+                            </div>
 
-                    {{#image}}
-                    <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
-                    {{/image}}
-
-                    <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
-                        <p class="card-author">{{author}}</p>
-
-                        <h6 class="card-rating">Calificación:</h6>
-                        <div>
-                            {{#stars}}
-                            <i class="{{.}}"></i>
-                            {{/stars}}
+                            <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
+                                Ver detalles
+                            </a>
                         </div>
-
-                        <a href="/book-detail/{{id}}" class="btn btn-outline-primary btn-sm details-button">
-                            Ver detalles
-                        </a>
                     </div>
                 </div>
+                {{/featuredBooks}}
             </div>
-            {{/featuredBooks}}
+        </section>
 
-        </div>
-    </section>
+    </main>
 
-</main>
-
-{{>footer}}
+    {{>footer}}
 
 </body>
+
 </html>

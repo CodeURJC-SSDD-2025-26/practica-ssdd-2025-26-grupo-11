@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.LoanRepository;
@@ -62,7 +63,8 @@ public class UserController {
         if (user.getLoans() == null || user.getLoans().isEmpty()) {
             model.addAttribute("recommendedBooks", null);
         } else {
-            model.addAttribute("recommendedBooks", List.of()); //Aquí iría la query (userService.getRecommendedBooks(user) por ejemplo) 
+            List<Book> recommendations = userService.getRecommendedBooks(user);
+            model.addAttribute("recommendedBooks", recommendations);
         }
 
         return "base";
