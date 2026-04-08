@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.model.Image;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.User;
@@ -76,7 +77,7 @@ public class BookController {
         model.addAttribute("title", book.getTitle());
         model.addAttribute("author", book.getAuthor());
         model.addAttribute("year", book.getYear());
-        model.addAttribute("genre", book.getGenre());
+        model.addAttribute("genre", book.getGenreDisplayName());
         model.addAttribute("isbn", book.getIsbn());
         model.addAttribute("description", book.getDescription());
         float roundedRating = Math.round(book.getRating() * 10f) / 10f;
@@ -101,20 +102,34 @@ public class BookController {
     }
 
     @PostMapping("/admin/admin-add-book")
-    public String newBookProcess(Model model, Book book, MultipartFile imageField,
-            @RequestParam int year) throws IOException {
+    public String newBookProcess(Model model, 
+            @RequestParam String title,
+            @RequestParam String author,
+            @RequestParam String description,
+            @RequestParam(name="genre") String genreString,
+            @RequestParam long isbn,
+            @RequestParam int year,
+            MultipartFile imageField) throws IOException {
 
-        if (!imageField.isEmpty()) {
-            Image image = imageService.createImage(imageField.getInputStream());
-            book.setImage(image);
+        try {
+            Genre genre = Genre.valueOf(genreString.toUpperCase());
+            Book book = new Book(title, author, description, genre, 0f, year, isbn);
+
+            if (!imageField.isEmpty()) {
+                Image image = imageService.createImage(imageField.getInputStream());
+                book.setImage(image);
+            }
+
+            bookService.save(book);
+
+            model.addAttribute("id", book.getId());
+            model.addAttribute("date", year);
+
+            return "redirect:/book-detail/" + book.getId();
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", "Género inválido");
+            return "admin/admin-add-book";
         }
-
-        bookService.save(book);
-
-        model.addAttribute("id", book.getId());
-        model.addAttribute("date", year);
-
-        return "redirect:/book-detail/" + book.getId();
     }
 
     // DELETE BOOK
@@ -138,7 +153,7 @@ public class BookController {
             model.addAttribute("title", book.getTitle());
             model.addAttribute("author", book.getAuthor());
             model.addAttribute("year", book.getYear());
-            model.addAttribute("genre", book.getGenre());
+            model.addAttribute("genre", book.getGenreDisplayName());
             model.addAttribute("isbn", book.getIsbn());
             model.addAttribute("description", book.getDescription());
 
@@ -220,30 +235,43 @@ public class BookController {
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 
         model.addAttribute("book", book);
+        model.addAttribute("currentGenre", book.getGenre() != null ? book.getGenre().name() : "");
         return "admin/admin-edit-book";
     }
 
     @PostMapping("/admin/admin-edit-book/{id}")
     public String editBookProcess(
             @PathVariable Long id,
-            Book book,
+            @RequestParam String title,
+            @RequestParam String author,
+            @RequestParam String description,
+            @RequestParam(name="genre") String genreString,
+            @RequestParam long isbn,
+            @RequestParam int year,
             @RequestParam(required = false, defaultValue = "false") boolean removeImage,
             @RequestParam(required = false) MultipartFile imageField) throws IOException, SQLException {
 
         Book dbBook = bookService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 
-        dbBook.setTitle(book.getTitle());
-        dbBook.setAuthor(book.getAuthor());
-        dbBook.setYear(book.getYear());
-        dbBook.setGenre(book.getGenre());
-        dbBook.setIsbn(book.getIsbn());
-        dbBook.setDescription(book.getDescription());
+        try {
+            Genre genre = Genre.valueOf(genreString.toUpperCase());
+            
+            dbBook.setTitle(title);
+            dbBook.setAuthor(author);
+            dbBook.setYear(year);
+            dbBook.setGenre(genre);
+            dbBook.setIsbn(isbn);
+            dbBook.setDescription(description);
 
-        updateImage(dbBook, removeImage, imageField);
+            updateImage(dbBook, removeImage, imageField);
 
-        bookService.save(dbBook);
+            bookService.save(dbBook);
 
-        return "redirect:/admin/admin-panel";
+            return "redirect:/admin/admin-panel";
+        } catch (IllegalArgumentException e) {
+            // Si hay error, recargar la página de edición con error
+            return "redirect:/admin/admin-edit-book/" + id;
+        }
     }
 }

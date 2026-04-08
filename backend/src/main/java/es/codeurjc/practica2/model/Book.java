@@ -26,7 +26,7 @@ public class Book {
 
     private String description;
 
-    private String genre;
+    private Genre genre;
 
     private float rating;
     private int year;
@@ -42,7 +42,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String description, String genre, float rating, int year, long isbn) {
+    public Book(String title, String author, String description, Genre genre, float rating, int year, long isbn) {
         this.title = title;
         this.author = author;
         this.description = description;
@@ -80,12 +80,16 @@ public class Book {
         this.description = description;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public String getGenreDisplayName() {
+        return genre != null ? genre.getDisplayName() : "";
     }
 
     public float getRating() {

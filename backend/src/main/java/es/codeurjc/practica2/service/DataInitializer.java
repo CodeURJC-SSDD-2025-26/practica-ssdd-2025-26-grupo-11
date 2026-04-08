@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.model.Image;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.Review;
@@ -47,7 +48,7 @@ public class DataInitializer implements CommandLineRunner {
                     "El principito",
                     "Antoine de Saint-Exupéry",
                     "Libro clásico sobre la amistad y la imaginación.",
-                    "Fiction",
+                    Genre.FICCION,
                     4.5f,
                     1943,
                     9780156012195L);
@@ -57,7 +58,7 @@ public class DataInitializer implements CommandLineRunner {
                     "La casa de los espíritus",
                     "Isabel Allende",
                     "Saga familiar con realismo mágico.",
-                    "Drama",
+                    Genre.MISTERIO,
                     2.3f,
                     1982,
                     9781501117015L);
@@ -67,7 +68,7 @@ public class DataInitializer implements CommandLineRunner {
                     "El código Da Vinci",
                     "Dan Brown",
                     "Thriller de misterio con ritmo rápido.",
-                    "Mystery",
+                    Genre.MISTERIO,
                     3f,
                     2003,
                     9780307474278L);
@@ -77,7 +78,7 @@ public class DataInitializer implements CommandLineRunner {
                     "Los detectives salvajes",
                     "Roberto Bolaño",
                     "Novela sobre poesía, juventud y aventura literaria.",
-                    "Literary Fiction",
+                    Genre.FICCION,
                     2.8f,
                     1998,
                     9780375400164L);

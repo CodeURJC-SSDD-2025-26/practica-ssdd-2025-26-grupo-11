@@ -168,7 +168,9 @@
                   </td>
                   <td class="fw-bold">{{title}}</td>
                   <td class="text-muted">{{author}}</td>
-                  <td><span class="badge bg-secondary">{{genre}}</span></td>
+                  <td>
+                    <span class="badge bg-secondary" data-genre="{{genre}}">{{genre}}</span>
+                  </td>
                   <td><span class="badge bg-success">Disponible</span></td>
                   <td>
                     {{#stars}}
@@ -1048,5 +1050,28 @@
     </div>
 
     <script src="/js/charts.js"></script>
+    
+    <script>
+      // Mapeo de géneros de enum a display names
+      const genreMap = {
+        'FICCION': 'Ficción',
+        'FANTASIA': 'Fantasía',
+        'HISTORIA': 'Historia',
+        'CIENCIA': 'Ciencia',
+        'INFANTIL': 'Infantil',
+        'MISTERIO': 'Misterio',
+        'ROMANCE': 'Romance',
+        'BIOGRAFIA': 'Biografía',
+        'CLASICOS': 'Clásicos'
+      };
+
+      // Formatear géneros en la tabla
+      document.querySelectorAll('span[data-genre]').forEach(span => {
+        const genre = span.getAttribute('data-genre');
+        if (genreMap[genre]) {
+          span.textContent = genreMap[genre];
+        }
+      });
+    </script>
   </body>
 </html>

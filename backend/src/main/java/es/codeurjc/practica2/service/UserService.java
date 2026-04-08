@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.BookRepository;
@@ -57,22 +58,30 @@ public class UserService {
     }
 
     // 1. Extraer todos los géneros a una lista
-    List<String> allGenres = new ArrayList<>();
+    List<Genre> allGenres = new ArrayList<>();
     for (int i = 0; i < userLoans.size(); i++) {
-        allGenres.add(userLoans.get(i).getBook().getGenre());
+        Genre genre = userLoans.get(i).getBook().getGenre();
+        if (genre != null) {
+            allGenres.add(genre);
+        }
+    }
+
+    // Si no hay géneros válidos, retornar lista vacía
+    if (allGenres.isEmpty()) {
+        return new ArrayList<>();
     }
 
     // 2. Buscar el género que más se repite (Bucle anidado para contar)
-    String favoriteGenre = "";
+    Genre favoriteGenre = allGenres.get(0);
     int maxCount = 0;
 
     for (int i = 0; i < allGenres.size(); i++) {
-        String currentGenre = allGenres.get(i);
+        Genre currentGenre = allGenres.get(i);
         int currentCount = 0;
 
         // Contamos cuántas veces aparece el género actual en toda la lista
         for (int j = 0; j < allGenres.size(); j++) {
-            if (allGenres.get(j).equals(currentGenre)) {
+            if (allGenres.get(j) == currentGenre) {
                 currentCount++;
             }
         }

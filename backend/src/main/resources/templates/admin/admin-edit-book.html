@@ -61,7 +61,21 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="genre" class="form-label fw-bold">Género / Categoría</label>
-                  <input type="text" class="form-control border-2" id="genre" name="genre" value="{{book.genre}}" required>
+                  <select class="form-control border-2" id="genre" name="genre" required>
+                    <option value="">-- Seleccionar género --</option>
+                    <option value="FICCION">Ficción</option>
+                    <option value="FANTASIA">Fantasía</option>
+                    <option value="HISTORIA">Historia</option>
+                    <option value="CIENCIA">Ciencia</option>
+                    <option value="INFANTIL">Infantil</option>
+                    <option value="MISTERIO">Misterio</option>
+                    <option value="ROMANCE">Romance</option>
+                    <option value="BIOGRAFIA">Biografía</option>
+                    <option value="CLASICOS">Clásicos</option>
+                  </select>
+                  <script>
+                    document.getElementById('genre').value = '{{currentGenre}}';
+                  </script>
                 </div>
 
                 <div class="col-md-6 mb-3">
