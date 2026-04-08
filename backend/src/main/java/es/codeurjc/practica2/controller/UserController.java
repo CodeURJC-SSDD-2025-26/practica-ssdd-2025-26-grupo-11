@@ -1,11 +1,7 @@
 package es.codeurjc.practica2.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.sql.rowset.serial.SerialBlob;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -20,14 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.Image;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.LoanRepository;
 import es.codeurjc.practica2.repository.ReviewRepository;
 import es.codeurjc.practica2.repository.UserRepository;
 import es.codeurjc.practica2.service.BookService;
+import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.List;
+
 
 @Controller
 public class UserController {
@@ -46,6 +47,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/base")
     public String base(Model model, HttpServletRequest request) {
@@ -110,7 +114,19 @@ public class UserController {
             return "register";
         }
 
-        userService.registerUser(name, surname, email, password);
+        User newUser = userService.registerUser(name, surname, email, password);
+
+        // Asignar imagen de perfil por defecto
+        try {
+            Resource resource = new ClassPathResource("static/images/default-avatar.png");
+            if (resource.exists()) {
+                Image image = imageService.createImage(resource.getInputStream());
+                newUser.setImage(image);
+                userRepository.save(newUser);
+            }
+        } catch (IOException e) {
+            // Si no se puede cargar la imagen, continuar sin ella
+        }
 
         model.addAttribute("success", "Usuario registrado correctamente. Ya puedes iniciar sesión.");
         return "login";
@@ -149,10 +165,11 @@ public class UserController {
         user.setDescription(bio);
 
         if (imageFile != null && !imageFile.isEmpty()) {
-            try {
-                user.setImageFile(new SerialBlob(imageFile.getBytes()));
-            } catch (Exception e) {
-                throw new IOException("Error al guardar la imagen de perfil", e);
+            if (user.getImage() != null) {
+                imageService.replaceImageFile(user.getImage().getId(), imageFile.getInputStream());
+            } else {
+                Image image = imageService.createImage(imageFile.getInputStream());
+                user.setImage(image);
             }
         }
 
@@ -166,8 +183,8 @@ public class UserController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (user.getImageFile() != null) {
-            Resource imageFile = new InputStreamResource(user.getImageFile().getBinaryStream());
+        if (user.getImage() != null) {
+            Resource imageFile = new InputStreamResource(user.getImage().getImageFile().getBinaryStream());
 
             MediaType mediaType = MediaTypeFactory
                     .getMediaType(imageFile)
