@@ -1,910 +1,724 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>BiblioOnline - Panel de Administrador</title>
 
-    <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/images/logo.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BiblioOnline - Panel de Administrador</title>
 
-    <!-- Font Awesome + Bootstrap -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FavIcon -->
+  <link rel="icon" type="image/png" href="/images/logo.png" />
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Font Awesome + Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/header-footer.css" />
-    <link rel="stylesheet" href="/css/admin-panel.css" />
-  </head>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <body>
-    {{>header}}
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/header-footer.css" />
+  <link rel="stylesheet" href="/css/admin-panel.css" />
+</head>
 
-    <!-- Banner -->
-    <div class="admin-banner">
-      <div class="container">
-        <h1>
-          <i class="fa-solid fa-user-shield me-2"></i>Panel de
-          <span>Administrador</span>
-        </h1>
-        <p>
-          Gestión completa de usuarios, libros, préstamos y reseñas de
-          BiblioOnline.
-        </p>
+<body>
+  {{>header}}
+
+  <!-- Banner -->
+  <div class="admin-banner">
+    <div class="container">
+      <h1>
+        <i class="fa-solid fa-user-shield me-2"></i>Panel de
+        <span>Administrador</span>
+      </h1>
+      <p>
+        Gestión completa de usuarios, libros, préstamos y reseñas de
+        BiblioOnline.
+      </p>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="container my-4">
+    <!-- Quick navigation -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <a href="#seccion-libros" class="btn btn-sm btn-custom-blue">
+        <i class="fas fa-book me-1"></i>Libros
+      </a>
+      <a href="#seccion-prestamos" class="btn btn-sm btn-custom-blue">
+        <i class="fas fa-exchange-alt me-1"></i>Préstamos
+      </a>
+      <a href="#seccion-resenas" class="btn btn-sm btn-custom-blue">
+        <i class="fas fa-star me-1"></i>Reseñas
+      </a>
+      <a href="#seccion-usuarios" class="btn btn-sm btn-custom-blue">
+        <i class="fas fa-users me-1"></i>Usuarios
+      </a>
+      <a href="#seccion-graficas" class="btn btn-sm btn-custom-blue">
+        <i class="fas fa-chart-pie me-1"></i>Estadísticas
+      </a>
+    </div>
+
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-book"></i></div>
+          <div>
+            <div class="stat-value">{{booksCount}}</div>
+            <div class="stat-label">Libros en catálogo</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon yellow">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div>
+            <div class="stat-value">{{activeLoansCount}}</div>
+            <div class="stat-label">Préstamos activos</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-users"></i></div>
+          <div>
+            <div class="stat-value">{{usersCount}}</div>
+            <div class="stat-label">Usuarios registrados</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon cyan"><i class="fas fa-star"></i></div>
+          <div>
+            <div class="stat-value">{{reviewsCount}}</div>
+            <div class="stat-label">Reseñas publicadas</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Main -->
-    <main class="container my-4">
-      <!-- Quick navigation -->
-      <div class="d-flex flex-wrap gap-2 mb-4">
-        <a href="#seccion-libros" class="btn btn-sm btn-custom-blue">
-          <i class="fas fa-book me-1"></i>Libros
-        </a>
-        <a href="#seccion-prestamos" class="btn btn-sm btn-custom-blue">
-          <i class="fas fa-exchange-alt me-1"></i>Préstamos
-        </a>
-        <a href="#seccion-resenas" class="btn btn-sm btn-custom-blue">
-          <i class="fas fa-star me-1"></i>Reseñas
-        </a>
-        <a href="#seccion-usuarios" class="btn btn-sm btn-custom-blue">
-          <i class="fas fa-users me-1"></i>Usuarios
-        </a>
-        <a href="#seccion-graficas" class="btn btn-sm btn-custom-blue">
-          <i class="fas fa-chart-pie me-1"></i>Estadísticas
+    <!-- Books section -->
+    <section id="seccion-libros" class="mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-book"></i> Gestión de Libros
+      </h2>
+
+      <!-- Toolbar -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width: 280px">
+          <input type="text" class="form-control form-control-sm" placeholder="Buscar por título..." />
+          <button class="btn btn-sm btn-custom-blue">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <a href="/admin/admin-add-book" class="btn btn-sm btn-custom-blue">
+          <i class="fas fa-plus me-1"></i>Añadir libro
         </a>
       </div>
 
-      <div class="row g-3 mb-5">
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon blue"><i class="fas fa-book"></i></div>
-            <div>
-              <div class="stat-value">{{booksCount}}</div>
-              <div class="stat-label">Libros en catálogo</div>
-            </div>
-          </div>
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h5><i class="fas fa-list me-2"></i>Catálogo completo</h5>
+          <select class="form-select form-select-sm w-auto">
+            <option>Todos los géneros</option>
+            <option>Ficción</option>
+            <option>Fantasía</option>
+            <option>Historia</option>
+            <option>Ciencia</option>
+            <option>Misterio</option>
+            <option>Biografía</option>
+            <option>Clásicos</option>
+          </select>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon yellow">
-              <i class="fas fa-exchange-alt"></i>
-            </div>
-            <div>
-              <div class="stat-value">{{activeLoansCount}}</div>
-              <div class="stat-label">Préstamos activos</div>
-            </div>
-          </div>
+        <div class="table-responsive">
+          <table class="table table-admin mb-0">
+            <thead>
+              <tr>
+                <th>Portada</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Género</th>
+                <th>Disponibilidad</th>
+                <th>Valoración</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#books}}
+              <tr>
+                <td>
+                  {{#image}}
+                  <img src="/image/{{id}}" class="book-thumb" alt="Portada" />
+                  {{/image}}
+                </td>
+                <td class="fw-bold">{{title}}</td>
+                <td class="text-muted">{{author}}</td>
+                <td>
+                  <span class="badge bg-secondary" data-genre="{{genre}}">{{genre}}</span>
+                </td>
+                <td><span class="badge bg-success">Disponible</span></td>
+                <td>
+                  {{#stars}}
+                  <i class="{{.}}"></i>
+                  {{/stars}}
+                </td>
+
+                <td>
+                  <a href="/admin/admin-edit-book/{{id}}" class="btn-icon edit" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+
+                  <button type="button" class="btn-icon delete ms-1" title="Eliminar"
+                    style="border: none; background: none" data-bs-toggle="modal"
+                    data-bs-target="#deleteBookModal{{id}}">
+                    <i class="fas fa-trash"></i>
+                  </button>
+
+                  <div class="modal fade" id="deleteBookModal{{id}}" tabindex="-1"
+                    aria-labelledby="deleteBookModalLabel{{id}}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                          <h5 class="modal-title" id="deleteBookModalLabel{{id}}">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar libro
+                          </h5>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="mb-2">
+                            ¿Estás seguro de que deseas eliminar
+                            <strong>{{title}}</strong>?
+                          </p>
+                          <p class="mb-0 text-muted small">
+                            Esta acción no se puede deshacer.
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                          </button>
+
+                          <form action="/book/{{id}}" method="post" style="display: inline">
+                            <input type="hidden" name="_csrf" value="{{token}}" />
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-danger">
+                              Eliminar
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {{/books}}
+              {{^books}}
+              <tr>
+                <td colspan="7" class="text-center text-muted py-4">
+                  No hay libros en el catálogo.
+                </td>
+              </tr>
+              {{/books}}
+            </tbody>
+          </table>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon green"><i class="fas fa-users"></i></div>
-            <div>
-              <div class="stat-value">{{usersCount}}</div>
-              <div class="stat-label">Usuarios registrados</div>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between align-items-center px-3 py-2">
+          <small class="text-muted">Listado de libros del catálogo</small>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon cyan"><i class="fas fa-star"></i></div>
-            <div>
-              <div class="stat-value">{{reviewsCount}}</div>
-              <div class="stat-label">Reseñas publicadas</div>
-            </div>
-          </div>
+      </div>
+    </section>
+
+    <!-- Loans section -->
+    <section id="seccion-prestamos" class="mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
+      </h2>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width: 280px">
+          <input type="text" class="form-control form-control-sm" placeholder="Buscar por id..." />
+          <button class="btn btn-sm btn-custom-blue">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
       </div>
 
-      <!-- Books section -->
-      <section id="seccion-libros" class="mb-5">
-        <h2 class="section-title">
-          <i class="fas fa-book"></i> Gestión de Libros
-        </h2>
-
-        <!-- Toolbar -->
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"
-        >
-          <div class="input-group" style="max-width: 280px">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Buscar por título..."
-            />
-            <button class="btn btn-sm btn-custom-blue">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-          <a href="/admin/admin-add-book" class="btn btn-sm btn-custom-blue">
-            <i class="fas fa-plus me-1"></i>Añadir libro
-          </a>
+      <div class="admin-card-header">
+        <div>
+          <h5><i class="fas fa-list me-2"></i>Todos los préstamos</h5>
+          <small class="text-muted">
+            Activos: {{activeLoansCount}} | Vencidos: {{overdueLoansCount}} | Devueltos: {{returnedLoansCount}}
+          </small>
         </div>
 
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <h5><i class="fas fa-list me-2"></i>Catálogo completo</h5>
-            <select class="form-select form-select-sm w-auto">
-              <option>Todos los géneros</option>
-              <option>Ficción</option>
-              <option>Fantasía</option>
-              <option>Historia</option>
-              <option>Ciencia</option>
-              <option>Misterio</option>
-              <option>Biografía</option>
-              <option>Clásicos</option>
-            </select>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-admin mb-0">
-              <thead>
-                <tr>
-                  <th>Portada</th>
-                  <th>Título</th>
-                  <th>Autor</th>
-                  <th>Género</th>
-                  <th>Disponibilidad</th>
-                  <th>Valoración</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>                
-                {{#books}}
-                <tr>
-                  <td>
-                    {{#image}}
-                    <img src="/image/{{id}}" class="book-thumb" alt="Portada" />
-                    {{/image}}
-                  </td>
-                  <td class="fw-bold">{{title}}</td>
-                  <td class="text-muted">{{author}}</td>
-                  <td>
-                    <span class="badge bg-secondary" data-genre="{{genre}}"
-                      >{{genre}}</span
-                    >
-                  </td>
-                  <td><span class="badge bg-success">Disponible</span></td>
-                  <td>
-                    {{#stars}}
-                    <i class="{{.}}"></i>
-                    {{/stars}}
-                  </td>
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn-filter-status all" disabled>Todos</button>
+          <button class="btn-filter-status active" disabled>Activos</button>
+          <button class="btn-filter-status expired" disabled>Vencidos</button>
+          <button class="btn-filter-status returned" disabled>Devueltos</button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-admin mb-0">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th>Usuario</th>
+              <th>Libro</th>
+              <th>Fecha préstamo</th>
+              <th>Fecha devolución</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#loans}}
+            <tr>
+              <td class="text-muted">#{{id}}</td>
 
-                  <td>
-                    <a
-                      href="/admin/admin-edit-book/{{id}}"
-                      class="btn-icon edit"
-                      title="Editar"
-                    >
-                      <i class="fas fa-pencil-alt"></i>
-                    </a>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
+                  <div>
+                    <div class="fw-bold" style="font-size: 0.88rem">
+                      {{user.name}} {{user.surname}}
+                    </div>
+                    <div class="text-muted" style="font-size: 0.75rem">
+                      {{user.email}}
+                    </div>
+                  </div>
+                </div>
+              </td>
 
-                    <button
-                      type="button"
-                      class="btn-icon delete ms-1"
-                      title="Eliminar"
-                      style="border: none; background: none"
-                      data-bs-toggle="modal"
-                      data-bs-target="#deleteBookModal{{id}}"
-                    >
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  {{#book.image}}
+                  <img src="/image/{{id}}" class="loan-cover" alt="Portada" />
+                  {{/book.image}}
+                  <span>{{book.title}}</span>
+                </div>
+              </td>
+
+              <td>{{loanDate}}</td>
+              <td>{{returnDate}}</td>
+
+              <td>
+                {{#isActive}}
+                <span class="badge bg-primary">ACTIVO</span>
+                {{/isActive}}
+
+                {{#isOverdue}}
+                <span class="badge bg-warning text-dark">VENCIDO</span>
+                {{/isOverdue}}
+
+                {{#isReturned}}
+                <span class="badge bg-success">DEVUELTO</span>
+                {{/isReturned}}
+              </td>
+
+              <td>
+                <button class="btn-icon edit" title="Editar próximamente" disabled>
+                  <i class="fas fa-pencil"></i>
+                </button>
+
+                {{^isReturned}}
+                <form action="/admin/loan/{{id}}/return" method="post" style="display:inline;">
+                  <input type="hidden" name="_csrf" value="{{token}}" />
+                  <button class="btn-icon view ms-1" title="Marcar como devuelto" type="submit"
+                    style="border:none; background:none;">
+                    <i class="fas fa-check"></i>
+                  </button>
+                </form>
+                {{/isReturned}}
+              </td>
+            </tr>
+            {{/loans}} {{^loans}}
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">
+                No hay préstamos registrados.
+              </td>
+            </tr>
+            {{/loans}}
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center px-3 py-2">
+        <small class="text-muted">Listado de préstamos</small>
+      </div>
+      </div>
+    </section>
+
+    <!-- Reviews section -->
+    <section id="seccion-resenas" class="mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-star"></i> Moderación de Reseñas
+      </h2>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width: 280px">
+          <input type="text" class="form-control form-control-sm" placeholder="Buscar por usuario..." />
+          <button class="btn btn-sm btn-custom-blue">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h5><i class="fas fa-list me-2"></i>Reseñas publicadas</h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-admin mb-0">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Libro</th>
+                <th>Valoración</th>
+                <th>Comentario</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#reviews}}
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
+                    <span class="fw-bold" style="font-size: 0.88rem">
+                      {{user.name}} {{user.surname}}
+                    </span>
+                  </div>
+                </td>
+
+                <td>
+                  <a href="/book-detail/{{book.id}}" class="text-decoration-none fw-semibold">
+                    {{book.title}}
+                  </a>
+                </td>
+
+                <td>
+                  <span class="text-warning">
+                    {{#filledStars}}
+                    <i class="fas fa-star"></i>
+                    {{/filledStars}}
+                    {{#emptyStars}}
+                    <i class="far fa-star"></i>
+                    {{/emptyStars}}
+                  </span>
+                </td>
+
+                <td class="text-muted" style="max-width: 220px; font-size: 0.82rem">
+                  {{comment}}
+                </td>
+                <td>
+                  <a href="/book-detail/{{book.id}}" class="btn-icon view" title="Ir a la página del libro">
+                    <i class="fas fa-eye"></i>
+                  </a>
+
+                  <form action="/admin/review/{{id}}/delete" method="post" style="display: inline">
+                    <input type="hidden" name="_csrf" value="{{token}}" />
+                    <button class="btn-icon delete ms-1" title="Eliminar reseña" type="submit"
+                      style="border: none; background: none">
                       <i class="fas fa-trash"></i>
                     </button>
+                  </form>
+                </td>
+              </tr>
+              {{/reviews}}
 
-                    <div
-                      class="modal fade"
-                      id="deleteBookModal{{id}}"
-                      tabindex="-1"
-                      aria-labelledby="deleteBookModalLabel{{id}}"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header bg-danger text-white">
-                            <h5
-                              class="modal-title"
-                              id="deleteBookModalLabel{{id}}"
-                            >
-                              <i class="fas fa-exclamation-triangle me-2"></i
-                              >Eliminar libro
-                            </h5>
-                            <button
-                              type="button"
-                              class="btn-close btn-close-white"
-                              data-bs-dismiss="modal"
-                              aria-label="Cerrar"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="mb-2">
-                              ¿Estás seguro de que deseas eliminar
-                              <strong>{{title}}</strong>?
-                            </p>
-                            <p class="mb-0 text-muted small">
-                              Esta acción no se puede deshacer.
-                            </p>
-                          </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Cancelar
-                            </button>
-
-                            <form
-                              action="/book/{{id}}"
-                              method="post"
-                              style="display: inline"
-                            >
-                              <input
-                                type="hidden"
-                                name="_csrf"
-                                value="{{token}}"
-                              />
-                              <input
-                                type="hidden"
-                                name="_method"
-                                value="delete"
-                              />
-                              <button type="submit" class="btn btn-danger">
-                                Eliminar
-                              </button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                {{/books}} 
-                {{^books}}
-                <tr>
-                  <td colspan="7" class="text-center text-muted py-4">
-                    No hay libros en el catálogo.
-                  </td>
-                </tr>
-                {{/books}}
-              </tbody>
-            </table>
-          </div>
-          <div
-            class="d-flex justify-content-between align-items-center px-3 py-2"
-          >
-            <small class="text-muted">Listado de libros del catálogo</small>
-          </div>
+              {{^reviews}}
+              <tr>
+                <td colspan="6" class="text-center text-muted py-4">
+                  No hay reseñas registradas.
+                </td>
+              </tr>
+              {{/reviews}}
+            </tbody>
+          </table>
         </div>
-      </section>
-
-      <!-- Loans section -->
-      <section id="seccion-prestamos" class="mb-5">
-        <h2 class="section-title">
-          <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
-        </h2>
-
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"
-        >
-          <div class="input-group" style="max-width: 280px">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Buscar por id..."
-            />
-            <button class="btn btn-sm btn-custom-blue">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+        <div class="d-flex justify-content-between align-items-center px-3 py-2">
+          <small class="text-muted">Listado de reseñas</small>
         </div>
+      </div>
+    </section>
 
+    <!-- Users section -->
+    <section id="seccion-usuarios" class="mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-users"></i> Gestión de Usuarios
+      </h2>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width: 280px">
+          <input type="text" class="form-control form-control-sm" placeholder="Buscar por nombre de usuario..." />
+          <button class="btn btn-sm btn-custom-blue">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-card">
         <div class="admin-card-header">
-  <div>
-    <h5><i class="fas fa-list me-2"></i>Todos los préstamos</h5>
-    <small class="text-muted">
-      Activos: {{activeLoansCount}} | Vencidos: {{overdueLoansCount}} | Devueltos: {{returnedLoansCount}}
-    </small>
-  </div>
-
-  <div class="d-flex gap-2 flex-wrap">
-    <button class="btn-filter-status all" disabled>Todos</button>
-    <button class="btn-filter-status active" disabled>Activos</button>
-    <button class="btn-filter-status expired" disabled>Vencidos</button>
-    <button class="btn-filter-status returned" disabled>Devueltos</button>
-  </div>
-</div>
-          <div class="table-responsive">
-            <table class="table table-admin mb-0">
-              <thead>
-                <tr>
-                  <th>#ID</th>
-                  <th>Usuario</th>
-                  <th>Libro</th>
-                  <th>Fecha préstamo</th>
-                  <th>Fecha devolución</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#loans}}
-                <tr>
-                  <td class="text-muted">#{{id}}</td>
-
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <img
-                        src="/users/{{user.id}}/image"
-                        class="mini-avatar"
-                        alt="Avatar"
-                      />
-                      <div>
-                        <div class="fw-bold" style="font-size: 0.88rem">
-                          {{user.name}} {{user.surname}}
-                        </div>
-                        <div class="text-muted" style="font-size: 0.75rem">
-                          {{user.email}}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      {{#book.image}}
-                      <img
-                        src="/image/{{id}}"
-                        class="loan-cover"
-                        alt="Portada"
-                      />
-                      {{/book.image}}
-                      <span>{{book.title}}</span>
-                    </div>
-                  </td>
-
-                  <td>{{loanDate}}</td>
-                  <td>{{returnDate}}</td>
-
-                  <td>
-  {{#isActive}}
-  <span class="badge bg-primary">ACTIVO</span>
-  {{/isActive}}
-
-  {{#isOverdue}}
-  <span class="badge bg-warning text-dark">VENCIDO</span>
-  {{/isOverdue}}
-
-  {{#isReturned}}
-  <span class="badge bg-success">DEVUELTO</span>
-  {{/isReturned}}
-</td>
-
-                  <td>
-  <button class="btn-icon edit" title="Editar próximamente" disabled>
-    <i class="fas fa-pencil"></i>
-  </button>
-
-  {{^isReturned}}
-  <form action="/admin/loan/{{id}}/return" method="post" style="display:inline;">
-    <input type="hidden" name="_csrf" value="{{token}}" />
-    <button class="btn-icon view ms-1" title="Marcar como devuelto" type="submit" style="border:none; background:none;">
-      <i class="fas fa-check"></i>
-    </button>
-  </form>
-  {{/isReturned}}
-</td>
-                </tr>
-                {{/loans}} {{^loans}}
-                <tr>
-                  <td colspan="7" class="text-center text-muted py-4">
-                    No hay préstamos registrados.
-                  </td>
-                </tr>
-                {{/loans}}
-              </tbody>
-            </table>
-          </div>
-          <div
-            class="d-flex justify-content-between align-items-center px-3 py-2"
-          >
-            <small class="text-muted">Listado de préstamos</small>
-          </div>
+          <h5><i class="fas fa-list me-2"></i>Todos los usuarios</h5>
         </div>
-      </section>
-
-      <!-- Reviews section -->
-      <section id="seccion-resenas" class="mb-5">
-        <h2 class="section-title">
-          <i class="fas fa-star"></i> Moderación de Reseñas
-        </h2>
-
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"
-        >
-          <div class="input-group" style="max-width: 280px">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Buscar por usuario..."
-            />
-            <button class="btn btn-sm btn-custom-blue">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+        <div class="table-responsive">
+          <table class="table table-admin mb-0">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Préstamos activos</th>
+                <th>Total préstamos</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
+                    <span class="fw-bold" style="font-size: 0.88rem">María García</span>
+                  </div>
+                </td>
+                <td class="text-muted" style="font-size: 0.85rem">
+                  m.garcia@email.com
+                </td>
+                <td><span class="badge bg-secondary">Usuario</span></td>
+                <td>1</td>
+                <td>8</td>
+                <td>
+                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
+                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
+                      class="fas fa-pencil-alt"></i></a>
+                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                    data-bs-target="#modalDeleteUser">
+                    <i class="fas fa-user-times"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
+                    <span class="fw-bold" style="font-size: 0.88rem">Juan López</span>
+                  </div>
+                </td>
+                <td class="text-muted" style="font-size: 0.85rem">
+                  j.lopez@email.com
+                </td>
+                <td><span class="badge bg-secondary">Usuario</span></td>
+                <td>1</td>
+                <td>3</td>
+                <td>
+                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
+                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
+                      class="fas fa-pencil-alt"></i></a>
+                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                    data-bs-target="#modalDeleteUser">
+                    <i class="fas fa-user-times"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
+                    <span class="fw-bold" style="font-size: 0.88rem">Ana Ruiz</span>
+                  </div>
+                </td>
+                <td class="text-muted" style="font-size: 0.85rem">
+                  a.ruiz@email.com
+                </td>
+                <td><span class="badge bg-secondary">Usuario</span></td>
+                <td>0</td>
+                <td>12</td>
+                <td>
+                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
+                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
+                      class="fas fa-pencil-alt"></i></a>
+                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
+                    data-bs-target="#modalDeleteUser">
+                    <i class="fas fa-user-times"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
+                    <span class="fw-bold" style="font-size: 0.88rem">admin</span>
+                  </div>
+                </td>
+                <td class="text-muted" style="font-size: 0.85rem">
+                  admin@biblioonline.es
+                </td>
+                <td>
+                  <span class="badge" style="background: #113744">Admin</span>
+                </td>
+                <td>—</td>
+                <td>—</td>
+                <td>
+                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
+                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
+                      class="fas fa-pencil-alt"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <h5><i class="fas fa-list me-2"></i>Reseñas publicadas</h5>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-admin mb-0">
-              <thead>
-                <tr>
-                  <th>Usuario</th>
-                  <th>Libro</th>
-                  <th>Valoración</th>
-                  <th>Comentario</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-  {{#reviews}}
-  <tr>
-    <td>
-      <div class="d-flex align-items-center gap-2">
-        <img
-          src="/users/{{user.id}}/image"
-          class="mini-avatar"
-          alt="Avatar"
-        />
-        <span class="fw-bold" style="font-size: 0.88rem">
-          {{user.name}} {{user.surname}}
-        </span>
+        <div class="d-flex justify-content-between align-items-center px-3 py-2">
+          <small class="text-muted">Listado de usuarios</small>
+        </div>
       </div>
-    </td>
+    </section>
 
-    <td>
-      <a href="/book-detail/{{book.id}}" class="text-decoration-none fw-semibold">
-        {{book.title}}
-      </a>
-    </td>
+    <!-- Graphs section -->
+    <section id="seccion-graficas" class="mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-chart-pie"></i> Estadísticas
+      </h2>
 
-    <td>
-  <span class="text-warning">
-    {{#filledStars}}
-    <i class="fas fa-star"></i>
-    {{/filledStars}}
-    {{#emptyStars}}
-    <i class="far fa-star"></i>
-    {{/emptyStars}}
-  </span>
-</td>
-
-    <td
-      class="text-muted"
-      style="max-width: 220px; font-size: 0.82rem"
-    >
-      {{comment}}
-    </td>
-    <td>
-      <a
-        href="/book-detail/{{book.id}}"
-        class="btn-icon view"
-        title="Ir a la página del libro"
-      >
-        <i class="fas fa-eye"></i>
-      </a>
-
-      <form
-        action="/admin/review/{{id}}/delete"
-        method="post"
-        style="display: inline"
-      >
-        <input type="hidden" name="_csrf" value="{{token}}" />
-        <button
-          class="btn-icon delete ms-1"
-          title="Eliminar reseña"
-          type="submit"
-          style="border: none; background: none"
-        >
-          <i class="fas fa-trash"></i>
-        </button>
-      </form>
-    </td>
-  </tr>
-  {{/reviews}}
-
-  {{^reviews}}
-  <tr>
-    <td colspan="6" class="text-center text-muted py-4">
-      No hay reseñas registradas.
-    </td>
-  </tr>
-  {{/reviews}}
-</tbody>
-            </table>
-          </div>
-          <div
-            class="d-flex justify-content-between align-items-center px-3 py-2"
-          >
-            <small class="text-muted">Listado de reseñas</small>
-          </div>
-        </div>
-      </section>
-
-      <!-- Users section -->
-      <section id="seccion-usuarios" class="mb-5">
-        <h2 class="section-title">
-          <i class="fas fa-users"></i> Gestión de Usuarios
-        </h2>
-
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"
-        >
-          <div class="input-group" style="max-width: 280px">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Buscar por nombre de usuario..."
-            />
-            <button class="btn btn-sm btn-custom-blue">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <h5><i class="fas fa-list me-2"></i>Todos los usuarios</h5>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-admin mb-0">
-              <thead>
-                <tr>
-                  <th>Usuario</th>
-                  <th>Email</th>
-                  <th>Rol</th>
-                  <th>Préstamos activos</th>
-                  <th>Total préstamos</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <img
-                        src="/images/default-avatar.png"
-                        class="mini-avatar"
-                        alt="Avatar"
-                      />
-                      <span class="fw-bold" style="font-size: 0.88rem"
-                        >María García</span
-                      >
-                    </div>
-                  </td>
-                  <td class="text-muted" style="font-size: 0.85rem">
-                    m.garcia@email.com
-                  </td>
-                  <td><span class="badge bg-secondary">Usuario</span></td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td>
-                    <a href="/profile" class="btn-icon view" title="Ver perfil"
-                      ><i class="fas fa-eye"></i
-                    ></a>
-                    <a
-                      href="/edit-profile"
-                      class="btn-icon edit ms-1"
-                      title="Editar usuario"
-                      ><i class="fas fa-pencil-alt"></i
-                    ></a>
-                    <button
-                      class="btn-icon delete ms-1"
-                      title="Eliminar usuario"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalDeleteUser"
-                    >
-                      <i class="fas fa-user-times"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <img
-                        src="/images/default-avatar.png"
-                        class="mini-avatar"
-                        alt="Avatar"
-                      />
-                      <span class="fw-bold" style="font-size: 0.88rem"
-                        >Juan López</span
-                      >
-                    </div>
-                  </td>
-                  <td class="text-muted" style="font-size: 0.85rem">
-                    j.lopez@email.com
-                  </td>
-                  <td><span class="badge bg-secondary">Usuario</span></td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>
-                    <a href="/profile" class="btn-icon view" title="Ver perfil"
-                      ><i class="fas fa-eye"></i
-                    ></a>
-                    <a
-                      href="/edit-profile"
-                      class="btn-icon edit ms-1"
-                      title="Editar usuario"
-                      ><i class="fas fa-pencil-alt"></i
-                    ></a>
-                    <button
-                      class="btn-icon delete ms-1"
-                      title="Eliminar usuario"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalDeleteUser"
-                    >
-                      <i class="fas fa-user-times"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <img
-                        src="/images/default-avatar.png"
-                        class="mini-avatar"
-                        alt="Avatar"
-                      />
-                      <span class="fw-bold" style="font-size: 0.88rem"
-                        >Ana Ruiz</span
-                      >
-                    </div>
-                  </td>
-                  <td class="text-muted" style="font-size: 0.85rem">
-                    a.ruiz@email.com
-                  </td>
-                  <td><span class="badge bg-secondary">Usuario</span></td>
-                  <td>0</td>
-                  <td>12</td>
-                  <td>
-                    <a href="/profile" class="btn-icon view" title="Ver perfil"
-                      ><i class="fas fa-eye"></i
-                    ></a>
-                    <a
-                      href="/edit-profile"
-                      class="btn-icon edit ms-1"
-                      title="Editar usuario"
-                      ><i class="fas fa-pencil-alt"></i
-                    ></a>
-                    <button
-                      class="btn-icon delete ms-1"
-                      title="Eliminar usuario"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalDeleteUser"
-                    >
-                      <i class="fas fa-user-times"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <img
-                        src="/images/default-avatar.png"
-                        class="mini-avatar"
-                        alt="Avatar"
-                      />
-                      <span class="fw-bold" style="font-size: 0.88rem"
-                        >admin</span
-                      >
-                    </div>
-                  </td>
-                  <td class="text-muted" style="font-size: 0.85rem">
-                    admin@biblioonline.es
-                  </td>
-                  <td>
-                    <span class="badge" style="background: #113744">Admin</span>
-                  </td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td>
-                    <a href="/profile" class="btn-icon view" title="Ver perfil"
-                      ><i class="fas fa-eye"></i
-                    ></a>
-                    <a
-                      href="/edit-profile"
-                      class="btn-icon edit ms-1"
-                      title="Editar usuario"
-                      ><i class="fas fa-pencil-alt"></i
-                    ></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            class="d-flex justify-content-between align-items-center px-3 py-2"
-          >
-            <small class="text-muted">Listado de usuarios</small>
-          </div>
-        </div>
-      </section>
-
-      <!-- Graphs section -->
-      <section id="seccion-graficas" class="mb-5">
-        <h2 class="section-title">
-          <i class="fas fa-chart-pie"></i> Estadísticas
-        </h2>
-
-        <div class="row g-4">
-          <div class="col-md-5">
-            <div class="admin-card h-100">
-              <div class="admin-card-header">
-                <h5>
-                  <i class="fas fa-chart-pie me-2"></i>Géneros más prestados
-                </h5>
-              </div>
-              <div class="chart-container">
-                <canvas id="genrePieChart"></canvas>
-              </div>
+      <div class="row g-4">
+        <div class="col-md-5">
+          <div class="admin-card h-100">
+            <div class="admin-card-header">
+              <h5>
+                <i class="fas fa-chart-pie me-2"></i>Géneros más prestados
+              </h5>
             </div>
-          </div>
-
-          <div class="col-md-7">
-            <div class="admin-card h-100">
-              <div class="admin-card-header">
-                <h5>
-                  <i class="fas fa-chart-bar me-2"></i>Valoración media por
-                  género
-                </h5>
-              </div>
-              <div class="chart-container">
-                <canvas id="ratingBarChart"></canvas>
-              </div>
+            <div class="chart-container">
+              <canvas id="genrePieChart"></canvas>
             </div>
           </div>
         </div>
-      </section>
-    </main>
 
-    {{>footer}}
-
-    <!-- Delete loan modal -->
-    <div class="modal fade" id="modalDeleteLoan" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">
-              <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              ¿Estás seguro de que deseas eliminar este préstamo? Esta acción no
-              se puede deshacer.
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
+        <div class="col-md-7">
+          <div class="admin-card h-100">
+            <div class="admin-card-header">
+              <h5>
+                <i class="fas fa-chart-bar me-2"></i>Valoración media por
+                género
+              </h5>
+            </div>
+            <div class="chart-container">
+              <canvas id="ratingBarChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <!-- Delete review modal -->
-    <div class="modal fade" id="modalDeleteReview" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">
-              <i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              ¿Estás seguro de que deseas eliminar esta reseña? Esta acción no
-              se puede deshacer.
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
-          </div>
+  {{>footer}}
+
+  <!-- Delete loan modal -->
+  <div class="modal fade" id="modalDeleteLoan" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            ¿Estás seguro de que deseas eliminar este préstamo? Esta acción no
+            se puede deshacer.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Delete user modal -->
-    <div class="modal fade" id="modalDeleteUser" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">
-              <i class="fas fa-exclamation-triangle me-2"></i>Eliminar usuario
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              ¿Estás seguro de que deseas eliminar este usuario? Se borrarán
-              todos sus préstamos y reseñas asociados.
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
-          </div>
+  <!-- Delete review modal -->
+  <div class="modal fade" id="modalDeleteReview" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            ¿Estás seguro de que deseas eliminar esta reseña? Esta acción no
+            se puede deshacer.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="/js/charts.js"></script>
+  <!-- Delete user modal -->
+  <div class="modal fade" id="modalDeleteUser" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar usuario
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            ¿Estás seguro de que deseas eliminar este usuario? Se borrarán
+            todos sus préstamos y reseñas asociados.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-      // Mapeo de géneros de enum a display names
-      const genreMap = {
-        FICCION: "Ficción",
-        FANTASIA: "Fantasía",
-        HISTORIA: "Historia",
-        CIENCIA: "Ciencia",
-        INFANTIL: "Infantil",
-        MISTERIO: "Misterio",
-        ROMANCE: "Romance",
-        BIOGRAFIA: "Biografía",
-        CLASICOS: "Clásicos",
-      };
+  <script src="/js/charts.js"></script>
 
-      // Formatear géneros en la tabla
-      document.querySelectorAll("span[data-genre]").forEach((span) => {
-        const genre = span.getAttribute("data-genre");
-        if (genreMap[genre]) {
-          span.textContent = genreMap[genre];
-        }
-      });
-    </script>
-  </body>
+  <script>
+    // Mapeo de géneros de enum a display names
+    const genreMap = {
+      FICCION: "Ficción",
+      FANTASIA: "Fantasía",
+      HISTORIA: "Historia",
+      CIENCIA: "Ciencia",
+      INFANTIL: "Infantil",
+      MISTERIO: "Misterio",
+      ROMANCE: "Romance",
+      BIOGRAFIA: "Biografía",
+      CLASICOS: "Clásicos",
+    };
+
+    // Formatear géneros en la tabla
+    document.querySelectorAll("span[data-genre]").forEach((span) => {
+      const genre = span.getAttribute("data-genre");
+      if (genreMap[genre]) {
+        span.textContent = genreMap[genre];
+      }
+    });
+  </script>
+</body>
+
 </html>

@@ -40,9 +40,22 @@ public class ReviewController {
     }
 
     @DeleteMapping("/review/{id}")
-    public String deleteReview(@PathVariable Long id) {
+    public String deleteReview(@PathVariable Long id, HttpServletRequest request) {
         Review review = reviewService.findById(id);
         Long bookId = review.getBook().getId();
+
+        String email = request.getUserPrincipal().getName();
+        User currentUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        boolean isOwner = review.getUser().getId().equals(currentUser.getId());
+        boolean isAdmin = request.isUserInRole("ADMIN");
+
+        if (!isOwner && !isAdmin) {
+            // Devuelve 403 o redirige con error
+            return "redirect:/book-detail/" + bookId + "?error=forbidden";
+        }
+
         reviewService.deleteById(id);
         return "redirect:/book-detail/" + bookId;
     }

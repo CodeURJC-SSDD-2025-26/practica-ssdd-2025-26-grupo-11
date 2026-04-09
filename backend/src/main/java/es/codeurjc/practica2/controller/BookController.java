@@ -72,7 +72,7 @@ public class BookController {
     }
 
     @GetMapping("/book-detail/{id}")
-    public String showBookDetail(@PathVariable Long id, Model model) {
+    public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request) {
         Book book = bookService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado con id " + id));
 
@@ -99,6 +99,35 @@ public class BookController {
             }
         }
         model.addAttribute("stars", stars);
+        Long currentUserId = null;
+        boolean isAdmin = request.isUserInRole("ADMIN");
+        if (request.getUserPrincipal() != null) {
+            String email = request.getUserPrincipal().getName();
+            User currentUser = userRepository.findByEmail(email).orElse(null);
+            if (currentUser != null)
+                currentUserId = currentUser.getId();
+        }
+
+        final Long finalUserId = currentUserId;
+        List<ReviewViewModel> reviewVMs = book.getReviews().stream()
+                .map(r -> new ReviewViewModel(r, isAdmin || r.getUser().getId().equals(finalUserId)))
+                .toList();
+
+        model.addAttribute("reviews", reviewVMs);
+
+        // Logged user can only review if they haven't already reviewed this book
+        if (request.getUserPrincipal() != null) {
+            String email = request.getUserPrincipal().getName();
+            userRepository.findByEmail(email).ifPresent(user -> {
+                reviewRepository.findByUserAndBook(user, book).ifPresentOrElse(
+                        review -> {
+                            model.addAttribute("userReviewId", review.getId());
+                        },
+                        () -> {
+                            model.addAttribute("canReview", true);
+                        });
+            });
+        }
 
         return "book-detail";
     }

@@ -42,7 +42,8 @@
                     {{/logged}}
 
                     {{#admin}}
-                    <a href="/admin/edit-book/{{bookId}}" class="btn btn-outline-warning px-4 border-2 fw-bold text-dark">
+                    <a href="/admin/edit-book/{{bookId}}"
+                        class="btn btn-outline-warning px-4 border-2 fw-bold text-dark">
                         <i class="fas fa-edit me-2"></i>Editar
                     </a>
                     <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold" data-bs-toggle="modal"
@@ -97,32 +98,28 @@
                     </div>
                     <p class="mb-0 text-muted">{{comment}}</p>
 
-                    {{#admin}}
+                    {{#canDeleteReview}}
                     <div class="d-flex justify-content-end mt-2">
-
-                        <button type="button" class="btn btn-outline-danger px-4 border-2 fw-bold"
-                            data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{bookId}}">
-                            <i class="fas fa-trash me-2"></i>Borrar
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteReviewModal{{id}}">
+                            <i class="fas fa-trash me-1"></i>Borrar
                         </button>
                     </div>
-
-                    <div class="modal fade" id="deleteReviewModal{{bookId}}" tabindex="-1">
+                    <div class="modal fade" id="deleteReviewModal{{id}}" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header bg-danger text-white">
-                                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar
-                                        reseña</h5>
+                                    <h5 class="modal-title">Eliminar reseña</h5>
                                     <button type="button" class="btn-close btn-close-white"
                                         data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede
-                                        deshacer.</p>
+                                    <p>¿Estás seguro de que deseas eliminar esta reseña?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cancelar</button>
-                                    <form action="/review/{{bookId}}" method="post">
+                                    <form action="/review/{{id}}" method="post">
                                         <input type="hidden" name="_csrf" value="{{token}}">
                                         <input type="hidden" name="_method" value="delete">
                                         <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -131,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    {{/admin}}
+                    {{/canDeleteReview}}
                 </div>
                 {{/reviews}}
 
@@ -140,7 +137,7 @@
                 {{/reviews}}
         </section>
 
-        {{#logged}}
+        {{#canReview}}
         <!-- Form -->
         <section class="mt-5">
             <div class="card shadow-sm border-2">
@@ -177,7 +174,7 @@
                 </div>
             </div>
         </section>
-        {{/logged}}
+        {{/canReview}}
     </main>
 
     <!-- Modal 1: Loan Request Confirmation -->
