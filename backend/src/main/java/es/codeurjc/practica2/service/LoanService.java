@@ -47,6 +47,15 @@ public class LoanService {
         );
     }
 
+    public boolean isBookAvailable(Book book) {
+        List<Loan> loans = loanRepository.findByBook(book);
+
+        return loans.stream().noneMatch(loan ->
+                loan.getStatus() == Loan.Status.ACTIVO ||
+                loan.getStatus() == Loan.Status.VENCIDO
+        );
+    }
+
     public Loan createLoan(User user, Book book) {
         Loan loan = new Loan(
                 LocalDate.now(),

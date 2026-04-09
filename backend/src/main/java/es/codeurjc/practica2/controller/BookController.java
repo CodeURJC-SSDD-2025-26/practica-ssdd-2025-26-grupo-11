@@ -135,6 +135,10 @@ public class BookController {
             model.addAttribute("deleteError", "No se puede eliminar este libro porque tiene préstamos activos o vencidos. Primero debes resolver todos los préstamos relacionados.");
         }
 
+        // Check book availability
+        boolean isAvailable = loanService.isBookAvailable(book);
+        model.addAttribute("isAvailable", isAvailable);
+
         model.addAttribute("logged", request.getUserPrincipal() != null);
         model.addAttribute("admin", isAdmin);
 
@@ -198,6 +202,7 @@ public class BookController {
         Book book = bookService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 
+        // Check if user already has this book rented
         if (loanService.hasActiveOrOverdueLoan(user, book)) {
             model.addAttribute("title", book.getTitle());
             model.addAttribute("author", book.getAuthor());
@@ -208,7 +213,6 @@ public class BookController {
 
             float roundedRating = Math.round(book.getRating() * 10f) / 10f;
             model.addAttribute("book_rating", roundedRating);
-
             model.addAttribute("bookId", book.getId());
             model.addAttribute("reviews", book.getReviews());
 
@@ -226,7 +230,13 @@ public class BookController {
             model.addAttribute("stars", stars);
 
             model.addAttribute("loanError", "Ya tienes este libro prestado o pendiente de devolución.");
+            model.addAttribute("isAvailable", loanService.isBookAvailable(book));
             return "book-detail";
+        }
+
+        // Check if book is available
+        if (!loanService.isBookAvailable(book)) {
+            return "redirect:/book-detail/" + id;
         }
 
         loanService.createLoan(user, book);

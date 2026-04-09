@@ -37,8 +37,13 @@
                 <img src="/image/{{bookId}}" class="img-fluid rounded shadow" alt="Portada de {{title}}">
                 <div class="d-flex justify-content-center gap-2 mt-4">
                     {{#logged}}
+                    {{#isAvailable}}
                     <button type="button" class="btn btn-custom-blue px-4 border-2 fw-bold" data-bs-toggle="modal"
                         data-bs-target="#loanRequestModal"><i class="fas fa-clipboard-list me-2"></i>Solicitar</button>
+                    {{/isAvailable}}
+                    {{^isAvailable}}
+                    <p class="text-muted fs-5 mb-0"><i class="fas fa-lock me-2"></i>No disponible</p>
+                    {{/isAvailable}}
                     {{/logged}}
 
                     {{#admin}}
