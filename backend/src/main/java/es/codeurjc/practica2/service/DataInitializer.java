@@ -87,9 +87,11 @@ public class DataInitializer implements CommandLineRunner {
             User user1 = new User("user", "user", passwordEncoder.encode("pass"), "user@example.com", new Date(),
                     "USER");
 
+            setUserImage(user1, "static/images/default-avatar.png");
             User admin = new User("admin", "admin", passwordEncoder.encode("adminpass"), "admin@example.com",
                     new Date(), "USER", "ADMIN");
 
+            setUserImage(admin, "static/images/default-avatar.png");
             userRepository.save(user1);
             userRepository.save(admin);
 
@@ -129,5 +131,11 @@ public class DataInitializer implements CommandLineRunner {
         Resource image = new ClassPathResource(classpathResource);
         Image createdImage = imageService.createImage(image.getInputStream());
         book.setImage(createdImage);
+    }
+
+    public void setUserImage(User user, String classpathResource) throws IOException {
+        Resource image = new ClassPathResource(classpathResource);
+        Image createdImage = imageService.createImage(image.getInputStream());
+        user.setImage(createdImage);
     }
 }

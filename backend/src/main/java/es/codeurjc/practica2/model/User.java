@@ -1,6 +1,5 @@
 package es.codeurjc.practica2.model;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +11,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,8 +34,8 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    @Lob
-    private Blob imageFile;
+    @OneToOne
+    private Image image;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans = new ArrayList<>();
@@ -91,12 +90,12 @@ public class User {
         this.roles = roles;
     }
 
-    public Blob getImageFile() {
-        return imageFile;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImageFile(Blob imageFile) {
-        this.imageFile = imageFile;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public List<Loan> getLoans() {
