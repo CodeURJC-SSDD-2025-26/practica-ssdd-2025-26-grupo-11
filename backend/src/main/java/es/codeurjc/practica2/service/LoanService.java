@@ -42,8 +42,8 @@ public class LoanService {
         List<Loan> loans = loanRepository.findByUserAndBook(user, book);
 
         return loans.stream().anyMatch(loan ->
-                loan.getStatus() == Loan.Status.ACTIVE ||
-                loan.getStatus() == Loan.Status.OVERDUE
+                loan.getStatus() == Loan.Status.ACTIVO ||
+                loan.getStatus() == Loan.Status.VENCIDO
         );
     }
 
@@ -51,11 +51,20 @@ public class LoanService {
         Loan loan = new Loan(
                 LocalDate.now(),
                 LocalDate.now().plusDays(30),
-                Loan.Status.ACTIVE,
+                Loan.Status.ACTIVO,
                 user,
                 book
         );
 
         return loanRepository.save(loan);
     }
+    public void markAsReturned(Long loanId) {
+    Loan loan = loanRepository.findById(loanId)
+            .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
+
+    loan.setStatus(Loan.Status.DEVUELTO);
+    loan.setReturnDate(LocalDate.now());
+
+    loanRepository.save(loan);
+}
 }

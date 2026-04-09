@@ -1,5 +1,7 @@
 package es.codeurjc.practica2.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -71,5 +73,14 @@ public class Review {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public List<Integer> getFilledStars() {
+        return java.util.stream.IntStream.range(0, rating == null ? 0 : rating).boxed().toList();
+    }
+
+    public List<Integer> getEmptyStars() {
+        int filled = rating == null ? 0 : rating;
+        return java.util.stream.IntStream.range(0, 5 - filled).boxed().toList();
     }
 }

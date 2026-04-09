@@ -107,7 +107,7 @@ public class DataInitializer implements CommandLineRunner {
             Loan loan1 = new Loan(
                     LocalDate.now().minusDays(5),
                     LocalDate.now().plusDays(10),
-                    Loan.Status.ACTIVE,
+                    Loan.Status.ACTIVO,
                     user1,
                     book1
             );
@@ -115,7 +115,7 @@ public class DataInitializer implements CommandLineRunner {
             Loan loan2 = new Loan(
                     LocalDate.now().minusDays(20),
                     LocalDate.now().minusDays(5),
-                    Loan.Status.OVERDUE,
+                    Loan.Status.VENCIDO,
                     user1,
                     book2
             );

@@ -19,6 +19,7 @@ import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.model.Image;
 import es.codeurjc.practica2.model.Loan;
+import es.codeurjc.practica2.model.Review;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.LoanRepository;
 import es.codeurjc.practica2.repository.ReviewRepository;
@@ -27,6 +28,7 @@ import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.LoanService;
 import jakarta.servlet.http.HttpServletRequest;
+import es.codeurjc.practica2.model.Review;
 
 @Controller
 public class BookController {
@@ -102,11 +104,11 @@ public class BookController {
     }
 
     @PostMapping("/admin/admin-add-book")
-    public String newBookProcess(Model model, 
+    public String newBookProcess(Model model,
             @RequestParam String title,
             @RequestParam String author,
             @RequestParam String description,
-            @RequestParam(name="genre") String genreString,
+            @RequestParam(name = "genre") String genreString,
             @RequestParam long isbn,
             @RequestParam int year,
             MultipartFile imageField) throws IOException {
@@ -215,12 +217,33 @@ public class BookController {
     @GetMapping("/admin/admin-panel")
     public String showAdminPanel(Model model) {
         List<Book> books = bookService.findAll();
+        List<Loan> loans = loanRepository.findAll();
+        List<Review> reviews = reviewRepository.findAll();
+
+        long activeLoansCount = loans.stream()
+                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
+                .count();
+
+        long overdueLoansCount = loans.stream()
+                .filter(loan -> loan.getStatus() == Loan.Status.VENCIDO)
+                .count();
+
+        long returnedLoansCount = loans.stream()
+                .filter(loan -> loan.getStatus() == Loan.Status.DEVUELTO)
+                .count();
 
         model.addAttribute("books", books);
+        model.addAttribute("loans", loans);
+        model.addAttribute("reviews", reviews);
+
         model.addAttribute("booksCount", books.size());
         model.addAttribute("usersCount", userRepository.count());
-        model.addAttribute("reviewsCount", reviewRepository.count());
-        model.addAttribute("activeLoansCount", loanRepository.findAll().stream().filter(loan -> loan.getStatus() == Loan.Status.ACTIVE).count());
+        model.addAttribute("reviewsCount", reviews.size());
+
+        model.addAttribute("activeLoansCount", activeLoansCount);
+        model.addAttribute("overdueLoansCount", overdueLoansCount);
+        model.addAttribute("returnedLoansCount", returnedLoansCount);
+
         return "admin/admin-panel";
     }
 
@@ -245,7 +268,7 @@ public class BookController {
             @RequestParam String title,
             @RequestParam String author,
             @RequestParam String description,
-            @RequestParam(name="genre") String genreString,
+            @RequestParam(name = "genre") String genreString,
             @RequestParam long isbn,
             @RequestParam int year,
             @RequestParam(required = false, defaultValue = "false") boolean removeImage,
@@ -256,7 +279,7 @@ public class BookController {
 
         try {
             Genre genre = Genre.valueOf(genreString.toUpperCase());
-            
+
             dbBook.setTitle(title);
             dbBook.setAuthor(author);
             dbBook.setYear(year);
@@ -273,5 +296,17 @@ public class BookController {
             // Si hay error, recargar la página de edición con error
             return "redirect:/admin/admin-edit-book/" + id;
         }
+    }
+
+    @PostMapping("/admin/loan/{id}/return")
+    public String markLoanAsReturned(@PathVariable Long id) {
+        loanService.markAsReturned(id);
+        return "redirect:/admin/admin-panel";
+    }
+
+    @PostMapping("/admin/review/{id}/delete")
+    public String deleteReviewAsAdmin(@PathVariable Long id) {
+        reviewRepository.deleteById(id);
+        return "redirect:/admin/admin-panel#seccion-resenas";
     }
 }

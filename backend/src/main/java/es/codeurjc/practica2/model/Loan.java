@@ -16,9 +16,9 @@ import jakarta.persistence.Table;
 public class Loan {
 
     public enum Status {
-        ACTIVE,
-        OVERDUE,
-        RETURNED
+        ACTIVO,
+        VENCIDO,
+        DEVUELTO
     }
 
     @Id
@@ -94,14 +94,15 @@ public class Loan {
     }
 
     public boolean isActive() {
-        return status == Status.ACTIVE;
+        return status == Status.ACTIVO;
     }
 
     public boolean isOverdue() {
-        return status == Status.OVERDUE;
+        return status == Status.VENCIDO;
     }
 
     public boolean isReturned() {
-        return status == Status.RETURNED;
+        return status == Status.DEVUELTO;
     }
+    
 }

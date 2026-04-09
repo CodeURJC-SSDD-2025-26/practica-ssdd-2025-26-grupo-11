@@ -81,7 +81,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("totalLoans", recentLoans.size());
         model.addAttribute("totalReviews", reviewRepository.findByUser(user).size());
-        model.addAttribute("activeLoans",recentLoans.stream().filter(loan -> loan.getStatus() == Loan.Status.ACTIVE).count());
+        model.addAttribute("activeLoans",recentLoans.stream().filter(loan -> loan.getStatus() == Loan.Status.ACTIVO).count());
         model.addAttribute("recentLoans", recentLoans);
 
         return "profile";
@@ -192,15 +192,15 @@ public class UserController {
         List<Loan> loans = loanRepository.findByUser(user);
 
         long activeLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVE)
+                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
                 .count();
 
         long overdueLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.OVERDUE)
+                .filter(loan -> loan.getStatus() == Loan.Status.VENCIDO)
                 .count();
 
         long returnedLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.RETURNED)
+                .filter(loan -> loan.getStatus() == Loan.Status.DEVUELTO)
                 .count();
 
         model.addAttribute("user", user);
@@ -227,7 +227,7 @@ public class UserController {
             throw new RuntimeException("No tienes permisos para modificar este préstamo");
         }
 
-        loan.setStatus(Loan.Status.RETURNED);
+        loan.setStatus(Loan.Status.DEVUELTO);
         loanRepository.save(loan);
 
         return "redirect:/my-loans";
