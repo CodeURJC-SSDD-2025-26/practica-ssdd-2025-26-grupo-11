@@ -42,7 +42,7 @@
                     {{/logged}}
 
                     {{#admin}}
-                    <a href="/admin/edit-book/{{bookId}}"
+                    <a href="/admin/admin-edit-book/{{bookId}}"
                         class="btn btn-outline-warning px-4 border-2 fw-bold text-dark">
                         <i class="fas fa-edit me-2"></i>Editar
                     </a>
@@ -56,6 +56,12 @@
                     {{loanError}}
                 </div>
                 {{/loanError}}
+
+                {{#deleteError}}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{deleteError}}
+                </div>
+                {{/deleteError}}
             </div>
             <!-- Details section-->
             <div class="col-md-6">

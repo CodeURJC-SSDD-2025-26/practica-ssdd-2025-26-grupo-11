@@ -72,7 +72,8 @@ public class BookController {
     }
 
     @GetMapping("/book-detail/{id}")
-    public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request) {
+    public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request, 
+                                 @RequestParam(required = false) String deleteError) {
         Book book = bookService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado con id " + id));
 
@@ -129,6 +130,14 @@ public class BookController {
             });
         }
 
+        // Handle delete error if present
+        if (deleteError != null && deleteError.equals("true")) {
+            model.addAttribute("deleteError", "No se puede eliminar este libro porque tiene préstamos activos o vencidos. Primero debes resolver todos los préstamos relacionados.");
+        }
+
+        model.addAttribute("logged", request.getUserPrincipal() != null);
+        model.addAttribute("admin", isAdmin);
+
         return "book-detail";
     }
 
@@ -165,7 +174,16 @@ public class BookController {
 
     // DELETE BOOK
     @DeleteMapping("/book/{id}")
-    public String deleteBook(@PathVariable Long id) {
+    public String deleteBook(@PathVariable Long id, Model model, HttpServletRequest request) {
+        // Check if book has active or overdue loans
+        if (loanRepository.countActiveOrOverdueLoans(id) > 0) {
+            return "redirect:/book-detail/" + id + "?deleteError=true";
+        }
+        
+        // Delete all returned loans for this book
+        loanRepository.deleteReturnedLoansByBook(id);
+        
+        // Delete the book
         bookService.deleteById(id);
         return "redirect:/admin/admin-panel";
     }
@@ -320,7 +338,7 @@ public class BookController {
 
             bookService.save(dbBook);
 
-            return "redirect:/admin/admin-panel";
+            return "redirect:/book-detail/" + id;
         } catch (IllegalArgumentException e) {
             // Si hay error, recargar la página de edición con error
             return "redirect:/admin/admin-edit-book/" + id;
