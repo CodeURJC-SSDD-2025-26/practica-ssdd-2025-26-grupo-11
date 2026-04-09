@@ -16,4 +16,9 @@ public class WebController {
     public String showRegister() {
         return "register";
     }
+    
+    @GetMapping("/error/loginerror")
+    public String loginError() {
+        return "error/loginerror";
+    }
 }

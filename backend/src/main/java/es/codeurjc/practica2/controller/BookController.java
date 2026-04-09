@@ -29,6 +29,8 @@ import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.LoanService;
 import jakarta.servlet.http.HttpServletRequest;
 import es.codeurjc.practica2.model.Review;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @Controller
 public class BookController {
@@ -72,10 +74,10 @@ public class BookController {
     }
 
     @GetMapping("/book-detail/{id}")
-    public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request, 
-                                 @RequestParam(required = false) String deleteError) {
+    public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request,
+            @RequestParam(required = false) String deleteError) {
         Book book = bookService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado con id " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
 
         model.addAttribute("title", book.getTitle());
         model.addAttribute("author", book.getAuthor());
@@ -132,7 +134,8 @@ public class BookController {
 
         // Handle delete error if present
         if (deleteError != null && deleteError.equals("true")) {
-            model.addAttribute("deleteError", "No se puede eliminar este libro porque tiene préstamos activos o vencidos. Primero debes resolver todos los préstamos relacionados.");
+            model.addAttribute("deleteError",
+                    "No se puede eliminar este libro porque tiene préstamos activos o vencidos. Primero debes resolver todos los préstamos relacionados.");
         }
 
         // Check book availability
@@ -183,10 +186,10 @@ public class BookController {
         if (loanRepository.countActiveOrOverdueLoans(id) > 0) {
             return "redirect:/book-detail/" + id + "?deleteError=true";
         }
-        
+
         // Delete all returned loans for this book
         loanRepository.deleteReturnedLoansByBook(id);
-        
+
         // Delete the book
         bookService.deleteById(id);
         return "redirect:/admin/admin-panel";

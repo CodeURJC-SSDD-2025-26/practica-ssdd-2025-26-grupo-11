@@ -51,7 +51,8 @@ public class SecurityConfig {
                                                                 "/register",
                                                                 "/books",
                                                                 "/book-detail/**",
-                                                                "/css/**", "/js/**", "/images/**", "/image/**")
+                                                                "/css/**", "/js/**", "/images/**", "/image/**",
+                                                                "/error/**")
                                                 .permitAll()
 
                                                 // ---------------------
@@ -80,7 +81,7 @@ public class SecurityConfig {
                                                 .anyRequest().authenticated())
                                 .formLogin(formLogin -> formLogin
                                                 .loginPage("/login")
-                                                .failureUrl("/loginerror")
+                                                .failureUrl("/error/loginerror")
                                                 .defaultSuccessUrl("/base")
                                                 .permitAll())
                                 .logout(logout -> logout
