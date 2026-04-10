@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Genre;
@@ -28,9 +30,7 @@ import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.LoanService;
 import jakarta.servlet.http.HttpServletRequest;
-import es.codeurjc.practica2.model.Review;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
+import tools.jackson.databind.ObjectMapper;
 
 @Controller
 public class BookController {
@@ -88,6 +88,7 @@ public class BookController {
         float roundedRating = Math.round(book.getRating() * 10f) / 10f;
         model.addAttribute("book_rating", roundedRating);
         model.addAttribute("bookId", book.getId());
+        model.addAttribute("image", book.getImage());
         model.addAttribute("reviews", book.getReviews());
 
         List<String> stars = new ArrayList<>();
@@ -107,8 +108,9 @@ public class BookController {
         if (request.getUserPrincipal() != null) {
             String email = request.getUserPrincipal().getName();
             User currentUser = userRepository.findByEmail(email).orElse(null);
-            if (currentUser != null)
+            if (currentUser != null) {
                 currentUserId = currentUser.getId();
+            }
         }
 
         final Long finalUserId = currentUserId;
@@ -275,34 +277,80 @@ public class BookController {
     }
 
     @GetMapping("/admin/admin-panel")
-    public String showAdminPanel(Model model) {
+    public String showAdminPanel(Model model){
         List<Book> books = bookService.findAll();
         List<Loan> loans = loanRepository.findAll();
         List<Review> reviews = reviewRepository.findAll();
 
+        for (Loan loan : loans) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+        }
+
+        List<User> users = userRepository.findAll();
+
+        List<String> genreLabels = new ArrayList<>();
+        List<Integer> genreLoanCounts = new ArrayList<>();
+        List<String> genreRatingLabels = new ArrayList<>();
+        List<Double> genreRatingValues = new ArrayList<>();
+
+        for (Genre genre : Genre.values()) {
+            String genreName = genre.getDisplayName();
+
+            int loanCount = (int) loans.stream()
+                    .filter(loan -> loan.getBook() != null)
+                    .filter(loan -> loan.getBook().getGenre() == genre)
+                    .count();
+
+            double avgRating = books.stream()
+                    .filter(book -> book.getGenre() == genre)
+                    .mapToDouble(Book::getRating)
+                    .average()
+                    .orElse(0.0);
+
+            avgRating = Math.round(avgRating * 10.0) / 10.0;
+
+            genreLabels.add(genreName);
+            genreLoanCounts.add(loanCount);
+            genreRatingLabels.add(genreName);
+            genreRatingValues.add(avgRating);
+        }
+
         long activeLoansCount = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
+                .filter(Loan::isActive)
                 .count();
 
         long overdueLoansCount = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.VENCIDO)
+                .filter(Loan::isOverdue)
                 .count();
 
         long returnedLoansCount = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.DEVUELTO)
+                .filter(Loan::isReturned)
                 .count();
 
         model.addAttribute("books", books);
         model.addAttribute("loans", loans);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("users", users);
 
         model.addAttribute("booksCount", books.size());
-        model.addAttribute("usersCount", userRepository.count());
+        model.addAttribute("usersCount", users.size());
         model.addAttribute("reviewsCount", reviews.size());
 
         model.addAttribute("activeLoansCount", activeLoansCount);
         model.addAttribute("overdueLoansCount", overdueLoansCount);
         model.addAttribute("returnedLoansCount", returnedLoansCount);
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            model.addAttribute("genreLabelsJson", objectMapper.writeValueAsString(genreLabels));
+            model.addAttribute("genreLoanCountsJson", objectMapper.writeValueAsString(genreLoanCounts));
+            model.addAttribute("genreRatingLabelsJson", objectMapper.writeValueAsString(genreRatingLabels));
+            model.addAttribute("genreRatingValuesJson", objectMapper.writeValueAsString(genreRatingValues));
+        } catch (Exception e) {
+            throw new RuntimeException("Error generando los datos de los gráficos", e);
+        }
 
         return "admin/admin-panel";
     }

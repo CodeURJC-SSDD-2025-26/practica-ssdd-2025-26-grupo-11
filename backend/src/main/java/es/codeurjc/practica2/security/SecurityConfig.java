@@ -15,82 +15,82 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-        @Autowired
-        RepositoryUserDetailsService userDetailsService;
+    @Autowired
+    RepositoryUserDetailsService userDetailsService;
 
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        @Bean
-        public DaoAuthenticationProvider authenticationProvider() {
-                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
-                authProvider.setPasswordEncoder(passwordEncoder());
-                return authProvider;
-        }
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
 
-        @Bean
-        public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
-                return new HiddenHttpMethodFilter();
-        }
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        return new HiddenHttpMethodFilter();
+    }
 
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-                http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider());
 
-                http
-                                .authorizeHttpRequests(authorize -> authorize
-                                                // ---------------------
-                                                // PUBLIC PAGES
-                                                // ---------------------
-                                                .requestMatchers(
-                                                                "/",
-                                                                "/login", "/loginerror",
-                                                                "/register",
-                                                                "/books",
-                                                                "/book-detail/**",
-                                                                "/css/**", "/js/**", "/images/**", "/image/**",
-                                                                "/error/**")
-                                                .permitAll()
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                // ---------------------
+                // PUBLIC PAGES
+                // ---------------------
+                .requestMatchers(
+                        "/",
+                        "/login", "/loginerror",
+                        "/register",
+                        "/books",
+                        "/book-detail/**",
+                        "/css/**", "/js/**", "/images/**", "/image/**",
+                        "/error/**")
+                .permitAll()
+                // ---------------------
+                // PRIVATE PAGES FOR USER
+                // ---------------------
+                .requestMatchers(
+                        "/base",
+                        "/profile",
+                        "/edit-profile",
+                        "/my-loans")
+                .hasRole("USER")
+                // ---------------------
+                // PRIVATE PAGES FOR ADMIN
+                // ---------------------
+                .requestMatchers(
+                        "/admin/admin-panel",
+                        "/admin/admin-edit-book/**",
+                        "/admin/admin-add-book",
+                        "/admin/edit-loans/**",
+                        "/admin/loan/**",
+                        "/admin/review/**",
+                        "/admin/user/**")
+                .hasRole("ADMIN")
+                // ---------------------
+                // ANY OTHER REQUEST NEEDS AUTH
+                // ---------------------
+                .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin
+                .loginPage("/login")
+                .failureUrl("/error/loginerror")
+                .defaultSuccessUrl("/base")
+                .permitAll())
+                .logout(logout -> logout
+                .logoutUrl("/logout") // URL para hacer logout
+                .logoutSuccessUrl("/") // adonde redirige después de cerrar sesión
+                .invalidateHttpSession(true) // borra la sesión
+                .deleteCookies("JSESSIONID") // borra la cookie de sesión
+                .permitAll());
 
-                                                // ---------------------
-                                                // PRIVATE PAGES FOR USER
-                                                // ---------------------
-                                                .requestMatchers(
-                                                                "/base",
-                                                                "/profile",
-                                                                "/edit-profile",
-                                                                "/my-loans")
-                                                .hasRole("USER")
-
-                                                // ---------------------
-                                                // PRIVATE PAGES FOR ADMIN
-                                                // ---------------------
-                                                .requestMatchers(
-                                                                "/admin/admin-panel",
-                                                                "/admin/admin-edit-book/**",
-                                                                "/admin/admin-add-book",
-                                                                "/admin/admin-edit-loan/**")
-                                                .hasRole("ADMIN")
-
-                                                // ---------------------
-                                                // ANY OTHER REQUEST NEEDS AUTH
-                                                // ---------------------
-                                                .anyRequest().authenticated())
-                                .formLogin(formLogin -> formLogin
-                                                .loginPage("/login")
-                                                .failureUrl("/error/loginerror")
-                                                .defaultSuccessUrl("/base")
-                                                .permitAll())
-                                .logout(logout -> logout
-                                                .logoutUrl("/logout") // URL para hacer logout
-                                                .logoutSuccessUrl("/") // adonde redirige después de cerrar sesión
-                                                .invalidateHttpSession(true) // borra la sesión
-                                                .deleteCookies("JSESSIONID") // borra la cookie de sesión
-                                                .permitAll());
-
-                return http.build();
-        }
+        return http.build();
+    }
 }

@@ -158,4 +158,18 @@ public class User {
         reviews.add(review);
         review.setUser(this);
     }
+
+    public long getTotalLoansCount() {
+        return loans.size();
+    }
+
+    public long getActiveLoansCount() {
+        return loans.stream()
+                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
+                .count();
+    }
+
+    public boolean isAdmin() {
+        return roles != null && roles.contains("ADMIN");
+    }
 }

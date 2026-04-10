@@ -94,15 +94,30 @@ public class Loan {
     }
 
     public boolean isActive() {
-        return status == Status.ACTIVO;
+        return status != Status.DEVUELTO
+                && returnDate != null
+                && !returnDate.isBefore(LocalDate.now());
     }
 
     public boolean isOverdue() {
-        return status == Status.VENCIDO;
+        return status != Status.DEVUELTO
+                && returnDate != null
+                && returnDate.isBefore(LocalDate.now());
     }
 
     public boolean isReturned() {
         return status == Status.DEVUELTO;
     }
-    
+
+    public void refreshStatusFromDates() {
+        if (this.status == Status.DEVUELTO) {
+            return;
+        }
+
+        if (this.returnDate != null && this.returnDate.isBefore(LocalDate.now())) {
+            this.status = Status.VENCIDO;
+        } else {
+            this.status = Status.ACTIVO;
+        }
+    }
 }

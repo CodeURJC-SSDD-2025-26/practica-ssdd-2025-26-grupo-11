@@ -34,7 +34,12 @@
         <div class="row">
             <!-- Book cover and "Request" "Edit" and "Delete" buttons -->
             <div class="col-md-6 text-center">
-                <img src="/image/{{bookId}}" class="img-fluid rounded shadow" alt="Portada de {{title}}">
+                {{#image}}
+                <img src="/image/{{id}}" class="img-fluid rounded shadow" alt="Portada de {{title}}">
+                {{/image}}
+                {{^image}}
+                <img src="/images/default-book.png" class="img-fluid rounded shadow" alt="Portada por defecto">
+                {{/image}}
                 <div class="d-flex justify-content-center gap-2 mt-4">
                     {{#logged}}
                     {{#isAvailable}}

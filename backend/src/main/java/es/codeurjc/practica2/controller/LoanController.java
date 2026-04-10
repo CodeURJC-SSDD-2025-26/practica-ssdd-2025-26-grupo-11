@@ -1,53 +1,61 @@
 package es.codeurjc.practica2.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.practica2.model.Loan;
-import es.codeurjc.practica2.repository.BookRepository;
-import es.codeurjc.practica2.repository.UserRepository;
-import es.codeurjc.practica2.service.LoanService;
+import es.codeurjc.practica2.repository.LoanRepository;
 
-@RestController
-@RequestMapping("/api/loans")
-@CrossOrigin
+@Controller
 public class LoanController {
 
     @Autowired
-    private LoanService loanService;
+    private LoanRepository loanRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    @GetMapping("/admin/edit-loans/{id}")
+    public String editLoanForm(@PathVariable Long id, Model model) {
+        Loan loan = loanRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
 
-    @Autowired
-    private BookRepository bookRepository;
+        model.addAttribute("loan", loan);
+        model.addAttribute("statuses", Loan.Status.values());
 
-    @GetMapping
-    public List<Loan> getAllLoans() {
-        return loanService.findAll();
+        return "admin/admin-edit-loans";
     }
 
-    @GetMapping("/{id}")
-    public Loan getLoanById(@PathVariable Long id) {
-        return loanService.findById(id).orElse(null);
-    }
+    @PostMapping("/admin/edit-loans/{id}")
+    public String updateLoan(
+            @PathVariable Long id,
+            @RequestParam("status") String status,
+            @RequestParam("loanDate") java.time.LocalDate loanDate,
+            @RequestParam("returnDate") java.time.LocalDate returnDate) {
 
-    @PostMapping
-    public Loan createLoan(@RequestBody Loan loan) {
-        return loanService.save(loan);
-    }
+        Loan loan = loanRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
 
-    @DeleteMapping("/{id}")
-    public void deleteLoan(@PathVariable Long id) {
-        loanService.deleteById(id);
+        if (returnDate.isBefore(loanDate)) {
+            throw new RuntimeException("La fecha de devolución no puede ser anterior a la fecha de préstamo");
+        }
+
+        Loan.Status selectedStatus = Loan.Status.valueOf(status);
+
+        loan.setLoanDate(loanDate);
+        loan.setReturnDate(returnDate);
+
+        if (selectedStatus == Loan.Status.DEVUELTO) {
+            loan.setStatus(Loan.Status.DEVUELTO);
+        } else {
+            loan.setStatus(Loan.Status.ACTIVO);
+            loan.refreshStatusFromDates();
+        }
+
+        loanRepository.save(loan);
+
+        return "redirect:/admin/admin-panel#seccion-prestamos";
     }
 }

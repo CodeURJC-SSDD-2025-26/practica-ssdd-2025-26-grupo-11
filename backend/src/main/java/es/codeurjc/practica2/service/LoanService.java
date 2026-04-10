@@ -41,18 +41,18 @@ public class LoanService {
     public boolean hasActiveOrOverdueLoan(User user, Book book) {
         List<Loan> loans = loanRepository.findByUserAndBook(user, book);
 
-        return loans.stream().anyMatch(loan ->
-                loan.getStatus() == Loan.Status.ACTIVO ||
-                loan.getStatus() == Loan.Status.VENCIDO
+        return loans.stream().anyMatch(loan
+                -> loan.getStatus() == Loan.Status.ACTIVO
+                || loan.getStatus() == Loan.Status.VENCIDO
         );
     }
 
     public boolean isBookAvailable(Book book) {
         List<Loan> loans = loanRepository.findByBook(book);
 
-        return loans.stream().noneMatch(loan ->
-                loan.getStatus() == Loan.Status.ACTIVO ||
-                loan.getStatus() == Loan.Status.VENCIDO
+        return loans.stream().noneMatch(loan
+                -> loan.getStatus() == Loan.Status.ACTIVO
+                || loan.getStatus() == Loan.Status.VENCIDO
         );
     }
 
@@ -67,13 +67,27 @@ public class LoanService {
 
         return loanRepository.save(loan);
     }
+
     public void markAsReturned(Long loanId) {
-    Loan loan = loanRepository.findById(loanId)
-            .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
+        Loan loan = loanRepository.findById(loanId)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
 
-    loan.setStatus(Loan.Status.DEVUELTO);
-    loan.setReturnDate(LocalDate.now());
+        loan.setStatus(Loan.Status.DEVUELTO);
+        loan.setReturnDate(LocalDate.now());
 
-    loanRepository.save(loan);
-}
+        loanRepository.save(loan);
+    }
+
+    public void updateLoanStatus(Long id, Loan.Status status) {
+        Loan loan = loanRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
+
+        loan.setStatus(status);
+
+        if (status == Loan.Status.DEVUELTO) {
+            loan.setReturnDate(LocalDate.now());
+        }
+
+        loanRepository.save(loan);
+    }
 }

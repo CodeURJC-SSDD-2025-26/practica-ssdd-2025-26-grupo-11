@@ -1,5 +1,8 @@
 package es.codeurjc.practica2.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
@@ -26,9 +29,6 @@ import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
-
 
 @Controller
 public class UserController {
@@ -81,11 +81,16 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         List<Loan> recentLoans = loanRepository.findByUser(user);
+        for (Loan loan : recentLoans) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+}
 
         model.addAttribute("user", user);
         model.addAttribute("totalLoans", recentLoans.size());
         model.addAttribute("totalReviews", reviewRepository.findByUser(user).size());
-        model.addAttribute("activeLoans",recentLoans.stream().filter(loan -> loan.getStatus() == Loan.Status.ACTIVO).count());
+        model.addAttribute("activeLoans", recentLoans.stream().filter(Loan::isActive).count());
         model.addAttribute("recentLoans", recentLoans);
 
         return "profile";
@@ -207,17 +212,22 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         List<Loan> loans = loanRepository.findByUser(user);
+        for (Loan loan : loans) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+}
 
         long activeLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
+                .filter(Loan::isActive)
                 .count();
 
         long overdueLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.VENCIDO)
+                .filter(Loan::isOverdue)
                 .count();
 
         long returnedLoans = loans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.DEVUELTO)
+                .filter(Loan::isReturned)
                 .count();
 
         model.addAttribute("user", user);
@@ -248,5 +258,25 @@ public class UserController {
         loanRepository.save(loan);
 
         return "redirect:/my-loans";
+    }
+
+    @GetMapping("/admin/user/{id}")
+    public String viewUserFromAdmin(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        List<Loan> userLoans = loanRepository.findByUser(user);
+
+        long activeLoans = userLoans.stream()
+                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
+                .count();
+
+        model.addAttribute("user", user);
+        model.addAttribute("totalLoans", userLoans.size());
+        model.addAttribute("totalReviews", reviewRepository.findByUser(user).size());
+        model.addAttribute("activeLoans", activeLoans);
+        model.addAttribute("recentLoans", userLoans);
+
+        return "profile";
     }
 }

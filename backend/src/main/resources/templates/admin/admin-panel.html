@@ -110,8 +110,9 @@
       <!-- Toolbar -->
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div class="input-group" style="max-width: 280px">
-          <input type="text" class="form-control form-control-sm" placeholder="Buscar por título..." />
-          <button class="btn btn-sm btn-custom-blue">
+          <input id="bookSearchInput" type="text" class="form-control form-control-sm"
+            placeholder="Buscar por título o autor..." />
+          <button class="btn btn-sm btn-custom-blue" type="button">
             <i class="fas fa-search"></i>
           </button>
         </div>
@@ -123,15 +124,17 @@
       <div class="admin-card">
         <div class="admin-card-header">
           <h5><i class="fas fa-list me-2"></i>Catálogo completo</h5>
-          <select class="form-select form-select-sm w-auto">
-            <option>Todos los géneros</option>
-            <option>Ficción</option>
-            <option>Fantasía</option>
-            <option>Historia</option>
-            <option>Ciencia</option>
-            <option>Misterio</option>
-            <option>Biografía</option>
-            <option>Clásicos</option>
+          <select id="bookGenreFilter" class="form-select form-select-sm w-auto">
+            <option value="">Todos los géneros</option>
+            <option value="Ficción">Ficción</option>
+            <option value="Fantasía">Fantasía</option>
+            <option value="Historia">Historia</option>
+            <option value="Ciencia">Ciencia</option>
+            <option value="Infantil">Infantil</option>
+            <option value="Misterio">Misterio</option>
+            <option value="Romance">Romance</option>
+            <option value="Biografía">Biografía</option>
+            <option value="Clásicos">Clásicos</option>
           </select>
         </div>
         <div class="table-responsive">
@@ -149,7 +152,7 @@
             </thead>
             <tbody>
               {{#books}}
-              <tr>
+              <tr class="book-row" data-title="{{title}}" data-author="{{author}}" data-genre="{{genreDisplayName}}">
                 <td>
                   {{#image}}
                   <img src="/image/{{id}}" class="book-thumb" alt="Portada" />
@@ -241,7 +244,8 @@
 
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div class="input-group" style="max-width: 280px">
-          <input type="text" class="form-control form-control-sm" placeholder="Buscar por id..." />
+          <input id="loanSearchInput" type="text" class="form-control form-control-sm"
+            placeholder="Buscar por id, usuario o libro..." />
           <button class="btn btn-sm btn-custom-blue">
             <i class="fas fa-search"></i>
           </button>
@@ -257,10 +261,10 @@
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-          <button class="btn-filter-status all" disabled>Todos</button>
-          <button class="btn-filter-status active" disabled>Activos</button>
-          <button class="btn-filter-status expired" disabled>Vencidos</button>
-          <button class="btn-filter-status returned" disabled>Devueltos</button>
+          <button class="btn-filter-status all active-filter" type="button" data-status="">Todos</button>
+          <button class="btn-filter-status active" type="button" data-status="ACTIVO">Activos</button>
+          <button class="btn-filter-status expired" type="button" data-status="VENCIDO">Vencidos</button>
+          <button class="btn-filter-status returned" type="button" data-status="DEVUELTO">Devueltos</button>
         </div>
       </div>
       <div class="table-responsive">
@@ -278,7 +282,9 @@
           </thead>
           <tbody>
             {{#loans}}
-            <tr>
+            <tr class="loan-row" data-id="{{id}}" data-user="{{user.name}} {{user.surname}} {{user.email}}"
+              data-book="{{book.title}}" {{#active}}data-status="ACTIVO" {{/active}} {{#overdue}}data-status="VENCIDO"
+              {{/overdue}} {{#returned}}data-status="DEVUELTO" {{/returned}}>
               <td class="text-muted">#{{id}}</td>
 
               <td>
@@ -286,7 +292,8 @@
                   <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
                   <div>
                     <div class="fw-bold" style="font-size: 0.88rem">
-                      {{user.name}} {{user.surname}}
+                      {{#user}}{{name}} {{surname}}{{/user}}
+                      {{^user}}Usuario eliminado{{/user}}
                     </div>
                     <div class="text-muted" style="font-size: 0.75rem">
                       {{user.email}}
@@ -298,9 +305,13 @@
               <td>
                 <div class="d-flex align-items-center gap-2">
                   {{#book.image}}
-                  <img src="/image/{{id}}" class="loan-cover" alt="Portada" />
+                  <img src="/image/{{id}}" class="loan-cover" />
                   {{/book.image}}
-                  <span>{{book.title}}</span>
+                  {{^book.image}}
+                  <img src="/images/default-book.png" class="loan-cover" />
+                  {{/book.image}}
+                  <span>{{#book}}{{title}}{{/book}}
+                    {{^book}}Libro eliminado{{/book}}</span>
                 </div>
               </td>
 
@@ -308,25 +319,25 @@
               <td>{{returnDate}}</td>
 
               <td>
-                {{#isActive}}
+                {{#active}}
                 <span class="badge bg-primary">ACTIVO</span>
-                {{/isActive}}
+                {{/active}}
 
-                {{#isOverdue}}
+                {{#overdue}}
                 <span class="badge bg-warning text-dark">VENCIDO</span>
-                {{/isOverdue}}
+                {{/overdue}}
 
-                {{#isReturned}}
+                {{#returned}}
                 <span class="badge bg-success">DEVUELTO</span>
-                {{/isReturned}}
+                {{/returned}}
               </td>
 
               <td>
-                <button class="btn-icon edit" title="Editar próximamente" disabled>
-                  <i class="fas fa-pencil"></i>
-                </button>
+                <a href="/admin/edit-loans/{{id}}" class="btn-icon edit" title="Editar">
+                  <i class="fas fa-pencil-alt"></i>
+                </a>
 
-                {{^isReturned}}
+                {{^returned}}
                 <form action="/admin/loan/{{id}}/return" method="post" style="display:inline;">
                   <input type="hidden" name="_csrf" value="{{token}}" />
                   <button class="btn-icon view ms-1" title="Marcar como devuelto" type="submit"
@@ -334,7 +345,7 @@
                     <i class="fas fa-check"></i>
                   </button>
                 </form>
-                {{/isReturned}}
+                {{/returned}}
               </td>
             </tr>
             {{/loans}} {{^loans}}
@@ -361,7 +372,8 @@
 
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div class="input-group" style="max-width: 280px">
-          <input type="text" class="form-control form-control-sm" placeholder="Buscar por usuario..." />
+          <input id="reviewSearchInput" type="text" class="form-control form-control-sm"
+            placeholder="Buscar por usuario, libro o comentario..." />
           <button class="btn btn-sm btn-custom-blue">
             <i class="fas fa-search"></i>
           </button>
@@ -385,19 +397,22 @@
             </thead>
             <tbody>
               {{#reviews}}
-              <tr>
+              <tr class="review-row" data-user="{{user.name}} {{user.surname}}" data-book="{{book.title}}"
+                data-comment="{{comment}}">
                 <td>
                   <div class="d-flex align-items-center gap-2">
                     <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
                     <span class="fw-bold" style="font-size: 0.88rem">
-                      {{user.name}} {{user.surname}}
+                      {{#user}}{{name}} {{surname}}{{/user}}
+                      {{^user}}Usuario eliminado{{/user}}
                     </span>
                   </div>
                 </td>
 
                 <td>
                   <a href="/book-detail/{{book.id}}" class="text-decoration-none fw-semibold">
-                    {{book.title}}
+                    {{#book}}{{title}}{{/book}}
+                    {{^book}}Libro eliminado{{/book}}
                   </a>
                 </td>
 
@@ -455,7 +470,8 @@
 
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div class="input-group" style="max-width: 280px">
-          <input type="text" class="form-control form-control-sm" placeholder="Buscar por nombre de usuario..." />
+          <input id="userSearchInput" type="text" class="form-control form-control-sm"
+            placeholder="Buscar por nombre o email..." />
           <button class="btn btn-sm btn-custom-blue">
             <i class="fas fa-search"></i>
           </button>
@@ -479,96 +495,40 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {{#users}}
+              <tr class="user-row" data-name="{{name}} {{surname}}" data-email="{{email}}">
                 <td>
                   <div class="d-flex align-items-center gap-2">
-                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
-                    <span class="fw-bold" style="font-size: 0.88rem">María García</span>
+                    <img src="/users/{{id}}/image" class="mini-avatar" alt="Avatar">
+                    <span class="fw-bold" style="font-size:.88rem;">{{name}} {{surname}}</span>
                   </div>
                 </td>
-                <td class="text-muted" style="font-size: 0.85rem">
-                  m.garcia@email.com
-                </td>
-                <td><span class="badge bg-secondary">Usuario</span></td>
-                <td>1</td>
-                <td>8</td>
+                <td class="text-muted" style="font-size:.85rem;">{{email}}</td>
                 <td>
-                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
-                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
-                      class="fas fa-pencil-alt"></i></a>
-                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
-                    data-bs-target="#modalDeleteUser">
-                    <i class="fas fa-user-times"></i>
-                  </button>
+                  {{#admin}}
+                  <span class="badge" style="background:#113744;">Admin</span>
+                  {{/admin}}
+                  {{^admin}}
+                  <span class="badge bg-secondary">Usuario</span>
+                  {{/admin}}
+                </td>
+                <td>{{activeLoansCount}}</td>
+                <td>{{totalLoansCount}}</td>
+                <td>
+                  <a href="/admin/user/{{id}}" class="btn-icon view" title="Ver perfil">
+                    <i class="fas fa-eye"></i>
+                  </a>
                 </td>
               </tr>
+              {{/users}}
+
+              {{^users}}
               <tr>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
-                    <span class="fw-bold" style="font-size: 0.88rem">Juan López</span>
-                  </div>
-                </td>
-                <td class="text-muted" style="font-size: 0.85rem">
-                  j.lopez@email.com
-                </td>
-                <td><span class="badge bg-secondary">Usuario</span></td>
-                <td>1</td>
-                <td>3</td>
-                <td>
-                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
-                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
-                      class="fas fa-pencil-alt"></i></a>
-                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
-                    data-bs-target="#modalDeleteUser">
-                    <i class="fas fa-user-times"></i>
-                  </button>
+                <td colspan="6" class="text-center text-muted py-4">
+                  No hay usuarios registrados.
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
-                    <span class="fw-bold" style="font-size: 0.88rem">Ana Ruiz</span>
-                  </div>
-                </td>
-                <td class="text-muted" style="font-size: 0.85rem">
-                  a.ruiz@email.com
-                </td>
-                <td><span class="badge bg-secondary">Usuario</span></td>
-                <td>0</td>
-                <td>12</td>
-                <td>
-                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
-                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
-                      class="fas fa-pencil-alt"></i></a>
-                  <button class="btn-icon delete ms-1" title="Eliminar usuario" data-bs-toggle="modal"
-                    data-bs-target="#modalDeleteUser">
-                    <i class="fas fa-user-times"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="/images/default-avatar.png" class="mini-avatar" alt="Avatar" />
-                    <span class="fw-bold" style="font-size: 0.88rem">admin</span>
-                  </div>
-                </td>
-                <td class="text-muted" style="font-size: 0.85rem">
-                  admin@biblioonline.es
-                </td>
-                <td>
-                  <span class="badge" style="background: #113744">Admin</span>
-                </td>
-                <td>—</td>
-                <td>—</td>
-                <td>
-                  <a href="/profile" class="btn-icon view" title="Ver perfil"><i class="fas fa-eye"></i></a>
-                  <a href="/edit-profile" class="btn-icon edit ms-1" title="Editar usuario"><i
-                      class="fas fa-pencil-alt"></i></a>
-                </td>
-              </tr>
+              {{/users}}
             </tbody>
           </table>
         </div>
@@ -592,7 +552,7 @@
                 <i class="fas fa-chart-pie me-2"></i>Géneros más prestados
               </h5>
             </div>
-            <div class="chart-container">
+            <div class="chart-container" style="height: 260px;">
               <canvas id="genrePieChart"></canvas>
             </div>
           </div>
@@ -606,7 +566,7 @@
                 género
               </h5>
             </div>
-            <div class="chart-container">
+            <div class="chart-container" style="height: 260px;">
               <canvas id="ratingBarChart"></canvas>
             </div>
           </div>
@@ -695,7 +655,126 @@
     </div>
   </div>
 
-  <script src="/js/charts.js"></script>
+  <script>
+    const genreLabels = JSON.parse('{{{genreLabelsJson}}}');
+    const genreLoanCounts = JSON.parse('{{{genreLoanCountsJson}}}');
+    const genreRatingLabels = JSON.parse('{{{genreRatingLabelsJson}}}');
+    const genreRatingValues = JSON.parse('{{{genreRatingValuesJson}}}');
+
+    const chartColors = [
+      "#123C4A", // Ficción
+      "#5BB7D4", // Misterio
+      "#245F73", // Fantasía
+      "#28A745", // Historia
+      "#FFC107", // Ciencia
+      "#6C757D", // Biografía
+      "#FA6B5B", // Infantil
+      "#8E44AD", // Romance
+      "#E67E22"  // Clásicos
+    ];
+
+    const pieCanvas = document.getElementById("genrePieChart");
+    if (pieCanvas) {
+      new Chart(pieCanvas, {
+        type: "doughnut",
+        data: {
+          labels: genreLabels,
+          datasets: [{
+            data: genreLoanCounts,
+            backgroundColor: chartColors,
+            borderColor: "#ffffff",
+            borderWidth: 2,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "58%",
+          plugins: {
+            legend: {
+              position: "right",
+              labels: {
+                usePointStyle: true,
+                pointStyle: "circle",
+                boxWidth: 10,
+                boxHeight: 10,
+                padding: 16,
+                font: {
+                  size: 13
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return `${context.label}: ${context.raw}`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    const barCanvas = document.getElementById("ratingBarChart");
+    if (barCanvas) {
+      new Chart(barCanvas, {
+        type: "bar",
+        data: {
+          labels: genreRatingLabels,
+          datasets: [{
+            data: genreRatingValues,
+            backgroundColor: chartColors,
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return `Valoración: ${context.raw}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 12
+                }
+              }
+            },
+            y: {
+              beginAtZero: false,
+              min: 1,
+              max: 5,
+              ticks: {
+                stepSize: 1,
+                font: {
+                  size: 12
+                }
+              },
+              grid: {
+                color: "rgba(0,0,0,0.08)"
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
 
   <script>
     // Mapeo de géneros de enum a display names
@@ -718,6 +797,90 @@
         span.textContent = genreMap[genre];
       }
     });
+  </script>
+  <script>
+    function normalize(text) {
+      return (text || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function filterBooks() {
+      const search = normalize(document.getElementById("bookSearchInput")?.value);
+      const genre = document.getElementById("bookGenreFilter")?.value || "";
+
+      document.querySelectorAll(".book-row").forEach(row => {
+        const title = normalize(row.dataset.title);
+        const author = normalize(row.dataset.author);
+        const rowGenre = row.dataset.genre || "";
+
+        const matchesSearch = !search || title.includes(search) || author.includes(search);
+        const matchesGenre = !genre || rowGenre === genre;
+
+        row.style.display = (matchesSearch && matchesGenre) ? "" : "none";
+      });
+    }
+
+    function filterLoans() {
+      const search = normalize(document.getElementById("loanSearchInput")?.value);
+      const activeBtn = document.querySelector(".btn-filter-status.active-filter");
+      const selectedStatus = activeBtn ? activeBtn.dataset.status : "";
+
+      document.querySelectorAll(".loan-row").forEach(row => {
+        const id = normalize(row.dataset.id);
+        const user = normalize(row.dataset.user);
+        const book = normalize(row.dataset.book);
+        const status = row.dataset.status || "";
+
+        const matchesSearch = !search || id.includes(search) || user.includes(search) || book.includes(search);
+        const matchesStatus = !selectedStatus || status === selectedStatus;
+
+        row.style.display = (matchesSearch && matchesStatus) ? "" : "none";
+      });
+    }
+
+    function filterReviews() {
+      const search = normalize(document.getElementById("reviewSearchInput")?.value);
+
+      document.querySelectorAll(".review-row").forEach(row => {
+        const user = normalize(row.dataset.user);
+        const book = normalize(row.dataset.book);
+        const comment = normalize(row.dataset.comment);
+
+        const matches = !search || user.includes(search) || book.includes(search) || comment.includes(search);
+        row.style.display = matches ? "" : "none";
+      });
+    }
+
+    function filterUsers() {
+      const search = normalize(document.getElementById("userSearchInput")?.value);
+
+      document.querySelectorAll(".user-row").forEach(row => {
+        const name = normalize(row.dataset.name);
+        const email = normalize(row.dataset.email);
+
+        const matches = !search || name.includes(search) || email.includes(search);
+        row.style.display = matches ? "" : "none";
+      });
+    }
+
+    document.getElementById("bookSearchInput")?.addEventListener("input", filterBooks);
+    document.getElementById("bookGenreFilter")?.addEventListener("change", filterBooks);
+
+    document.getElementById("loanSearchInput")?.addEventListener("input", filterLoans);
+
+    document.querySelectorAll(".btn-filter-status").forEach(btn => {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".btn-filter-status").forEach(b => b.classList.remove("active-filter"));
+        this.classList.add("active-filter");
+        filterLoans();
+      });
+    });
+
+    document.getElementById("reviewSearchInput")?.addEventListener("input", filterReviews);
+    document.getElementById("userSearchInput")?.addEventListener("input", filterUsers);
   </script>
 </body>
 

@@ -43,7 +43,10 @@
             <div class="col-md-3 mb-4">
                 <div class="card h-100">
                     {{#image}}
-                    <img src="/image/{{id}}" class="card-img-top" alt="Portada" />
+                    <img src="/image/{{id}}" class="card-img-top" />
+                    {{/image}}
+                    {{^image}}
+                    <img src="/images/default-book.png" class="card-img-top" />
                     {{/image}}
                     <div class="card-body">
                         <h5 class="card-title">{{title}}</h5>
