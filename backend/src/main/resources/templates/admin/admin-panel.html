@@ -656,125 +656,15 @@
   </div>
 
   <script>
-    const genreLabels = JSON.parse('{{{genreLabelsJson}}}');
-    const genreLoanCounts = JSON.parse('{{{genreLoanCountsJson}}}');
-    const genreRatingLabels = JSON.parse('{{{genreRatingLabelsJson}}}');
-    const genreRatingValues = JSON.parse('{{{genreRatingValuesJson}}}');
-
-    const chartColors = [
-      "#123C4A", // Ficción
-      "#5BB7D4", // Misterio
-      "#245F73", // Fantasía
-      "#28A745", // Historia
-      "#FFC107", // Ciencia
-      "#6C757D", // Biografía
-      "#FA6B5B", // Infantil
-      "#8E44AD", // Romance
-      "#E67E22"  // Clásicos
-    ];
-
-    const pieCanvas = document.getElementById("genrePieChart");
-    if (pieCanvas) {
-      new Chart(pieCanvas, {
-        type: "doughnut",
-        data: {
-          labels: genreLabels,
-          datasets: [{
-            data: genreLoanCounts,
-            backgroundColor: chartColors,
-            borderColor: "#ffffff",
-            borderWidth: 2,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: "58%",
-          plugins: {
-            legend: {
-              position: "right",
-              labels: {
-                usePointStyle: true,
-                pointStyle: "circle",
-                boxWidth: 10,
-                boxHeight: 10,
-                padding: 16,
-                font: {
-                  size: 13
-                }
-              }
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return `${context.label}: ${context.raw}`;
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-
-    const barCanvas = document.getElementById("ratingBarChart");
-    if (barCanvas) {
-      new Chart(barCanvas, {
-        type: "bar",
-        data: {
-          labels: genreRatingLabels,
-          datasets: [{
-            data: genreRatingValues,
-            backgroundColor: chartColors,
-            borderRadius: 6,
-            borderSkipped: false
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return `Valoración: ${context.raw}`;
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              grid: {
-                display: false
-              },
-              ticks: {
-                font: {
-                  size: 12
-                }
-              }
-            },
-            y: {
-              beginAtZero: false,
-              min: 1,
-              max: 5,
-              ticks: {
-                stepSize: 1,
-                font: {
-                  size: 12
-                }
-              },
-              grid: {
-                color: "rgba(0,0,0,0.08)"
-              }
-            }
-          }
-        }
-      });
-    }
+    // Pasar datos del servidor a variables globales para charts.js
+    window.genreLabels = JSON.parse('{{{genreLabelsJson}}}');
+    window.genreLoanCounts = JSON.parse('{{{genreLoanCountsJson}}}');
+    window.genreRatingLabels = JSON.parse('{{{genreRatingLabelsJson}}}');
+    window.genreRatingValues = JSON.parse('{{{genreRatingValuesJson}}}');
   </script>
+
+  <!-- Script de gráficos -->
+  <script src="/js/charts.js"></script>
 
   <script>
     // Mapeo de géneros de enum a display names
