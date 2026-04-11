@@ -158,7 +158,11 @@
                   <img src="/image/{{id}}" class="book-thumb" alt="Portada" />
                   {{/image}}
                 </td>
-                <td class="fw-bold">{{title}}</td>
+                <td class="fw-bold">
+                  <a href="/book-detail/{{id}}" class="text-decoration-none">
+                    {{title}}
+                  </a>
+                </td>
                 <td class="text-muted">{{author}}</td>
                 <td>
                   <span class="badge bg-secondary" data-genre="{{genre}}">{{genre}}</span>
@@ -305,13 +309,15 @@
               <td>
                 <div class="d-flex align-items-center gap-2">
                   {{#book.image}}
-                  <img src="/image/{{id}}" class="loan-cover" />
+                  <img src="/image/{{book.id}}" class="loan-cover" />
                   {{/book.image}}
                   {{^book.image}}
                   <img src="/images/default-book.png" class="loan-cover" />
                   {{/book.image}}
-                  <span>{{#book}}{{title}}{{/book}}
-                    {{^book}}Libro eliminado{{/book}}</span>
+                  <a href="/book-detail/{{book.id}}" class="text-decoration-none">
+                    {{#book}}{{title}}{{/book}}
+                    {{^book}}Libro eliminado{{/book}}
+                  </a>
                 </div>
               </td>
 
@@ -410,10 +416,18 @@
                 </td>
 
                 <td>
-                  <a href="/book-detail/{{book.id}}" class="text-decoration-none fw-semibold">
-                    {{#book}}{{title}}{{/book}}
-                    {{^book}}Libro eliminado{{/book}}
-                  </a>
+                  <div class="d-flex align-items-center gap-2">
+                    {{#book.image}}
+                    <img src="/image/{{book.id}}" class="book-thumb" alt="Portada" />
+                    {{/book.image}}
+                    {{^book.image}}
+                    <img src="/images/default-book.png" class="book-thumb" alt="Portada" />
+                    {{/book.image}}
+                    <a href="/book-detail/{{book.id}}" class="text-decoration-none fw-semibold">
+                      {{#book}}{{title}}{{/book}}
+                      {{^book}}Libro eliminado{{/book}}
+                    </a>
+                  </div>
                 </td>
 
                 <td>
@@ -427,7 +441,7 @@
                   </span>
                 </td>
 
-                <td class="text-muted" style="max-width: 220px; font-size: 0.82rem">
+                <td class="text-muted" style="max-width: 220px; font-size: 0.82rem; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                   {{comment}}
                 </td>
                 <td>
