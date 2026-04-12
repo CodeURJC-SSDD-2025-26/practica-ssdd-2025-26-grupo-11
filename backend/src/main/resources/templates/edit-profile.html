@@ -23,7 +23,12 @@
                     </div>
 
                     <div class="card-body p-4">
+                        {{#editingOwnProfile}}
                         <form method="post" action="/edit-profile" enctype="multipart/form-data">
+                        {{/editingOwnProfile}}
+                        {{^editingOwnProfile}}
+                        <form method="post" action="/edit-profile/{{user.id}}" enctype="multipart/form-data">
+                        {{/editingOwnProfile}}
                             <input type="hidden" name="_csrf" value="{{token}}" />
 
                             <div class="text-center mb-4">
@@ -78,7 +83,12 @@
                             </div>
 
                             <div class="d-flex gap-2 justify-content-end">
+                                {{#editingOwnProfile}}
                                 <a href="/profile" class="btn btn-outline-secondary px-4 fw-bold">Cancelar</a>
+                                {{/editingOwnProfile}}
+                                {{^editingOwnProfile}}
+                                <a href="/user/{{user.id}}" class="btn btn-outline-secondary px-4 fw-bold">Cancelar</a>
+                                {{/editingOwnProfile}}
                                 <button type="submit" class="btn btn-custom-blue px-4 fw-bold">
                                     Guardar Cambios
                                 </button>

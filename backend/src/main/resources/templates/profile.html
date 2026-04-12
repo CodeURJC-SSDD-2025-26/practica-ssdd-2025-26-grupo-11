@@ -32,9 +32,18 @@
                     <p><strong><i class="fas fa-envelope me-2"></i>Email:</strong> {{user.email}}</p>
                     <p><strong><i class="fas fa-calendar me-2"></i>Miembro desde:</strong> {{user.registrationDate}}</p>
                 </div>
+                {{#canEdit}}
+                {{#isCurrentUser}}
                 <a href="/edit-profile" class="btn btn-custom-blue w-100 mt-3 border-2 fw-bold">
                     <i class="fas fa-edit"></i> Editar Perfil
                 </a>
+                {{/isCurrentUser}}
+                {{^isCurrentUser}}
+                <a href="/edit-profile/{{user.id}}" class="btn btn-custom-blue w-100 mt-3 border-2 fw-bold">
+                    <i class="fas fa-edit"></i> Editar Perfil
+                </a>
+                {{/isCurrentUser}}
+                {{/canEdit}}
             </div>
         </div>
 

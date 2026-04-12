@@ -77,21 +77,58 @@ public class UserController {
     @GetMapping("/profile")
     public String profile(Model model, HttpServletRequest request) {
         String email = request.getUserPrincipal().getName();
-        User user = userRepository.findByEmail(email)
+        User currentUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        List<Loan> recentLoans = loanRepository.findByUser(user);
+        List<Loan> recentLoans = loanRepository.findByUser(currentUser);
         for (Loan loan : recentLoans) {
             if (loan.getStatus() != Loan.Status.DEVUELTO) {
                 loan.refreshStatusFromDates();
             }
 }
 
-        model.addAttribute("user", user);
+        model.addAttribute("user", currentUser);
         model.addAttribute("totalLoans", recentLoans.size());
-        model.addAttribute("totalReviews", reviewRepository.findByUser(user).size());
+        model.addAttribute("totalReviews", reviewRepository.findByUser(currentUser).size());
         model.addAttribute("activeLoans", recentLoans.stream().filter(Loan::isActive).count());
         model.addAttribute("recentLoans", recentLoans);
+        model.addAttribute("canEdit", true);
+        model.addAttribute("isCurrentUser", true);
+
+        return "profile";
+    }
+
+    @GetMapping("/user/{id}")
+    public String viewUserProfile(@PathVariable Long id, Model model, HttpServletRequest request) {
+        String email = request.getUserPrincipal().getName();
+        User currentUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        User profileUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Validar permisos: solo admin o el propietario del perfil
+        boolean isAdmin = request.isUserInRole("ADMIN");
+        boolean isOwner = currentUser.getId().equals(profileUser.getId());
+
+        if (!isAdmin && !isOwner) {
+            return "redirect:/base";
+        }
+
+        List<Loan> recentLoans = loanRepository.findByUser(profileUser);
+        for (Loan loan : recentLoans) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+        }
+
+        model.addAttribute("user", profileUser);
+        model.addAttribute("totalLoans", recentLoans.size());
+        model.addAttribute("totalReviews", reviewRepository.findByUser(profileUser).size());
+        model.addAttribute("activeLoans", recentLoans.stream().filter(Loan::isActive).count());
+        model.addAttribute("recentLoans", recentLoans);
+        model.addAttribute("canEdit", isAdmin || isOwner);
+        model.addAttribute("isCurrentUser", isOwner);
 
         return "profile";
     }
@@ -139,13 +176,35 @@ public class UserController {
 
     @GetMapping("/edit-profile")
     public String editProfile(Model model, HttpServletRequest request) {
-
         String email = request.getUserPrincipal().getName();
-
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         model.addAttribute("user", user);
+        model.addAttribute("editingOwnProfile", true);
+
+        return "edit-profile";
+    }
+
+    @GetMapping("/edit-profile/{id}")
+    public String editProfileById(@PathVariable Long id, Model model, HttpServletRequest request) {
+        String email = request.getUserPrincipal().getName();
+        User currentUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        User userToEdit = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Validar permisos: solo admin o el propietario del perfil
+        boolean isAdmin = request.isUserInRole("ADMIN");
+        boolean isOwner = currentUser.getId().equals(userToEdit.getId());
+
+        if (!isAdmin && !isOwner) {
+            return "redirect:/base";
+        }
+
+        model.addAttribute("user", userToEdit);
+        model.addAttribute("editingOwnProfile", isOwner);
 
         return "edit-profile";
     }
@@ -181,6 +240,50 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:/profile";
+    }
+
+    @PostMapping("/edit-profile/{id}")
+    public String updateProfileById(
+            @PathVariable Long id,
+            HttpServletRequest request,
+            @RequestParam String name,
+            @RequestParam String surname,
+            @RequestParam String email,
+            @RequestParam(required = false) String bio,
+            @RequestParam(required = false) MultipartFile imageFile) throws IOException {
+
+        String currentEmail = request.getUserPrincipal().getName();
+        User currentUser = userRepository.findByEmail(currentEmail)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        User userToEdit = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Validar permisos: solo admin o el propietario del perfil
+        boolean isAdmin = request.isUserInRole("ADMIN");
+        boolean isOwner = currentUser.getId().equals(userToEdit.getId());
+
+        if (!isAdmin && !isOwner) {
+            return "redirect:/base";
+        }
+
+        userToEdit.setName(name);
+        userToEdit.setSurname(surname);
+        userToEdit.setEmail(email);
+        userToEdit.setDescription(bio);
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            if (userToEdit.getImage() != null) {
+                imageService.replaceImageFile(userToEdit.getImage().getId(), imageFile.getInputStream());
+            } else {
+                Image image = imageService.createImage(imageFile.getInputStream());
+                userToEdit.setImage(image);
+            }
+        }
+
+        userRepository.save(userToEdit);
+
+        return "redirect:/user/" + id;
     }
 
     @GetMapping("/users/{id}/image")
@@ -261,22 +364,7 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/{id}")
-    public String viewUserFromAdmin(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        List<Loan> userLoans = loanRepository.findByUser(user);
-
-        long activeLoans = userLoans.stream()
-                .filter(loan -> loan.getStatus() == Loan.Status.ACTIVO)
-                .count();
-
-        model.addAttribute("user", user);
-        model.addAttribute("totalLoans", userLoans.size());
-        model.addAttribute("totalReviews", reviewRepository.findByUser(user).size());
-        model.addAttribute("activeLoans", activeLoans);
-        model.addAttribute("recentLoans", userLoans);
-
-        return "profile";
+    public String viewUserFromAdmin(@PathVariable Long id) {
+        return "redirect:/user/" + id;
     }
 }
