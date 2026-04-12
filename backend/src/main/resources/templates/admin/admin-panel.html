@@ -94,6 +94,7 @@
       </div>
     </div>
 
+     <!-- Books section -->
     <section id="seccion-libros" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-book"></i> Gestión de Libros
@@ -201,7 +202,7 @@
                             Cancelar
                           </button>
                           
-                          <form action="/admin/book/{{id}}" method="post" style="display: inline">
+                          <form action="/book/{{id}}" method="post" style="display: inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" class="btn btn-danger">
@@ -231,6 +232,7 @@
       </div>
     </section>
 
+    <!-- Loans section -->
     <section id="seccion-prestamos" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
@@ -360,6 +362,7 @@
       </div>
     </section>
 
+    <!-- Reviews section -->
     <section id="seccion-resenas" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-star"></i> Moderación de Reseñas
@@ -438,13 +441,40 @@
                     <i class="fas fa-eye"></i>
                   </a>
 
-                  <form action="/admin/review/{{id}}/delete" method="post" style="display: inline">
-                    <input type="hidden" name="_csrf" value="{{token}}" />
-                    <button class="btn-icon delete ms-1" title="Eliminar reseña" type="submit"
-                      style="border: none; background: none">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </form>
+                  <button type="button" class="btn-icon delete ms-1" title="Eliminar reseña"
+                    style="border: none; background: none" data-bs-toggle="modal"
+                    data-bs-target="#deleteReviewModal{{id}}">
+                    <i class="fas fa-trash"></i>
+                  </button>
+
+                  <div class="modal fade" id="deleteReviewModal{{id}}" tabindex="-1"
+                    aria-labelledby="deleteReviewModalLabel{{id}}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                          <h5 class="modal-title" id="deleteReviewModalLabel{{id}}">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña
+                          </h5>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>
+                            ¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede deshacer.
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                          </button>
+                          <form action="/admin/review/{{id}}/delete" method="post" style="display: inline;">
+                            <input type="hidden" name="_csrf" value="{{token}}" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
               {{/reviews}}
@@ -465,6 +495,7 @@
       </div>
     </section>
 
+    <!-- Users section -->
     <section id="seccion-usuarios" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-users"></i> Gestión de Usuarios
@@ -570,6 +601,7 @@
       </div>
     </section>
 
+    <!-- Graphs section -->
     <section id="seccion-graficas" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-chart-pie"></i> Estadísticas
@@ -608,8 +640,38 @@
 
   {{>footer}}
 
+ <!-- Delete loan modal -->
+  <div class="modal fade" id="modalDeleteLoan" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            ¿Estás seguro de que deseas eliminar este préstamo? Esta acción no
+            se puede deshacer.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
   <script>
-    // Pasar datos del servidor a variables globales para charts.js
+    // Turn server data into JS variables for charts
     window.genreLabels = JSON.parse('{{{genreLabelsJson}}}');
     window.genreLoanCounts = JSON.parse('{{{genreLoanCountsJson}}}');
     window.genreRatingLabels = JSON.parse('{{{genreRatingLabelsJson}}}');
@@ -619,7 +681,7 @@
   <script src="/js/charts.js"></script>
 
   <script>
-    // Mapeo de géneros de enum a display names
+    // Enum to display name mapping for genres
     const genreMap = {
       FICCION: "Ficción",
       FANTASIA: "Fantasía",
@@ -632,7 +694,7 @@
       CLASICOS: "Clásicos",
     };
 
-    // Formatear géneros en la tabla
+    // Genre badge text replacement
     document.querySelectorAll("span[data-genre]").forEach((span) => {
       const genre = span.getAttribute("data-genre");
       if (genreMap[genre]) {
