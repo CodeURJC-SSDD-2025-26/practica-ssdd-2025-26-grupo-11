@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import es.codeurjc.practica2.repository.ReviewRepository;
 import es.codeurjc.practica2.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import es.codeurjc.practica2.model.User;
+import es.codeurjc.practica2.service.ReviewService;
 
 @Controller
 @RequestMapping("/admin")
@@ -48,15 +50,22 @@ public class AdminController {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @PostMapping("/user/{id}/delete")
-    public String deleteUserAsAdmin(@PathVariable Long id, HttpServletRequest request) {
+    public String deleteUserAsAdmin(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User userToDelete = userRepository.findById(id).orElseThrow();
 
         //The admin cannot delete himself or herself
         String loggedInEmail = request.getUserPrincipal().getName();
         if (userToDelete.getEmail().equals(loggedInEmail)) {
+            redirectAttributes.addFlashAttribute("error", "No puedes eliminar tu propia cuenta");
             return "redirect:/admin/admin-panel#seccion-usuarios";
         }
+
+        // Delete all reviews from the user and update book ratings
+        reviewService.deleteUserReviews(userToDelete);
 
         //Control the deletion of the image with the user
         if (userToDelete.getImage() != null) {

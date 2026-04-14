@@ -49,6 +49,24 @@ public class ReviewService {
         updateBookRating(book);
     }
 
+    public void deleteUserReviews(User user) {
+        List<Review> userReviews = reviewRepository.findByUser(user);
+        
+        // Collect all books that had reviews from this user
+        java.util.Set<Book> booksToUpdate = new java.util.HashSet<>();
+        for (Review review : userReviews) {
+            booksToUpdate.add(review.getBook());
+        }
+        
+        // Delete all reviews from the user
+        reviewRepository.deleteAll(userReviews);
+        
+        // Update ratings for all affected books
+        for (Book book : booksToUpdate) {
+            updateBookRating(book);
+        }
+    }
+
     private void updateBookRating(Book book) {
         List<Review> reviews = reviewRepository.findByBook(book);
 

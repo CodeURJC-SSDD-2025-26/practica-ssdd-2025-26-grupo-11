@@ -142,6 +142,11 @@ public class DataInitializer implements CommandLineRunner {
             admin.setDescription("Administrador de la plataforma BiblioOnline.");
             setUserImage(admin, "static/images/default-avatar.png");
             
+            User admin2 = new User("admin2", "admin2", passwordEncoder.encode("adminpass"), "admin2@example.com",
+                    new Date(), "USER", "ADMIN");
+            admin2.setDescription("Administrador 2 de la plataforma BiblioOnline.");
+            setUserImage(admin2, "static/images/default-avatar.png");
+            
             User user2 = new User("reader", "reader", passwordEncoder.encode("reader123"), "reader@example.com",
                     new Date(), "USER");
             user2.setDescription("Lectora ávida de clásicos de la literatura universal.");
@@ -154,6 +159,7 @@ public class DataInitializer implements CommandLineRunner {
             
             userRepository.save(user1);
             userRepository.save(admin);
+            userRepository.save(admin2);
             userRepository.save(user2);
             userRepository.save(user3);
 
