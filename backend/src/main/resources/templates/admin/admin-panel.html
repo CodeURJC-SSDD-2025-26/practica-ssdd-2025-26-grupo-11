@@ -94,7 +94,7 @@
       </div>
     </div>
 
-     <!-- Books section -->
+    <!-- Books section -->
     <section id="seccion-libros" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-book"></i> Gestión de Libros
@@ -201,7 +201,7 @@
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Cancelar
                           </button>
-                          
+
                           <form action="/book/{{id}}" method="post" style="display: inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <input type="hidden" name="_method" value="delete" />
@@ -345,11 +345,36 @@
                 </form>
                 {{/returned}}
 
+                {{#returned}}
                 <button type="button" class="btn-icon delete ms-1" title="Eliminar préstamo"
-                  style="border: none; background: none" data-bs-toggle="modal"
-                  data-bs-target="#deleteLoanModal{{id}}">
+                  style="border: none; background: none" data-bs-toggle="modal" data-bs-target="#deleteLoanModal{{id}}">
                   <i class="fas fa-trash"></i>
                 </button>
+
+                <div class="modal fade" id="deleteLoanModal{{id}}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">
+                          <i class="fas fa-exclamation-triangle me-2"></i>Eliminar historial
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body text-start text-dark">
+                        <p class="mb-2">¿Estás seguro de que deseas eliminar este registro del historial?</p>
+                        <p class="text-muted small mb-0">Usuario: {{user.email}} <br> Libro: {{book.title}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="/admin/loan/{{id}}/delete" method="post" style="display: inline">
+                          <input type="hidden" name="_csrf" value="{{token}}" />
+                          <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{/returned}}
 
                 <div class="modal fade" id="deleteLoanModal{{id}}" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
@@ -463,7 +488,8 @@
                   </span>
                 </td>
 
-                <td class="text-muted" style="max-width: 220px; font-size: 0.82rem; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
+                <td class="text-muted"
+                  style="max-width: 220px; font-size: 0.82rem; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                   {{comment}}
                 </td>
                 <td>
@@ -581,7 +607,7 @@
                   <a href="/user/{{id}}" class="btn-icon view" title="Ver perfil">
                     <i class="fas fa-eye"></i>
                   </a>
-                  
+
                   <button type="button" class="btn-icon delete ms-1" title="Eliminar usuario"
                     style="border: none; background: none" data-bs-toggle="modal"
                     data-bs-target="#deleteUserModal{{id}}">
@@ -598,7 +624,8 @@
                           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body text-start">
-                          <p>¿Estás seguro de que deseas eliminar a <strong>{{name}} {{surname}}</strong>? Se borrarán todos sus préstamos y reseñas asociados.</p>
+                          <p>¿Estás seguro de que deseas eliminar a <strong>{{name}} {{surname}}</strong>? Se borrarán
+                            todos sus préstamos y reseñas asociados.</p>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -670,7 +697,7 @@
 
   {{>footer}}
 
- <!-- Delete loan modal -->
+  <!-- Delete loan modal -->
   <div class="modal fade" id="modalDeleteLoan" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -697,7 +724,7 @@
   </div>
 
 
-  
+
 
 
   <script>
