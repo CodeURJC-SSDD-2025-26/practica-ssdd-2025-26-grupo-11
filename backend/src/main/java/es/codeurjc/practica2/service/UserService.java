@@ -52,12 +52,12 @@ public class UserService {
     public List<Book> getRecommendedBooks(User user) {
     List<Loan> userLoans = user.getLoans();
     
-    // Si no tiene préstamos, devolvemos una lista vacía
+    // If user has no loans, return empty list
     if (userLoans == null || userLoans.isEmpty()) {
         return new ArrayList<>();
     }
 
-    // 1. Extraer todos los géneros a una lista
+    // 1. Extract all genres into a list
     List<Genre> allGenres = new ArrayList<>();
     for (int i = 0; i < userLoans.size(); i++) {
         Genre genre = userLoans.get(i).getBook().getGenre();
@@ -66,12 +66,12 @@ public class UserService {
         }
     }
 
-    // Si no hay géneros válidos, retornar lista vacía
+    // If there are no valid genres, return empty list
     if (allGenres.isEmpty()) {
         return new ArrayList<>();
     }
 
-    // 2. Buscar el género que más se repite (Bucle anidado para contar)
+    // 2. Find the most repeated genre (Nested loop to count)
     Genre favoriteGenre = allGenres.get(0);
     int maxCount = 0;
 
@@ -79,39 +79,39 @@ public class UserService {
         Genre currentGenre = allGenres.get(i);
         int currentCount = 0;
 
-        // Contamos cuántas veces aparece el género actual en toda la lista
+        // Count how many times the current genre appears in the entire list
         for (int j = 0; j < allGenres.size(); j++) {
             if (allGenres.get(j) == currentGenre) {
                 currentCount++;
             }
         }
 
-        // Si este género aparece más veces que el máximo anterior, lo guardamos
+        // If this genre appears more times than the previous maximum, save it
         if (currentCount > maxCount) {
             maxCount = currentCount;
             favoriteGenre = currentGenre;
         }
     }
 
-    // 3. Buscar libros de ese género en la base de datos
+    // 3. Search for books of that genre in the database
     List<Book> booksOfGenre = bookRepository.findByGenreOrderByRatingDesc(favoriteGenre);
     List<Book> finalRecommendations = new ArrayList<>();
 
-    // 4. Filtrar los no leídos (Sin usar break)
-    // El bucle se detiene si nos quedamos sin libros o si ya tenemos 3 recomendaciones
+    // 4. Filter books not read (Without using break)
+    // The loop stops if we run out of books or if we already have 3 recommendations
     for (int i = 0; i < booksOfGenre.size() && finalRecommendations.size() < 3; i++) {
         Book currentBook = booksOfGenre.get(i);
         boolean alreadyRead = false;
 
-        // Comprobamos si lo ha leído. La condición "!alreadyRead" hace que 
-        // el bucle pare automáticamente si lo encuentra, actuando como un "break" natural.
+        // Check if user has read it. The condition "!alreadyRead" makes
+        // the loop stop automatically if found, acting as a natural "break".
         for (int j = 0; j < userLoans.size() && !alreadyRead; j++) {
             if (userLoans.get(j).getBook().getId().equals(currentBook.getId())) {
                 alreadyRead = true;
             }
         }
 
-        // Si después de revisar todos sus préstamos no lo ha leído, lo recomendamos
+        // If after reviewing all their loans they haven't read it, we recommend it
         if (!alreadyRead) {
             finalRecommendations.add(currentBook);
         }

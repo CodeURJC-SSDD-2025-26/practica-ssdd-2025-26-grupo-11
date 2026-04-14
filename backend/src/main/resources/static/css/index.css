@@ -39,12 +39,30 @@
     object-fit: cover;  /* Crop to fit */
 }
 
+/* Card styling - ensure button sticks to bottom */
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card body with flex layout for bottom-aligned button */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 /* RATINGS */
 
 /* Star rating display - larger version */
 .stars {
     color: #FFD700;  /* Gold color */
     font-size: 1.3rem;  /* Larger than default */
+}
+
+/* Stars container - add space below */
+.card-rating + div {
+    margin-bottom: 1rem;  /* Space between stars and button */
 }
 
 /* BUTTONS */
@@ -54,7 +72,9 @@
     background-color: aqua;  /* Cyan background */
     color: black;  /* Black text */
     display: block;  /* Full width */
-    margin: 0.75rem auto 0;  /* Center with top margin */
+    width: 100%;  /* Full width of container */
+    margin-top: auto;  /* Push to bottom */
+    margin-bottom: 0;
     padding: 0.6rem 1rem;  /* Inner spacing */
     font-size: 1rem;  /* Standard size */
     border-radius: 6px;  /* Rounded corners */

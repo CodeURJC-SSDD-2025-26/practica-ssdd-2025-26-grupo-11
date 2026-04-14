@@ -84,7 +84,7 @@
 
                     <hr class="my-4">
                     <p><strong>Descripción:</strong></p>
-                    <p class="text-justify">
+                    <p class="text-justify" style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                         {{description}}
                     </p>
                     <!-- Rating section -->
@@ -178,7 +178,7 @@
                         <div class="mb-4">
                             <label class="form-label fw-bold">Comentarios:</label>
                             <textarea class="form-control border-2" rows="3" name="comment"
-                                placeholder="Escribe tu opinión sobre el libro..." required></textarea>
+                                placeholder="Escribe tu opinión sobre el libro..." maxlength="100" required></textarea>
                         </div>
 
                         <div class="d-flex gap-2">

@@ -52,7 +52,7 @@ public class ReviewController {
         boolean isAdmin = request.isUserInRole("ADMIN");
 
         if (!isOwner && !isAdmin) {
-            // Devuelve 403 o redirige con error
+            // Returns 403 or redirects with error
             return "redirect:/book-detail/" + bookId + "?error=forbidden";
         }
 

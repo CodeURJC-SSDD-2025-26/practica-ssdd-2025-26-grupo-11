@@ -85,10 +85,10 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/base")
                 .permitAll())
                 .logout(logout -> logout
-                .logoutUrl("/logout") // URL para hacer logout
-                .logoutSuccessUrl("/") // adonde redirige después de cerrar sesión
-                .invalidateHttpSession(true) // borra la sesión
-                .deleteCookies("JSESSIONID") // borra la cookie de sesión
+                .logoutUrl("/logout") // URL for logout
+                .logoutSuccessUrl("/") // Redirects to homepage after logout
+                .invalidateHttpSession(true) // Removes the session
+                .deleteCookies("JSESSIONID") // Removes session cookie
                 .permitAll());
 
         return http.build();

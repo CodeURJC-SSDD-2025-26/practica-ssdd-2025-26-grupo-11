@@ -49,7 +49,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.FICCION,
                     1943,
                     9780156012195L);
-            setBookImage(book1, "static/images/default-book.png");
+            setBookImage(book1, "static/images/el-principito.jpg");
 
             Book book2 = new Book(
                     "La casa de los espíritus",
@@ -58,7 +58,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.FANTASIA,
                     1982,
                     9781501117015L);
-            setBookImage(book2, "static/images/default-book.png");
+            setBookImage(book2, "static/images/la-casa-de-los-espiritus.jpg");
 
             Book book3 = new Book(
                     "El código Da Vinci",
@@ -67,7 +67,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.MISTERIO,
                     2003,
                     9780307474278L);
-            setBookImage(book3, "static/images/default-book.png");
+            setBookImage(book3, "static/images/el-codigo-davinci.jpg");
 
             Book book4 = new Book(
                     "Los detectives salvajes",
@@ -76,7 +76,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.FICCION,
                     1998,
                     9780375400164L);
-            setBookImage(book4, "static/images/default-book.png");
+            setBookImage(book4, "static/images/los-detectives-salvajes.jpg");
 
             Book book5 = new Book(
                     "Cien años de soledad",
@@ -85,7 +85,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.FANTASIA,
                     1967,
                     9780060883287L);
-            setBookImage(book5, "static/images/default-book.png");
+            setBookImage(book5, "static/images/cien-anos-de-soledad.jpg");
 
             Book book6 = new Book(
                     "El Quijote",
@@ -94,7 +94,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.CLASICOS,
                     1605,
                     9788437604947L);
-            setBookImage(book6, "static/images/default-book.png");
+            setBookImage(book6, "static/images/don-quijote-de-la-mancha.jpg");
 
             Book book7 = new Book(
                     "La sombra del viento",
@@ -103,7 +103,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.MISTERIO,
                     2001,
                     9788432217357L);
-            setBookImage(book7, "static/images/default-book.png");
+            setBookImage(book7, "static/images/la-sombra-del-viento.jpg");
 
             Book book8 = new Book(
                     "El nombre de la rosa",
@@ -112,7 +112,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.MISTERIO,
                     1980,
                     9788433975645L);
-            setBookImage(book8, "static/images/default-book.png");
+            setBookImage(book8, "static/images/el-nombre-de-la-rosa.jpg");
 
             Book book9 = new Book(
                     "Orgullo y prejuicio",
@@ -121,7 +121,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.ROMANCE,
                     1813,
                     9780141439518L);
-            setBookImage(book9, "static/images/default-book.png");
+            setBookImage(book9, "static/images/orgullo-y-prejuicio.jpg");
 
             Book book10 = new Book(
                     "El viaje extraordinario",
@@ -130,7 +130,7 @@ public class DataInitializer implements CommandLineRunner {
                     Genre.FANTASIA,
                     1874,
                     9788433929273L);
-            setBookImage(book10, "static/images/default-book.png");
+            setBookImage(book10, "static/images/el-viaje-extraordinario.jpg");
 
             User user1 = new User("user", "user", passwordEncoder.encode("pass"), "user@example.com", new Date(),
                     "USER");

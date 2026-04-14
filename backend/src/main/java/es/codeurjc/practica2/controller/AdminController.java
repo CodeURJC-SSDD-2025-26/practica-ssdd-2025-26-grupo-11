@@ -46,5 +46,5 @@ public class AdminController {
     @Autowired
     private ImageRepository imageRepository;
 
-    //Hacer los mappings de eliminar prestamos y usuarios (Hay que tener en cuenta que no te puedas eliminar a ti mismo)
+    // TODO: Create mappings to delete loans and users (Note: users should not be able to delete themselves)
 }

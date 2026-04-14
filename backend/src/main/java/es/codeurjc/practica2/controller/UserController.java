@@ -107,7 +107,7 @@ public class UserController {
         User profileUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Validar permisos: solo admin o el propietario del perfil
+        // Check permissions: only admin or profile owner
         boolean isAdmin = request.isUserInRole("ADMIN");
         boolean isOwner = currentUser.getId().equals(profileUser.getId());
 
@@ -158,7 +158,7 @@ public class UserController {
 
         User newUser = userService.registerUser(name, surname, email, password);
 
-        // Asignar imagen de perfil por defecto
+        // Assign default profile image
         try {
             Resource resource = new ClassPathResource("static/images/default-avatar.png");
             if (resource.exists()) {
@@ -167,7 +167,7 @@ public class UserController {
                 userRepository.save(newUser);
             }
         } catch (IOException e) {
-            // Si no se puede cargar la imagen, continuar sin ella
+            // If image cannot be loaded, continue without it
         }
 
         model.addAttribute("success", "Usuario registrado correctamente. Ya puedes iniciar sesión.");
@@ -195,7 +195,7 @@ public class UserController {
         User userToEdit = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Validar permisos: solo admin o el propietario del perfil
+        // Check permissions: only admin or profile owner
         boolean isAdmin = request.isUserInRole("ADMIN");
         boolean isOwner = currentUser.getId().equals(userToEdit.getId());
 
@@ -259,7 +259,7 @@ public class UserController {
         User userToEdit = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Validar permisos: solo admin o el propietario del perfil
+        // Check permissions: only admin or profile owner
         boolean isAdmin = request.isUserInRole("ADMIN");
         boolean isOwner = currentUser.getId().equals(userToEdit.getId());
 

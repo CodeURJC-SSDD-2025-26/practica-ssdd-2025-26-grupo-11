@@ -1,31 +1,31 @@
-// Colores para los gráficos
+// Colors for charts
 const chartColors = [
-  "#123C4A", // Ficción
-  "#5BB7D4", // Misterio
-  "#245F73", // Fantasía
-  "#28A745", // Historia
-  "#FFC107", // Ciencia
-  "#6C757D", // Biografía
-  "#FA6B5B", // Infantil
+  "#123C4A", // Fiction
+  "#5BB7D4", // Mystery
+  "#245F73", // Fantasy
+  "#28A745", // History
+  "#FFC107", // Science
+  "#6C757D", // Biography
+  "#FA6B5B", // Children
   "#8E44AD", // Romance
-  "#E67E22"  // Clásicos
+  "#E67E22"  // Classics
 ];
 
 /**
- * Calcula las valoraciones medias filtrando libros con 0 estrellas
- * @param {Array} books - Array de libros con propiedades: genre, rating
- * @param {Array} genreLabels - Array de nombres de géneros
- * @returns {Array} - Array con las valoraciones medias por género
+ * Calculates average ratings filtering books with 0 stars
+ * @param {Array} books - Array of books with properties: genre, rating
+ * @param {Array} genreLabels - Array of genre names
+ * @returns {Array} - Array with average ratings per genre
  */
 function calculateAverageRatings(books, genreLabels) {
   const ratingByGenre = {};
   
-  // Inicializar contadores
+  // Initialize counters
   genreLabels.forEach(label => {
     ratingByGenre[label] = { sum: 0, count: 0 };
   });
 
-  // Agrupar y sumar valoraciones (excluyendo rating 0)
+  // Group and sum ratings (excluding rating 0)
   books.forEach(book => {
     const genreLabel = book.genre;
     if (ratingByGenre[genreLabel] && book.rating > 0) {
@@ -34,7 +34,7 @@ function calculateAverageRatings(books, genreLabels) {
     }
   });
 
-  // Calcular promedios
+  // Calculate averages
   return genreLabels.map(label => {
     const data = ratingByGenre[label];
     return data.count > 0 ? (data.sum / data.count).toFixed(2) : 0;
@@ -42,8 +42,8 @@ function calculateAverageRatings(books, genreLabels) {
 }
 
 /**
- * Extrae datos de libros del DOM de la tabla de libros
- * @returns {Array} - Array de libros con propiedades: genre, rating
+ * Extracts book data from the books table DOM
+ * @returns {Array} - Array of books with properties: genre, rating
  */
 function extractBooksFromDOM() {
   const books = [];
@@ -64,7 +64,7 @@ function extractBooksFromDOM() {
     const displayGenre = genreMap[genre] || genre;
     const starsElement = row.querySelector("td:nth-child(6)");
     
-    // Contar estrellas llenas (fas fa-star)
+    // Count full stars (fas fa-star)
     const filledStars = starsElement ? starsElement.querySelectorAll(".fas.fa-star").length : 0;
     
     books.push({
@@ -76,25 +76,25 @@ function extractBooksFromDOM() {
   return books;
 }
 
-// Esperar a que el documento esté listo
+// Wait for document to be ready
 document.addEventListener('DOMContentLoaded', function() {
-  // Obtener datos del servidor o calcularlos
+  // Get data from server or calculate them
   let genreLabels = typeof window.genreLabels !== 'undefined' ? window.genreLabels : [];
   let genreLoanCounts = typeof window.genreLoanCounts !== 'undefined' ? window.genreLoanCounts : [];
   let genreRatingLabels = typeof window.genreRatingLabels !== 'undefined' ? window.genreRatingLabels : [];
   let genreRatingValues = typeof window.genreRatingValues !== 'undefined' ? window.genreRatingValues : [];
 
-  // Intentar extraer datos de libros del DOM para recalcular valoraciones (filtrando 0 estrellas)
+  // Try to extract book data from DOM to recalculate ratings (filtering 0 stars)
   try {
     const booksData = extractBooksFromDOM();
     if (booksData.length > 0) {
       genreRatingValues = calculateAverageRatings(booksData, genreRatingLabels);
     }
   } catch (error) {
-    console.log('No se pudieron extraer datos de libros del DOM, usando valores del servidor');
+    console.log('Could not extract book data from DOM, using server values');
   }
 
-  // Gráfico de Pastel: Géneros más prestados
+  // Pie chart: Most borrowed genres
   const pieCanvas = document.getElementById("genrePieChart");
   if (pieCanvas) {
     new Chart(pieCanvas, {
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Gráfico de Barras: Valoración media por género (excluyendo libros con 0 estrellas)
+  // Bar chart: Average rating by genre (excluding books with 0 stars)
   const barCanvas = document.getElementById("ratingBarChart");
   if (barCanvas) {
     new Chart(barCanvas, {

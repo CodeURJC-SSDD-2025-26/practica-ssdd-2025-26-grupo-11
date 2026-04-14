@@ -65,7 +65,7 @@ public class BookController {
     @GetMapping("/")
     public String showIndex(Model model, HttpServletRequest request) {
 
-        // Si hay usuario logueado, redirige a /base
+        // If there is a logged user, redirect to /base
         if (request.getUserPrincipal() != null) {
             return "redirect:/base";
         }
@@ -414,7 +414,7 @@ public class BookController {
 
             return "redirect:/book-detail/" + id;
         } catch (IllegalArgumentException e) {
-            // Si hay error, recargar la página de edición con error
+            // If there is an error, reload the edit page with error
             return "redirect:/admin/admin-edit-book/" + id;
         }
     }
