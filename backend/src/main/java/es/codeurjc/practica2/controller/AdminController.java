@@ -26,6 +26,8 @@ import es.codeurjc.practica2.repository.ImageRepository;
 import es.codeurjc.practica2.repository.LoanRepository;
 import es.codeurjc.practica2.repository.ReviewRepository;
 import es.codeurjc.practica2.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import es.codeurjc.practica2.model.User;
 
 @Controller
 @RequestMapping("/admin")
@@ -46,5 +48,31 @@ public class AdminController {
     @Autowired
     private ImageRepository imageRepository;
 
-    // TODO: Create mappings to delete loans and users (Note: users should not be able to delete themselves)
+    @PostMapping("/user/{id}/delete")
+    public String deleteUserAsAdmin(@PathVariable Long id, HttpServletRequest request) {
+        User userToDelete = userRepository.findById(id).orElseThrow();
+
+        //The admin cannot delete himself or herself
+        String loggedInEmail = request.getUserPrincipal().getName();
+        if (userToDelete.getEmail().equals(loggedInEmail)) {
+            return "redirect:/admin/admin-panel#seccion-usuarios";
+        }
+
+        //Control the deletion of the image with the user
+        if (userToDelete.getImage() != null) {
+            Long imageId = userToDelete.getImage().getId();
+            userToDelete.setImage(null);
+            userRepository.save(userToDelete); 
+            imageRepository.deleteById(imageId);
+        }
+
+        userRepository.delete(userToDelete);
+
+        return "redirect:/admin/admin-panel#seccion-usuarios";
+    }
+    @PostMapping("/loan/{id}/delete")
+    public String deleteLoanAsAdmin(@PathVariable Long id) {
+        loanRepository.deleteById(id);
+        return "redirect:/admin/admin-panel#seccion-prestamos";
+    }
 }

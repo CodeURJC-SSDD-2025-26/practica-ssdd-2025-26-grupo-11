@@ -344,6 +344,36 @@
                   </button>
                 </form>
                 {{/returned}}
+
+                <button type="button" class="btn-icon delete ms-1" title="Eliminar préstamo"
+                  style="border: none; background: none" data-bs-toggle="modal"
+                  data-bs-target="#deleteLoanModal{{id}}">
+                  <i class="fas fa-trash"></i>
+                </button>
+
+                <div class="modal fade" id="deleteLoanModal{{id}}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">
+                          <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body text-start">
+                        <p class="mb-2">¿Estás seguro de que deseas eliminar este préstamo permanentemente?</p>
+                        <p class="text-muted small mb-0">Usuario: {{user.email}} <br> Libro: {{book.title}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="/admin/loan/{{id}}/delete" method="post" style="display: inline">
+                          <input type="hidden" name="_csrf" value="{{token}}" />
+                          <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
             {{/loans}} {{^loans}}
