@@ -31,9 +31,6 @@ public class ReviewService {
         Review review = new Review(comment, rating, user, book);
         Review savedReview = reviewRepository.save(review);
 
-        book.getReviews().add(savedReview);
-        user.getReviews().add(savedReview);
-
         updateBookRating(book);
 
         return savedReview;
