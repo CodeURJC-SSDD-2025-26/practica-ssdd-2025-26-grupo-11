@@ -29,11 +29,13 @@ import es.codeurjc.practica2.repository.UserRepository;
 import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.ImageService;
 import es.codeurjc.practica2.service.LoanService;
+import es.codeurjc.practica2.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import tools.jackson.databind.ObjectMapper;
 
 @Controller
 public class BookController {
+    private final ReviewService reviewService;
 
     @Autowired
     private BookService bookService;
@@ -52,6 +54,10 @@ public class BookController {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    BookController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     // Get first 4 most rated books
     @GetMapping("/")
@@ -414,7 +420,7 @@ public class BookController {
 
     @PostMapping("/admin/review/{id}/delete")
     public String deleteReviewAsAdmin(@PathVariable Long id) {
-        reviewRepository.deleteById(id);
+        reviewService.deleteById(id);
         return "redirect:/admin/admin-panel#seccion-resenas";
     }
 }
