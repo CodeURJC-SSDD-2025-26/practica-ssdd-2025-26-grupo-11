@@ -18,6 +18,9 @@ public class LoanService {
     @Autowired
     private LoanRepository loanRepository;
 
+    @Autowired
+    private EmailService emailService; // <-- AÑADE ESTO
+
     public List<Loan> findAll() {
         return loanRepository.findAll();
     }
@@ -65,7 +68,16 @@ public class LoanService {
                 book
         );
 
-        return loanRepository.save(loan);
+        Loan savedLoan = loanRepository.save(loan);
+
+        emailService.sendLoanConfirmation(
+                user.getEmail(), 
+                user.getName(), 
+                book.getTitle(), 
+                savedLoan.getReturnDate()
+        );
+
+        return savedLoan;
     }
 
     public void markAsReturned(Long loanId) {
