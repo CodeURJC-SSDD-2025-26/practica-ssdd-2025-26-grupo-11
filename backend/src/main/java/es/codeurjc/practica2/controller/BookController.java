@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -168,10 +170,15 @@ public class BookController {
 
         try {
             Genre genre = Genre.valueOf(genreString.toUpperCase());
-            Book book = new Book(title, author, description, genre, 0f, year, isbn);
+            Book book = new Book(title, author, description, genre, year, isbn);
 
             if (!imageField.isEmpty()) {
                 Image image = imageService.createImage(imageField.getInputStream());
+                book.setImage(image);
+            } else {
+                // Assign default book image if no image provided
+                Resource defaultImage = new ClassPathResource("static/images/default-book.png");
+                Image image = imageService.createImage(defaultImage.getInputStream());
                 book.setImage(image);
             }
 
