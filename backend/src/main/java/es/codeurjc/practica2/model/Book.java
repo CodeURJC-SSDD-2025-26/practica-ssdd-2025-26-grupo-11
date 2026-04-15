@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "books")
@@ -34,6 +35,9 @@ public class Book {
 
     @OneToOne
     private Image image;
+
+    @Transient
+    private boolean available;
 
     // A book can have many reviews, but a review belongs to one book
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
@@ -132,10 +136,10 @@ public class Book {
         reviews.add(review);
         review.setBook(this);
     }
-    
+
     public void setId(Long id) {
-    this.id = id;
-}
+        this.id = id;
+    }
 
     public List<String> getStars() {
         List<String> stars = new ArrayList<>();
@@ -157,4 +161,13 @@ public class Book {
 
         return stars;
     }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
 }
