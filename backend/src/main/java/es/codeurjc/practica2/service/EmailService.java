@@ -23,7 +23,7 @@ public class EmailService {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             
-            message.setFrom("correo@gmail.com"); 
+            message.setFrom("biblioonlineconfirmacion@gmail.com"); 
             message.setTo(toEmail);
             message.setSubject("Confirmación de préstamo - BiblioOnline");
 
