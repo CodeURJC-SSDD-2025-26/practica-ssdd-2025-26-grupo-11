@@ -1,0 +1,123 @@
+@startuml Class and Templates Diagram
+skinparam backgroundColor #F3F3F3
+skinparam componentStyle uml2
+skinparam class {
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam package {
+  Shadowing false
+}
+skinparam linetype ortho
+skinparam ArrowColor Black
+skinparam ranksep 1.5
+
+left to right direction
+
+package "Templates / Views" #D9D2E9 {
+  class index
+  class login
+  class register
+  class books
+  class "book-detail" as book_detail
+  class base
+  class profile
+  class "edit-profile" as edit_profile
+  class "my-loans" as my_loans
+  class "admin/admin-panel" as admin_panel
+  class "admin/admin-add-book" as admin_add_book
+  class "admin/admin-edit-book" as admin_edit_book
+  class "admin/admin-edit-loans" as admin_edit_loans
+  class "error/loginerror" as error_loginerror
+}
+
+package "Controllers" #C6E0B4 {
+  class WebController
+  class BookController
+  class UserController
+  class LoanController
+  class ReviewController
+  class AdminController
+  class ImageController
+}
+
+package "Services" #F8CBAD {
+  class BookService
+  class ImageService
+  class LoanService
+  class ReviewService
+  class UserService
+  class EmailService
+}
+
+package "Repositories" #A9D0F5 {
+  class BookRepository
+  class ImageRepository
+  class LoanRepository
+  class ReviewRepository
+  class UserRepository
+}
+
+package "Domain / Entities" #FFFFFF {
+  class Book
+  class User
+  class Loan
+  class Review
+  class Image
+  class Genre
+}
+
+index --> BookController
+books --> BookController
+book_detail --> BookController
+admin_panel --> BookController
+admin_add_book --> BookController
+admin_edit_book --> BookController
+admin_edit_loans --> LoanController
+base --> UserController
+profile --> UserController
+edit_profile --> UserController
+my_loans --> UserController
+login --> WebController
+register --> WebController
+error_loginerror --> WebController
+book_detail --> ReviewController
+
+BookController --> BookService
+BookController --> ImageService
+BookController --> LoanService
+BookController --> ReviewService
+UserController --> UserService
+UserController --> ImageService
+UserController --> LoanService
+UserController --> ReviewService
+AdminController --> UserService
+AdminController --> LoanService
+ReviewController --> ReviewService
+LoanController --> LoanService
+ImageController --> ImageService
+
+BookService --> BookRepository
+ImageService --> ImageRepository
+LoanService --> LoanRepository
+ReviewService --> ReviewRepository
+UserService --> UserRepository
+
+BookRepository --> Book
+ImageRepository --> Image
+LoanRepository --> Loan
+ReviewRepository --> Review
+UserRepository --> User
+
+Book --> Genre
+Book --> Review
+Book --> Image
+User --> Loan
+User --> Review
+User --> Image
+Loan --> User
+Loan --> Book
+Review --> User
+Review --> Book
+
+@enduml
