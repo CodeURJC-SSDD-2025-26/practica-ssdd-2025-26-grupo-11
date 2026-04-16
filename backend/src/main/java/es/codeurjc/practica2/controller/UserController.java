@@ -358,6 +358,7 @@ public class UserController {
         }
 
         loan.setStatus(Loan.Status.DEVUELTO);
+        loan.setReturnDate(java.time.LocalDate.now());
         loanRepository.save(loan);
 
         return "redirect:/my-loans";

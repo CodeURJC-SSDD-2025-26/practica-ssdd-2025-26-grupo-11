@@ -373,6 +373,10 @@ public String showBooks(
         List<Loan> loans = loanRepository.findAll();
         List<Review> reviews = reviewRepository.findAll();
 
+        for (Book book : books) {
+            book.setAvailable(loanService.isBookAvailable(book));
+        }
+
         for (Loan loan : loans) {
             if (loan.getStatus() != Loan.Status.DEVUELTO) {
                 loan.refreshStatusFromDates();

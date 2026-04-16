@@ -159,7 +159,15 @@
                 <td>
                   <span class="badge bg-secondary" data-genre="{{genre}}">{{genre}}</span>
                 </td>
-                <td><span class="badge bg-success">Disponible</span></td>
+                <td>
+                  {{#available}}
+                  <span class="badge bg-success">Disponible</span>
+                  {{/available}}
+                
+                  {{^available}}
+                  <span class="badge bg-danger">En préstamo</span>
+                  {{/available}}
+                </td>
                 <td>
                   {{#stars}}
                   <i class="{{.}}"></i>
