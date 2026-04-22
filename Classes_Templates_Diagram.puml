@@ -10,7 +10,8 @@ skinparam package {
 }
 skinparam linetype ortho
 skinparam ArrowColor Black
-skinparam ranksep 1.5
+skinparam ranksep 1.2
+skinparam nodesep 35
 
 left to right direction
 
@@ -67,57 +68,87 @@ package "Domain / Entities" #FFFFFF {
   class Genre
 }
 
-index --> BookController
-books --> BookController
-book_detail --> BookController
-admin_panel --> BookController
-admin_add_book --> BookController
-admin_edit_book --> BookController
-admin_edit_loans --> LoanController
-base --> UserController
-profile --> UserController
-edit_profile --> UserController
-my_loans --> UserController
+' -----------------------------
+' ALIGNMENT HELPERS (hidden)
+' -----------------------------
+BookController -[hidden]-> BookService
+BookService -[hidden]-> BookRepository
+BookRepository -[hidden]-> Book
+
+' -----------------------------
+' Templates -> Controllers
+' -----------------------------
+index --> WebController
 login --> WebController
 register --> WebController
 error_loginerror --> WebController
+
+books --> BookController
+book_detail --> BookController
+
+profile --> UserController
+edit_profile --> UserController
+base --> UserController
+
+my_loans --> LoanController
+
 book_detail --> ReviewController
 
+admin_panel --> AdminController
+admin_add_book --> AdminController
+admin_edit_book --> AdminController
+admin_edit_loans --> AdminController
+
+' -----------------------------
+' Controllers -> Services
+' -----------------------------
 BookController --> BookService
 BookController --> ImageService
 BookController --> LoanService
 BookController --> ReviewService
+
 UserController --> UserService
 UserController --> ImageService
-UserController --> LoanService
-UserController --> ReviewService
-AdminController --> UserService
-AdminController --> LoanService
-ReviewController --> ReviewService
+
 LoanController --> LoanService
+ReviewController --> ReviewService
 ImageController --> ImageService
 
+' Admin simplified
+AdminController --> BookRepository
+AdminController --> LoanRepository
+AdminController --> UserRepository
+AdminController --> ReviewRepository
+AdminController --> ImageRepository
+
+' -----------------------------
+' Services -> Repositories
+' -----------------------------
 BookService --> BookRepository
 ImageService --> ImageRepository
 LoanService --> LoanRepository
 ReviewService --> ReviewRepository
 UserService --> UserRepository
 
+' -----------------------------
+' Repositories -> Entities
+' -----------------------------
 BookRepository --> Book
 ImageRepository --> Image
 LoanRepository --> Loan
 ReviewRepository --> Review
 UserRepository --> User
 
+' -----------------------------
+' Entity relations
+' -----------------------------
 Book --> Genre
 Book --> Review
 Book --> Image
-User --> Loan
-User --> Review
-User --> Image
-Loan --> User
 Loan --> Book
-Review --> User
+Loan --> User
 Review --> Book
+Review --> User
+User --> Image
 
 @enduml

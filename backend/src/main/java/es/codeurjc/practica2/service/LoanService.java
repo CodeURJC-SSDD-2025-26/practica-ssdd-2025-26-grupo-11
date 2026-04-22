@@ -19,7 +19,7 @@ public class LoanService {
     private LoanRepository loanRepository;
 
     @Autowired
-    private EmailService emailService; // <-- AÑADE ESTO
+    private EmailService emailService; 
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
