@@ -191,16 +191,6 @@ Diagram that shows how to navigate between the different pages of the applicatio
 
 ## 🛠 **Práctica 2: Web con HTML generado en servidor**
 
-### **Navegación y Capturas de Pantalla**
-
-#### **Diagrama de Navegación**
-
-Solo si ha cambiado.
-
-#### **Capturas de Pantalla Actualizadas**
-
-Solo si han cambiado.
-
 ### **Instrucciones de Ejecución**
 
 #### **Requisitos Previos**
@@ -223,21 +213,17 @@ Solo si han cambiado.
 - **Usuario Admin**: usuario: `admin`, contraseña: `admin`
 - **Usuario Registrado**: usuario: `user`, contraseña: `user`
 
-### **Diagrama de Entidades de Base de Datos**
+### **Database Entity Diagram**
 
-Diagrama mostrando las entidades, sus campos y relaciones:
+Diagram showing the entities, their fields, and relationships:
 
 ![Diagrama Entidad-Relación](images/database-diagram.png)
 
-> [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
+### **Classes and Templates Diagram**
 
-### **Diagrama de Clases y Templates**
-
-Diagrama de clases de la aplicación con diferenciación por colores o secciones:
+Application Class Diagram with color-coded sections:
 
 ![Diagrama de Clases](images\Class_and_Templates_Diagram.png)
-
-> [Descripción opcional del diagrama y relaciones principales]
 
 ### **Member Participation in Practice 2**
 
@@ -257,18 +243,16 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Implement backend integration and security configuration](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233)  | [WebController.java,DataInitializer.java y SecurityConfig.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
+|2| [Implement user registration and login functionality ](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646)  | [UserController.java y Login.html Register.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646#diff-b2469ee29439c23c45f2f41939ce95ae3d142728327838a0f10fb6813e5d4343)   |
+|3| [Created admin panel book management with create, edit, delete](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c859210e8703983c1954028bbb0324fb334b72f0)  | [admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c859210e8703983c1954028bbb0324fb334b72f0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
+|4| [Admin panel: added loans and reviews funcionality](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0d740145119214e710211fd0a20444d7c747cc88)  | [Admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0d740145119214e710211fd0a20444d7c747cc88#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
+|5| [Implemented books funcionality and navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/4f327c6881c8e94df9082f5a1a3529cd91310402)  | [BookController.java y books.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/4f327c6881c8e94df9082f5a1a3529cd91310402#diff-11d79059960a7c96003a89afe8dab6f9d42b0053ea4b0f6455ce3475952b2b61)   |
+|6| [Add user profile view and edit functionality](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56)  | [BookController.java y Profile.html,Edit-profile.html y book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56#diff-11d79059960a7c96003a89afe8dab6f9d42b0053ea4b0f6455ce3475952b2b61)   |
 
 ---
 
-<<<<<<< HEAD
 #### **Student 3 - Ángel Vila Sanchez**
-=======
-#### **Alumno 3 - Ángel Vila Sánchez**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
@@ -278,20 +262,6 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 |4| [Create and complete admin panel and smart book recommendations](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0)  | [AdminPanel.html y AdminController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
 |5| [Automatic email](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85)  | [emailService.java +4](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85#diff-a5759ee09b6b8d6355f7f4699513801d8ea3f92d551edf255355b66bab234204)   |
 
----
-
-#### **Alumno 4 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
->>>>>>> db1c7b0117097dff00803e324e735d53df680fd2
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
