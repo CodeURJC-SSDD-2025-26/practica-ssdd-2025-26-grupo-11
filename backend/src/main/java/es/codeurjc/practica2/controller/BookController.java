@@ -77,11 +77,10 @@ public class BookController {
         String normalizedQuery = (q == null || q.isBlank()) ? null : q.trim().toLowerCase(Locale.ROOT);
         Genre genreEnum = (genre == null || genre.isBlank()) ? null : Genre.valueOf(genre);
 
-        // 🔥 Database filtering (BEFORE: findAll + Java filters)
+        // Database-level filtering (PREVIOUSLY: findAll + Java filters)
         List<Book> books = bookService.searchBooks(normalizedQuery, genreEnum);
 
-        // We only calculate availability (you could optimize this more if you wanted to
-        // get a high grade)
+        // We only calculate availability
         for (Book book : books) {
             book.setAvailable(loanService.isBookAvailable(book));
         }
@@ -100,7 +99,7 @@ public class BookController {
                 })
                 .toList();
 
-        // Group by genre 
+        // Group by genre
         Map<Genre, List<Book>> groupedBooks = new LinkedHashMap<>();
         for (Genre g : Genre.values()) {
             groupedBooks.put(g, new ArrayList<>());

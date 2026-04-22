@@ -265,7 +265,25 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
+<<<<<<< HEAD
 #### **Student 3 - Ángel Vila Sanchez**
+=======
+#### **Alumno 3 - Ángel Vila Sánchez**
+
+| Nº    | Commits      | Files      |
+|:------------: |:------------:| :------------:|
+|1| [Deletion of users and loans](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c727fb520b0a1b69608f5eb95d357816ecb73731)  | [AdminController.java y admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c727fb520b0a1b69608f5eb95d357816ecb73731#diff-b8b02c93fb6286f8a34870f26b78e466b1eb33bacc2f3ba21ec42fee958cc8a4)   |
+|2| [Implement dynamic book-details and improve structure of weController](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340)  | [WebController.java]https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
+|3| [Implement personalized book recommendations by genre and fix the display of them](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6)  | [base.html, UserController.java, BookRepository.java y UserService.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6#diff-1f0cf94b06c0a3ca32766dbd7d3c6b7dde4c8a5ef1524ed9b3699ed2cd4c5f94)   |
+|4| [Create and complete admin panel and smart book recommendations](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0)  | [AdminPanel.html y AdminController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
+|5| [Automatic email](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85)  | [emailService.java +4](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85#diff-a5759ee09b6b8d6355f7f4699513801d8ea3f92d551edf255355b66bab234204)   |
+
+---
+
+#### **Alumno 4 - [Nombre Completo]**
+
+[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+>>>>>>> db1c7b0117097dff00803e324e735d53df680fd2
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
