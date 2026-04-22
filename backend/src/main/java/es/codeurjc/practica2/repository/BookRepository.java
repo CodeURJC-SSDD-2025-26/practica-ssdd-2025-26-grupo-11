@@ -22,4 +22,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
          """)
    List<Book> searchBooks(@Param("q") String q,
          @Param("genre") Genre genre);
+
+   @Query("""
+         SELECT b.genre, AVG(b.rating)
+         FROM Book b
+         GROUP BY b.genre
+         """)
+   List<Object[]> avgRatingByGenre();
 }

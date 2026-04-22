@@ -43,4 +43,8 @@ public class BookService {
     public List<Book> searchBooks(String q, Genre genre) {
         return bookRepository.searchBooks(q, genre);
     }
+
+    public List<Object[]> avgRatingByGenre() {
+        return bookRepository.avgRatingByGenre();
+    }
 }

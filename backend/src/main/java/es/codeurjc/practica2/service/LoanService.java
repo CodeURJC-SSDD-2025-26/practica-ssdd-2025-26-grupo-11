@@ -102,4 +102,12 @@ public class LoanService {
 
         loanRepository.save(loan);
     }
+
+    public List<Object[]> countLoansByGenre() {
+        return loanRepository.countLoansByGenre();
+    }
+
+    public long countByStatus(Loan.Status status) {
+        return loanRepository.countByStatus(status);
+    }
 }

@@ -3,6 +3,7 @@ package es.codeurjc.practica2.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -99,7 +100,6 @@ public class BookController {
 
         String selectedAvailability = availability == null ? "" : availability.trim();
 
-        // Filtrado de disponibilidad (ligero, ya no es grave)
         List<Book> filteredBooks = books.stream()
                 .filter(book -> {
                     if (selectedAvailability.isBlank())
@@ -368,60 +368,58 @@ public class BookController {
 
     @GetMapping("/admin/admin-panel")
     public String showAdminPanel(Model model) {
+
         List<Book> books = bookService.findAll();
         List<Loan> loans = loanRepository.findAll();
         List<Review> reviews = reviewRepository.findAll();
+        List<User> users = userRepository.findAll();
 
+        // Disponibilidad (se puede mejorar, pero no es el foco principal)
         for (Book book : books) {
             book.setAvailable(loanService.isBookAvailable(book));
         }
 
+        // Refrescar estado de préstamos
         for (Loan loan : loans) {
             if (loan.getStatus() != Loan.Status.DEVUELTO) {
                 loan.refreshStatusFromDates();
             }
         }
 
-        List<User> users = userRepository.findAll();
-
         List<String> genreLabels = new ArrayList<>();
         List<Integer> genreLoanCounts = new ArrayList<>();
         List<String> genreRatingLabels = new ArrayList<>();
         List<Double> genreRatingValues = new ArrayList<>();
 
+        // 🔥 DATOS DESDE BD (ANTES: streams)
+        Map<Genre, Long> loanCountMap = new HashMap<>();
+        for (Object[] row : loanRepository.countLoansByGenre()) {
+            loanCountMap.put((Genre) row[0], (Long) row[1]);
+        }
+
+        Map<Genre, Double> ratingMap = new HashMap<>();
+        for (Object[] row : bookService.avgRatingByGenre()) {
+            ratingMap.put((Genre) row[0], (Double) row[1]);
+        }
+
         for (Genre genre : Genre.values()) {
             String genreName = genre.getDisplayName();
 
-            int loanCount = (int) loans.stream()
-                    .filter(loan -> loan.getBook() != null)
-                    .filter(loan -> loan.getBook().getGenre() == genre)
-                    .count();
-
-            double avgRating = books.stream()
-                    .filter(book -> book.getGenre() == genre)
-                    .mapToDouble(Book::getRating)
-                    .average()
-                    .orElse(0.0);
+            long loanCount = loanCountMap.getOrDefault(genre, 0L);
+            double avgRating = ratingMap.getOrDefault(genre, 0.0);
 
             avgRating = Math.round(avgRating * 10.0) / 10.0;
 
             genreLabels.add(genreName);
-            genreLoanCounts.add(loanCount);
+            genreLoanCounts.add((int) loanCount);
             genreRatingLabels.add(genreName);
             genreRatingValues.add(avgRating);
         }
 
-        long activeLoansCount = loans.stream()
-                .filter(Loan::isActive)
-                .count();
-
-        long overdueLoansCount = loans.stream()
-                .filter(Loan::isOverdue)
-                .count();
-
-        long returnedLoansCount = loans.stream()
-                .filter(Loan::isReturned)
-                .count();
+        // 🔥 Conteos por estado (ANTES: streams)
+        long activeLoansCount = loanRepository.countByStatus(Loan.Status.ACTIVO);
+        long overdueLoansCount = loanRepository.countByStatus(Loan.Status.VENCIDO);
+        long returnedLoansCount = loanRepository.countByStatus(Loan.Status.DEVUELTO);
 
         model.addAttribute("books", books);
         model.addAttribute("loans", loans);
