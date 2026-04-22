@@ -212,10 +212,20 @@ Diagram that shows how to navigate between the different pages of the applicatio
    cd backend
    ```
 
-2. **Run the application**
+3. **Install the dependencies**
+
+   ```bash
+   mvn clean install
+   ```
+
+4. **Run the application**
    ```bash
    mvn spring-boot:run
    ```
+
+5. **Access the local host**
+
+   [https://localhost:8443](https://localhost:8443)
 
 #### **Test credentials**
 - **Admin user**: user: `admin@example.com`, password: `adminpass`
