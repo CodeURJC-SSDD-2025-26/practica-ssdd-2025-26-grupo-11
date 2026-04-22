@@ -241,7 +241,7 @@ Diagram showing the entities, their fields, and relationships:
 
 Application Class Diagram with color-coded sections:
 
-![Class diagram](images\Class_and_Templates_Diagram.png)
+![Class diagram](images/Class_and_Templates_Diagram.png)
 
 ### **Member Participation in Practice 2**
 
