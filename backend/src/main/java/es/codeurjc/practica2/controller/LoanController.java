@@ -1,15 +1,18 @@
 package es.codeurjc.practica2.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.practica2.model.Loan;
+import es.codeurjc.practica2.model.User;
+import es.codeurjc.practica2.repository.UserRepository;
 import es.codeurjc.practica2.repository.LoanRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoanController {
@@ -17,45 +20,64 @@ public class LoanController {
     @Autowired
     private LoanRepository loanRepository;
 
-    @GetMapping("/admin/edit-loans/{id}")
-    public String editLoanForm(@PathVariable Long id, Model model) {
-        Loan loan = loanRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
+    @Autowired
+    private UserRepository userRepository;
 
-        model.addAttribute("loan", loan);
-        model.addAttribute("statuses", Loan.Status.values());
+    @GetMapping("/my-loans")
+    public String myLoans(Model model, HttpServletRequest request) {
+        String email = request.getUserPrincipal().getName();
 
-        return "admin/admin-edit-loans";
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        List<Loan> loans = loanRepository.findByUser(user);
+        for (Loan loan : loans) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+}
+
+        long activeLoans = loans.stream()
+                .filter(Loan::isActive)
+                .count();
+
+        long overdueLoans = loans.stream()
+                .filter(Loan::isOverdue)
+                .count();
+
+        long returnedLoans = loans.stream()
+                .filter(Loan::isReturned)
+                .count();
+
+        model.addAttribute("user", user);
+        model.addAttribute("loans", loans);
+        model.addAttribute("activeLoansCount", activeLoans);
+        model.addAttribute("overdueLoansCount", overdueLoans);
+        model.addAttribute("returnedLoansCount", returnedLoans);
+        model.addAttribute("totalLoansCount", loans.size());
+
+        return "my-loans";
     }
 
-    @PostMapping("/admin/edit-loans/{id}")
-    public String updateLoan(
-            @PathVariable Long id,
-            @RequestParam("status") String status,
-            @RequestParam("loanDate") java.time.LocalDate loanDate,
-            @RequestParam("returnDate") java.time.LocalDate returnDate) {
+    @PostMapping("/my-loans/return/{id}")
+    public String returnLoan(@PathVariable Long id, HttpServletRequest request) {
+        String email = request.getUserPrincipal().getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
 
-        if (returnDate.isBefore(loanDate)) {
-            throw new RuntimeException("La fecha de devolución no puede ser anterior a la fecha de préstamo");
+        if (!loan.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("No tienes permisos para modificar este préstamo");
         }
 
-        Loan.Status selectedStatus = Loan.Status.valueOf(status);
-
-        loan.setLoanDate(loanDate);
-        loan.setReturnDate(returnDate);
-
-        if (selectedStatus == Loan.Status.DEVUELTO) {
-            loan.setStatus(Loan.Status.DEVUELTO);
-        } else {
-            loan.setStatus(Loan.Status.ACTIVO);
-            loan.refreshStatusFromDates();
-        }
-
+        loan.setStatus(Loan.Status.DEVUELTO);
+        loan.setReturnDate(java.time.LocalDate.now());
         loanRepository.save(loan);
 
-        return "redirect:/admin/admin-panel#seccion-prestamos";
+        return "redirect:/my-loans";
     }
+
 }
