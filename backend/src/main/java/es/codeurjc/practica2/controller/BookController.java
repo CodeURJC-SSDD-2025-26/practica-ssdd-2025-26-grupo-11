@@ -79,85 +79,84 @@ public class BookController {
     }
 
     @GetMapping("/books")
-public String showBooks(
-        Model model,
-        @RequestParam(required = false) String q,
-        @RequestParam(required = false) String genre,
-        @RequestParam(required = false) String availability) {
+    public String showBooks(
+            Model model,
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) String availability) {
 
-    List<Book> allBooks = bookService.findAll();
+        String normalizedQuery = (q == null || q.isBlank()) ? null : q.trim().toLowerCase(Locale.ROOT);
+        Genre genreEnum = (genre == null || genre.isBlank()) ? null : Genre.valueOf(genre);
 
-    for (Book book : allBooks) {
-        book.setAvailable(loanService.isBookAvailable(book));
-    }
+        // 🔥 Filtrado en base de datos (ANTES: findAll + filtros en Java)
+        List<Book> books = bookService.searchBooks(normalizedQuery, genreEnum);
 
-    String normalizedQuery = q == null ? "" : q.trim().toLowerCase(Locale.ROOT);
-    String selectedGenre = genre == null ? "" : genre.trim();
-    String selectedAvailability = availability == null ? "" : availability.trim();
-
-    List<Book> filteredBooks = new ArrayList<>();
-
-    for (Book book : allBooks) {
-        boolean matchesQuery = normalizedQuery.isBlank()
-                || book.getTitle().toLowerCase(Locale.ROOT).contains(normalizedQuery)
-                || book.getAuthor().toLowerCase(Locale.ROOT).contains(normalizedQuery);
-
-        boolean matchesGenre = selectedGenre.isBlank()
-                || (book.getGenre() != null && book.getGenre().name().equals(selectedGenre));
-
-        boolean matchesAvailability = selectedAvailability.isBlank()
-                || ("available".equals(selectedAvailability) && book.isAvailable())
-                || ("loaned".equals(selectedAvailability) && !book.isAvailable());
-
-        if (matchesQuery && matchesGenre && matchesAvailability) {
-            filteredBooks.add(book);
+        // Solo calculamos disponibilidad (esto podrías optimizarlo más si quisieras
+        // nota alta)
+        for (Book book : books) {
+            book.setAvailable(loanService.isBookAvailable(book));
         }
-    }
 
-    Map<Genre, List<Book>> groupedBooks = new LinkedHashMap<>();
-    for (Genre g : Genre.values()) {
-        groupedBooks.put(g, new ArrayList<>());
-    }
+        String selectedAvailability = availability == null ? "" : availability.trim();
 
-    for (Book book : filteredBooks) {
-        if (book.getGenre() != null) {
-            groupedBooks.get(book.getGenre()).add(book);
+        // Filtrado de disponibilidad (ligero, ya no es grave)
+        List<Book> filteredBooks = books.stream()
+                .filter(book -> {
+                    if (selectedAvailability.isBlank())
+                        return true;
+                    if ("available".equals(selectedAvailability))
+                        return book.isAvailable();
+                    if ("loaned".equals(selectedAvailability))
+                        return !book.isAvailable();
+                    return true;
+                })
+                .toList();
+
+        // Agrupar por género (esto está bien en Java)
+        Map<Genre, List<Book>> groupedBooks = new LinkedHashMap<>();
+        for (Genre g : Genre.values()) {
+            groupedBooks.put(g, new ArrayList<>());
         }
-    }
 
-    List<GenreSection> sections = new ArrayList<>();
-    for (Genre g : Genre.values()) {
-        List<Book> booksOfGenre = groupedBooks.get(g);
-        if (booksOfGenre != null && !booksOfGenre.isEmpty()) {
-            sections.add(new GenreSection(g.getDisplayName(), g.name(), booksOfGenre));
+        for (Book book : filteredBooks) {
+            if (book.getGenre() != null) {
+                groupedBooks.get(book.getGenre()).add(book);
+            }
         }
+
+        List<GenreSection> sections = new ArrayList<>();
+        for (Genre g : Genre.values()) {
+            List<Book> booksOfGenre = groupedBooks.get(g);
+            if (booksOfGenre != null && !booksOfGenre.isEmpty()) {
+                sections.add(new GenreSection(g.getDisplayName(), g.name(), booksOfGenre));
+            }
+        }
+
+        model.addAttribute("genreSections", sections);
+        model.addAttribute("genres", Genre.values());
+        model.addAttribute("booksCount", filteredBooks.size());
+
+        model.addAttribute("search", q == null ? "" : q);
+        model.addAttribute("selectedGenre", genre == null ? "" : genre);
+        model.addAttribute("selectedAvailability", selectedAvailability);
+
+        model.addAttribute("isAllGenres", genre == null || genre.isBlank());
+        model.addAttribute("isGenreFiccion", "FICCION".equals(genre));
+        model.addAttribute("isGenreFantasia", "FANTASIA".equals(genre));
+        model.addAttribute("isGenreHistoria", "HISTORIA".equals(genre));
+        model.addAttribute("isGenreCiencia", "CIENCIA".equals(genre));
+        model.addAttribute("isGenreInfantil", "INFANTIL".equals(genre));
+        model.addAttribute("isGenreMisterio", "MISTERIO".equals(genre));
+        model.addAttribute("isGenreRomance", "ROMANCE".equals(genre));
+        model.addAttribute("isGenreBiografia", "BIOGRAFIA".equals(genre));
+        model.addAttribute("isGenreClasicos", "CLASICOS".equals(genre));
+
+        model.addAttribute("isAllAvailability", selectedAvailability.isBlank());
+        model.addAttribute("isAvailableSelected", "available".equals(selectedAvailability));
+        model.addAttribute("isLoanedSelected", "loaned".equals(selectedAvailability));
+
+        return "books";
     }
-
-    model.addAttribute("genreSections", sections);
-    model.addAttribute("genres", Genre.values());
-    model.addAttribute("booksCount", filteredBooks.size());
-
-    model.addAttribute("search", q == null ? "" : q);
-    model.addAttribute("selectedGenre", selectedGenre);
-    model.addAttribute("selectedAvailability", selectedAvailability);
-
-    model.addAttribute("isAllGenres", selectedGenre.isBlank());
-    model.addAttribute("isGenreFiccion", "FICCION".equals(selectedGenre));
-    model.addAttribute("isGenreFantasia", "FANTASIA".equals(selectedGenre));
-    model.addAttribute("isGenreHistoria", "HISTORIA".equals(selectedGenre));
-    model.addAttribute("isGenreCiencia", "CIENCIA".equals(selectedGenre));
-    model.addAttribute("isGenreInfantil", "INFANTIL".equals(selectedGenre));
-    model.addAttribute("isGenreMisterio", "MISTERIO".equals(selectedGenre));
-    model.addAttribute("isGenreRomance", "ROMANCE".equals(selectedGenre));
-    model.addAttribute("isGenreBiografia", "BIOGRAFIA".equals(selectedGenre));
-    model.addAttribute("isGenreClasicos", "CLASICOS".equals(selectedGenre));
-
-    model.addAttribute("isAllAvailability", selectedAvailability.isBlank());
-    model.addAttribute("isAvailableSelected", "available".equals(selectedAvailability));
-    model.addAttribute("isLoanedSelected", "loaned".equals(selectedAvailability));
-
-    return "books";
-}
 
     @GetMapping("/book-detail/{id}")
     public String showBookDetail(@PathVariable Long id, Model model, HttpServletRequest request,
@@ -368,7 +367,7 @@ public String showBooks(
     }
 
     @GetMapping("/admin/admin-panel")
-    public String showAdminPanel(Model model){
+    public String showAdminPanel(Model model) {
         List<Book> books = bookService.findAll();
         List<Loan> loans = loanRepository.findAll();
         List<Review> reviews = reviewRepository.findAll();

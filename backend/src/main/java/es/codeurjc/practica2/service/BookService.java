@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.repository.BookRepository;
 
 @Service
@@ -24,8 +25,8 @@ public class BookService {
     }
 
     public boolean exist(long id) {
-		return bookRepository.existsById(id);
-	}
+        return bookRepository.existsById(id);
+    }
 
     public void save(Book book) {
         bookRepository.save(book);
@@ -37,5 +38,9 @@ public class BookService {
 
     public List<Book> findTopRatedBooks() {
         return bookRepository.findTop4ByOrderByRatingDesc();
+    }
+
+    public List<Book> searchBooks(String q, Genre genre) {
+        return bookRepository.searchBooks(q, genre);
     }
 }
