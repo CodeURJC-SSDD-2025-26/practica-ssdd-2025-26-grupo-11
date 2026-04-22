@@ -70,29 +70,87 @@ public class AdminController {
             Model model,
             Book book,
             @RequestParam(name = "genre") String genreString,
-            @RequestParam MultipartFile imageField) throws IOException {
+            @RequestParam MultipartFile imageField,
+            @RequestParam(name = "year", required = false) String yearStr,
+            @RequestParam(name = "isbn", required = false) String isbnStr) throws IOException {
 
-        try {
-            Genre genre = Genre.valueOf(genreString.toUpperCase());
-            book.setGenre(genre);
+        List<String> errors = new ArrayList<>();
 
-            if (!imageField.isEmpty()) {
-                Image image = imageService.createImage(imageField.getInputStream());
-                book.setImage(image);
-            } else {
-                Resource defaultImage = new ClassPathResource("static/images/default-book.png");
-                Image image = imageService.createImage(defaultImage.getInputStream());
-                book.setImage(image);
+        if (book.getTitle() == null || book.getTitle().isBlank()) {
+            errors.add("El título es obligatorio.");
+        } else if (book.getTitle().length() > 20) {
+            errors.add("El título no puede superar los 20 caracteres.");
+        }
+
+        if (book.getAuthor() == null || book.getAuthor().isBlank()) {
+            errors.add("El autor es obligatorio.");
+        } else if (book.getAuthor().length() > 25) {
+            errors.add("El autor no puede superar los 25 caracteres.");
+        }
+
+        if (yearStr == null || yearStr.isBlank()) {
+            errors.add("El año de publicación es obligatorio.");
+        } else {
+            try {
+                int year = Integer.parseInt(yearStr);
+                if (year < 1000 || year > 2099) {
+                    errors.add("El año debe estar entre 1000 y 2099.");
+                }
+            } catch (NumberFormatException e) {
+                errors.add("El año debe ser un número válido.");
             }
+        }
 
-            bookService.save(book);
+        if (isbnStr == null || isbnStr.isBlank()) {
+            errors.add("El ISBN es obligatorio.");
+        } else {
+            try {
+                Long.parseLong(isbnStr); 
+            } catch (NumberFormatException e) {
+                errors.add("El ISBN debe ser un número válido.");
+            }
+        }
 
-            return "redirect:/book-detail/" + book.getId();
+        if (book.getDescription() != null && book.getDescription().length() > 150) {
+            errors.add("La descripción no puede superar los 150 caracteres.");
+        }
 
+        Genre genre = null;
+        try {
+            if (genreString == null || genreString.isBlank()) {
+                errors.add("El género es obligatorio.");
+            } else {
+                genre = Genre.valueOf(genreString.toUpperCase());
+            }
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", "Género inválido");
+            errors.add("El género seleccionado no es válido.");
+        }
+
+        if (!imageField.isEmpty()) {
+            String contentType = imageField.getContentType();
+            if (contentType == null || (!contentType.equals("image/jpeg") && !contentType.equals("image/png"))) {
+                errors.add("La imagen debe ser .jpg o .png.");
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
             return "admin/admin-add-book";
         }
+
+        book.setGenre(genre);
+
+        if (!imageField.isEmpty()) {
+            Image image = imageService.createImage(imageField.getInputStream());
+            book.setImage(image);
+        } else {
+            Resource defaultImage = new ClassPathResource("static/images/default-book.png");
+            Image image = imageService.createImage(defaultImage.getInputStream());
+            book.setImage(image);
+        }
+
+        bookService.save(book);
+        return "redirect:/book-detail/" + book.getId();
     }
 
     @GetMapping("/admin-panel")
@@ -193,30 +251,92 @@ public class AdminController {
             Book updatedBook,
             @RequestParam(name = "genre") String genreString,
             @RequestParam(required = false, defaultValue = "false") boolean removeImage,
-            @RequestParam(required = false) MultipartFile imageField) throws IOException, SQLException {
+            @RequestParam(required = false) MultipartFile imageField,
+            @RequestParam(name = "year", required = false) String yearStr,
+            @RequestParam(name = "isbn", required = false) String isbnStr,
+            Model model) throws IOException, SQLException {
 
         Book dbBook = bookService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 
-        try {
-            Genre genre = Genre.valueOf(genreString.toUpperCase());
+        List<String> errors = new ArrayList<>();
 
-            dbBook.setTitle(updatedBook.getTitle());
-            dbBook.setAuthor(updatedBook.getAuthor());
-            dbBook.setDescription(updatedBook.getDescription());
-            dbBook.setYear(updatedBook.getYear());
-            dbBook.setIsbn(updatedBook.getIsbn());
-            dbBook.setGenre(genre);
-
-            updateImage(dbBook, removeImage, imageField);
-
-            bookService.save(dbBook);
-
-            return "redirect:/book-detail/" + id;
-
-        } catch (IllegalArgumentException e) {
-            return "redirect:/admin/admin-edit-book/" + id;
+        if (updatedBook.getTitle() == null || updatedBook.getTitle().isBlank()) {
+            errors.add("El título es obligatorio.");
+        } else if (updatedBook.getTitle().length() > 20) {
+            errors.add("El título no puede superar los 20 caracteres.");
         }
+
+        if (updatedBook.getAuthor() == null || updatedBook.getAuthor().isBlank()) {
+            errors.add("El autor es obligatorio.");
+        } else if (updatedBook.getAuthor().length() > 25) {
+            errors.add("El autor no puede superar los 25 caracteres.");
+        }
+
+        if (yearStr == null || yearStr.isBlank()) {
+            errors.add("El año de publicación es obligatorio.");
+        } else {
+            try {
+                int year = Integer.parseInt(yearStr);
+                if (year < 1000 || year > 2099) {
+                    errors.add("El año debe estar entre 1000 y 2099.");
+                }
+            } catch (NumberFormatException e) {
+                errors.add("El año debe ser un número válido.");
+            }
+        }
+
+        if (isbnStr == null || isbnStr.isBlank()) {
+            errors.add("El ISBN es obligatorio.");
+        } else {
+            try {
+                Long.parseLong(isbnStr);
+            } catch (NumberFormatException e) {
+                errors.add("El ISBN debe ser un número válido.");
+            }
+        }
+
+        if (updatedBook.getDescription() != null && updatedBook.getDescription().length() > 150) {
+            errors.add("La descripción no puede superar los 150 caracteres.");
+        }
+
+        Genre genre = null;
+        try {
+            if (genreString == null || genreString.isBlank()) {
+                errors.add("El género es obligatorio.");
+            } else {
+                genre = Genre.valueOf(genreString.toUpperCase());
+            }
+        } catch (IllegalArgumentException e) {
+            errors.add("El género seleccionado no es válido.");
+        }
+
+        if (imageField != null && !imageField.isEmpty()) {
+            String contentType = imageField.getContentType();
+            if (contentType == null || (!contentType.equals("image/jpeg") && !contentType.equals("image/png"))) {
+                errors.add("La imagen debe ser .jpg o .png.");
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("book", dbBook);
+            model.addAttribute("currentGenre", genreString);
+            return "admin/admin-edit-book";
+        }
+
+        dbBook.setTitle(updatedBook.getTitle());
+        dbBook.setAuthor(updatedBook.getAuthor());
+        dbBook.setDescription(updatedBook.getDescription());
+        dbBook.setYear(updatedBook.getYear());
+        dbBook.setIsbn(updatedBook.getIsbn());
+        dbBook.setGenre(genre);
+
+        updateImage(dbBook, removeImage, imageField);
+
+        bookService.save(dbBook);
+
+        return "redirect:/book-detail/" + id;
     }
 
     @PostMapping("/loan/{id}/return")
@@ -280,13 +400,46 @@ public class AdminController {
             @PathVariable Long id,
             @RequestParam("status") String status,
             @RequestParam("loanDate") java.time.LocalDate loanDate,
-            @RequestParam("returnDate") java.time.LocalDate returnDate) {
+            @RequestParam("returnDate") java.time.LocalDate returnDate,
+            Model model) {
 
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Préstamo no encontrado"));
 
-        if (returnDate.isBefore(loanDate)) {
-            throw new RuntimeException("La fecha de devolución no puede ser anterior a la fecha de préstamo");
+        List<String> errors = new ArrayList<>();
+
+        if (loanDate == null) {
+            errors.add("La fecha de préstamo es obligatoria.");
+        }
+
+        if (returnDate == null) {
+            errors.add("La fecha de devolución es obligatoria.");
+        }
+
+        if (loanDate != null && returnDate != null && returnDate.isBefore(loanDate)) {
+            errors.add("La fecha de devolución no puede ser anterior a la fecha de préstamo.");
+        }
+
+        if (loanDate != null && loanDate.isAfter(java.time.LocalDate.now())) {
+            errors.add("La fecha de préstamo no puede ser futura.");
+        }
+
+        boolean validStatus = false;
+        for (Loan.Status s : Loan.Status.values()) {
+            if (s.name().equals(status)) {
+                validStatus = true;
+                break;
+            }
+        }
+        if (!validStatus) {
+            errors.add("El estado seleccionado no es válido.");
+        }
+
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("loan", loan);
+            model.addAttribute("statuses", Loan.Status.values());
+            return "admin/admin-edit-loans";
         }
 
         Loan.Status selectedStatus = Loan.Status.valueOf(status);

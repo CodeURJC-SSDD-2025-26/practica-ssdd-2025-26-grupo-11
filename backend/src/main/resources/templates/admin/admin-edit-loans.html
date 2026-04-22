@@ -30,6 +30,13 @@
           </div>
 
           <div class="card-body p-4">
+            {{#errors}}
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                {{#errors}}<li>{{.}}</li>{{/errors}}
+              </ul>
+            </div>
+            {{/errors}}
             <form method="post" action="/admin/edit-loans/{{loan.id}}">
               <input type="hidden" name="_csrf" value="{{token}}">
 

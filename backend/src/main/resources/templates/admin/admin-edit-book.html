@@ -28,13 +28,20 @@
           </div>
 
           <div class="card-body p-4">
+            {{#errors}}
+            <div class="alert alert-danger" role="alert">
+              <ul class="mb-0">
+                {{#errors}}<li>{{.}}</li>{{/errors}}
+              </ul>
+            </div>
+            {{/errors}}
+
             <form method="post" action="/admin/admin-edit-book/{{book.id}}" enctype="multipart/form-data">
               <input type="hidden" name="_csrf" value="{{token}}">
 
               <div class="mb-4 text-center p-3 border rounded bg-light">
                 {{#book.image}}
-                <img src="/image/{{id}}" alt="Portada actual" class="img-fluid rounded mb-3"
-                  style="max-height:180px;">
+                <img src="/image/{{id}}" alt="Portada actual" class="img-fluid rounded mb-3" style="max-height:180px;">
                 {{/book.image}}
 
                 <div class="mb-2 fw-bold">Cambiar portada</div>
@@ -43,18 +50,21 @@
 
               <div class="mb-3">
                 <label for="title" class="form-label fw-bold">Título del Libro</label>
-                <input type="text" class="form-control border-2" id="title" name="title" value="{{book.title}}" maxlength="20" required>
+                <input type="text" class="form-control border-2" id="title" name="title" value="{{book.title}}"
+                  maxlength="20" required>
               </div>
 
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="author" class="form-label fw-bold">Autor</label>
-                  <input type="text" class="form-control border-2" id="author" name="author" value="{{book.author}}" maxlength="25" required>
+                  <input type="text" class="form-control border-2" id="author" name="author" value="{{book.author}}"
+                    maxlength="25" required>
                 </div>
 
                 <div class="col-md-6 mb-3">
                   <label for="year" class="form-label fw-bold">Año de Publicación</label>
-                  <input type="number" class="form-control border-2" id="year" name="year" value="{{book.year}}" required>
+                  <input type="number" class="form-control border-2" id="year" name="year" value="{{book.year}}"
+                    required>
                 </div>
               </div>
 
@@ -80,13 +90,15 @@
 
                 <div class="col-md-6 mb-3">
                   <label for="isbn" class="form-label fw-bold">ISBN</label>
-                  <input type="number" class="form-control border-2" id="isbn" name="isbn" value="{{book.isbn}}" required>
+                  <input type="number" class="form-control border-2" id="isbn" name="isbn" value="{{book.isbn}}"
+                    required>
                 </div>
               </div>
 
               <div class="mb-4">
                 <label for="description" class="form-label fw-bold">Sinopsis / Descripción</label>
-                <textarea class="form-control border-2" id="description" name="description" rows="4" maxlength="150">{{book.description}}</textarea>
+                <textarea class="form-control border-2" id="description" name="description" rows="4"
+                  maxlength="150">{{book.description}}</textarea>
               </div>
 
               <div class="d-flex justify-content-end gap-2">

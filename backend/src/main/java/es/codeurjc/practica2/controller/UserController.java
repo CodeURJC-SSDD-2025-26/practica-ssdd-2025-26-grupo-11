@@ -1,6 +1,7 @@
 package es.codeurjc.practica2.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class UserController {
             if (loan.getStatus() != Loan.Status.DEVUELTO) {
                 loan.refreshStatusFromDates();
             }
-}
+        }
 
         model.addAttribute("user", currentUser);
         model.addAttribute("totalLoans", recentLoans.size());
@@ -142,23 +143,56 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String confirmPassword) {
 
-        model.addAttribute("name", name);
-        model.addAttribute("surname", surname);
-        model.addAttribute("email", email);
+        List<String> errors = new ArrayList<>();
 
-        if (!password.equals(confirmPassword)) {
-            model.addAttribute("error", "Las contraseñas no coinciden");
-            return "register";
+        if (name == null || name.isBlank()) {
+            errors.add("El nombre es obligatorio.");
+        } else if (name.length() > 22) {
+            errors.add("El nombre no puede superar los 22 caracteres.");
         }
 
-        if (userService.emailExists(email)) {
-            model.addAttribute("error", "Este correo ya está registrado");
+        if (surname == null || surname.isBlank()) {
+            errors.add("El apellido es obligatorio.");
+        } else if (surname.length() > 22) {
+            errors.add("El apellido no puede superar los 22 caracteres.");
+        }
+
+        if (email == null || email.isBlank()) {
+            errors.add("El email es obligatorio.");
+        } else if (email.length() > 30) {
+            errors.add("El email no puede superar los 30 caracteres.");
+        } else if (!email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")) {
+            errors.add("El formato del email no es válido.");
+        }
+
+        if (password == null || password.isBlank()) {
+            errors.add("La contraseña es obligatoria.");
+        } else if (password.length() < 6) {
+            errors.add("La contraseña debe tener al menos 6 caracteres.");
+        } else if (password.length() > 30) {
+            errors.add("La contraseña no puede superar los 30 caracteres.");
+        }
+
+        if (confirmPassword == null || confirmPassword.isBlank()) {
+            errors.add("Debes confirmar la contraseña.");
+        } else if (!password.equals(confirmPassword)) {
+            errors.add("Las contraseñas no coinciden.");
+        }
+
+        if (email != null && !email.isBlank() && userService.emailExists(email)) {
+            errors.add("Este correo ya está registrado.");
+        }
+
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("name", name);
+            model.addAttribute("surname", surname);
+            model.addAttribute("email", email);
             return "register";
         }
 
         User newUser = userService.registerUser(name, surname, email, password);
 
-        // Assign default profile image
         try {
             Resource resource = new ClassPathResource("static/images/default-avatar.png");
             if (resource.exists()) {
@@ -167,7 +201,6 @@ public class UserController {
                 userRepository.save(newUser);
             }
         } catch (IOException e) {
-            // If image cannot be loaded, continue without it
         }
 
         model.addAttribute("success", "Usuario registrado correctamente. Ya puedes iniciar sesión.");
