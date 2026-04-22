@@ -189,41 +189,49 @@ Diagram that shows how to navigate between the different pages of the applicatio
 
 ---
 
-## 🛠 **Práctica 2: Web con HTML generado en servidor**
+## 🛠 **Practice 2: Web with Server-Generated HTML**
 
-### **Instrucciones de Ejecución**
+### **Execution Instructions**
 
-#### **Requisitos Previos**
-- **Java**: versión 21 o superior
-- **Maven**: versión 3.8 o superior
-- **MySQL**: versión 8.0 o superior
-- **Git**: para clonar el repositorio
+#### **Prerequisites**
+- **Java**: version 21 or higher
+- **Maven**: version 3.8 or higher
+- **MySQL**: version 8.0 or higher
+- **Git**: to clone the repository
 
-#### **Pasos para ejecutar la aplicación**
+#### **Steps to run the application**
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/[usuario]/[nombre-repositorio].git
-   cd [nombre-repositorio]
+   git clone https://github.com/[user]/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11.git
+   cd [name]
    ```
 
-2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
+2. **Access to backend folder**
+   ```bash
+   cd backend
+   ```
 
-#### **Credenciales de prueba**
-- **Usuario Admin**: usuario: `admin`, contraseña: `admin`
-- **Usuario Registrado**: usuario: `user`, contraseña: `user`
+2. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+#### **Test credentials**
+- **Admin user**: user: `admin@example.com`, password: `adminpass`
+- **Registered user**: user: `user@example.com`, password: `pass`
 
 ### **Database Entity Diagram**
 
 Diagram showing the entities, their fields, and relationships:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
+![Entity-relation diagram](images/database-diagram.png)
 
 ### **Classes and Templates Diagram**
 
 Application Class Diagram with color-coded sections:
 
-![Diagrama de Clases](images\Class_and_Templates_Diagram.png)
+![Class diagram](images\Class_and_Templates_Diagram.png)
 
 ### **Member Participation in Practice 2**
 
@@ -231,11 +239,11 @@ Application Class Diagram with color-coded sections:
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Index and base page](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0ad822fa872ce74f155e45b06bfa06369ea10c48)  | [Index.html](/backend/src/main/resources/templates/index.html) / [Base.html](/backend/src/main/resources/templates/base.html) / [BookController.java](/backend/src/main/java/es/codeurjc/practica2/controller/BookController.java) / [BookRepository.java](/backend/src/main/java/es/codeurjc/practica2/repository/BookRepository.java) / [BookService.java](/backend/src/main/java/es/codeurjc/practica2/service/BookService.java)  |
+|2| [Login, security and CSRF token](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/82879e69f5a52f242ba6514d05c5baebd52fccc6)  | [Login.html](/backend/src/main/resources/templates/login.html) / [SecurityConfig.java](/backend/src/main/java/es/codeurjc/practica2/security/SecurityConfig.java) / [CRSFHandlerConfiguration.java](/backend/src/main/java/es/codeurjc/practica2/security/CSRFHandlerConfiguration.java) / [GlobalControllerAdvice.java](/backend/src/main/java/es/codeurjc/practica2/security/GlobalControllerAdvice.java) / [RepositoryUserDetailsService.java](/backend/src/main/java/es/codeurjc/practica2/security/RepositoryUserDetailsService.java) |
+|3| [Error pages](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/996c1cf1a9f509eac9629479c1949afaa83f4631)  | [Error folder](/backend/src/main/resources/templates/error/)   |
+|4| [Visual and logic changes](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/6499cf0f6ae7a8780b1a8eef0fe0c044ae92c758)  | [admin-panel.html](/backend/src/main/resources/templates/admin/admin-panel.html) / [book-detail.html](/backend/src/main/resources/templates/book-detail.html) |
+|5| [Ensurance of appropiate project structure and good practices](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/91e3b6e3161bd6e619277d1e18fcea9266f9d839)  | [All the project structure](/backend/) |
 
 ---
 
@@ -243,25 +251,24 @@ Application Class Diagram with color-coded sections:
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Implement backend integration and security configuration](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233)  | [WebController.java,DataInitializer.java y SecurityConfig.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
-|2| [Implement user registration and login functionality ](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646)  | [UserController.java y Login.html Register.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646#diff-b2469ee29439c23c45f2f41939ce95ae3d142728327838a0f10fb6813e5d4343)   |
+|1| [Implement backend integration and security configuration](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233)  | [WebController.java,DataInitializer.java and SecurityConfig.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c156f9f447f98a95fe8e2d25612f2c9962f33233#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
+|2| [Implement user registration and login functionality ](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646)  | [UserController.java and Login.html Register.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ec9ab3419819314afedaf1535f29fa10c9b76646#diff-b2469ee29439c23c45f2f41939ce95ae3d142728327838a0f10fb6813e5d4343)   |
 |3| [Created admin panel book management with create, edit, delete](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c859210e8703983c1954028bbb0324fb334b72f0)  | [admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c859210e8703983c1954028bbb0324fb334b72f0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
 |4| [Admin panel: added loans and reviews funcionality](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0d740145119214e710211fd0a20444d7c747cc88)  | [Admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0d740145119214e710211fd0a20444d7c747cc88#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
 |5| [Implemented books funcionality and navigation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/4f327c6881c8e94df9082f5a1a3529cd91310402)  | [BookController.java y books.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/4f327c6881c8e94df9082f5a1a3529cd91310402#diff-11d79059960a7c96003a89afe8dab6f9d42b0053ea4b0f6455ce3475952b2b61)   |
-|6| [Add user profile view and edit functionality](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56)  | [BookController.java y Profile.html,Edit-profile.html y book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56#diff-11d79059960a7c96003a89afe8dab6f9d42b0053ea4b0f6455ce3475952b2b61)   |
+|6| [Add user profile view and edit functionality](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56)  | [BookController.java, Profile.html, Edit-profile.html and book-detail](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ddd0a5f30a2669f52f1491aa8deca55aa6647e56#diff-11d79059960a7c96003a89afe8dab6f9d42b0053ea4b0f6455ce3475952b2b61)   |
 
 ---
 
-#### **Student 3 - Ángel Vila Sanchez**
+#### **Student 3 - Ángel Vila Sánchez**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
 |1| [Deletion of users and loans](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c727fb520b0a1b69608f5eb95d357816ecb73731)  | [AdminController.java y admin-panel.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/c727fb520b0a1b69608f5eb95d357816ecb73731#diff-b8b02c93fb6286f8a34870f26b78e466b1eb33bacc2f3ba21ec42fee958cc8a4)   |
-|2| [Implement dynamic book-details and improve structure of weController](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340)  | [WebController.java]https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
-|3| [Implement personalized book recommendations by genre and fix the display of them](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6)  | [base.html, UserController.java, BookRepository.java y UserService.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6#diff-1f0cf94b06c0a3ca32766dbd7d3c6b7dde4c8a5ef1524ed9b3699ed2cd4c5f94)   |
-|4| [Create and complete admin panel and smart book recommendations](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0)  | [AdminPanel.html y AdminController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
+|2| [Implement dynamic book-details and improve structure of weController](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340)  | [WebController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f3f2d8778b8688bf707a36728d83218277c7e340#diff-01bfd5128549fa76fff392acf037b47ed5af6fcd9a9a99fce9025663a7bd9574)   |
+|3| [Implement personalized book recommendations by genre and fix the display of them](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6)  | [base.html, UserController.java, BookRepository.java and UserService.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d7399e557eef1dbb35133801e6ef1518595c37d6#diff-1f0cf94b06c0a3ca32766dbd7d3c6b7dde4c8a5ef1524ed9b3699ed2cd4c5f94)   |
+|4| [Create and complete admin panel and smart book recommendations](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0)  | [AdminPanel.html and AdminController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0167805856fe4665784ea5fc07d48b48443c51a0#diff-9fd3698fe0787d892d9fcf342a3b21a8a84d3ff52686af4410fd1d0223585c40)   |
 |5| [Automatic email](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85)  | [emailService.java +4](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/01e592eb499a4581b426aefcc88b6d1456b9ea85#diff-a5759ee09b6b8d6355f7f4699513801d8ea3f92d551edf255355b66bab234204)   |
-
 
 ---
 
