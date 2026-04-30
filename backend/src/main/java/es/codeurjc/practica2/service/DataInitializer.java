@@ -208,7 +208,7 @@ public class DataInitializer implements CommandLineRunner {
 
             Loan loan4 = new Loan(
                     LocalDate.now().minusDays(15),
-                    LocalDate.now(),
+                    LocalDate.now().minusDays(1),
                     Loan.Status.VENCIDO,
                     user3,
                     book3

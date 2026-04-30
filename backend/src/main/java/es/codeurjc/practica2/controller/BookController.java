@@ -145,7 +145,7 @@ public class BookController {
         return "book-detail";
     }
  
-    @DeleteMapping("/book/{id}")
+    @DeleteMapping("/admin/book/{id}")
     public String deleteBook(@PathVariable Long id) {
         boolean deleted = loanService.deleteBookIfAllowed(id);
         if (!deleted) {

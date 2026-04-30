@@ -265,7 +265,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
-                    <form action="/book/{{bookId}}" method="post" class="d-inline">
+                    <form action="/admin/book/{{bookId}}" method="post" class="d-inline">
                         <input type="hidden" name="_csrf" value="{{token}}">
                         <input type="hidden" name="_method" value="delete">
                         <button type="submit" class="btn btn-danger">Eliminar</button>

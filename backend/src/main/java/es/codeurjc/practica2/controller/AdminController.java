@@ -249,7 +249,7 @@ public class AdminController {
     // User management
     // -------------------------------------------------------------------------
  
-    @GetMapping("/admin/user/{id}")
+    @GetMapping("/user/{id}")
     public String viewUserFromAdmin(@PathVariable Long id) {
         return "redirect:/user/" + id;
     }
