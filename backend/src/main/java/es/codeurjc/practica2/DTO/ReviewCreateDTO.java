@@ -1,4 +1,4 @@
-package es.codeurjc.practica2.DTO;
+package es.codeurjc.practica2.dto;
 
 public record ReviewCreateDTO(
         String comment,

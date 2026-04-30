@@ -3,6 +3,7 @@ package es.codeurjc.practica2.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,55 +42,58 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**"))
                 .authorizeHttpRequests(authorize -> authorize
-                // ---------------------
-                // PUBLIC PAGES
-                // ---------------------
-                .requestMatchers(
-                        "/",
-                        "/login", "/loginerror",
-                        "/register",
-                        "/books",
-                        "/book-detail/**",
-                        "/css/**", "/js/**", "/images/**", "/image/**",
-                        "/error/**")
-                .permitAll()
-                // ---------------------
-                // PRIVATE PAGES FOR USER
-                // ---------------------
-                .requestMatchers(
-                        "/base",
-                        "/profile",
-                        "/edit-profile",
-                        "/my-loans")
-                .hasRole("USER")
-                // ---------------------
-                // PRIVATE PAGES FOR ADMIN
-                // ---------------------
-                .requestMatchers(
-                        "/admin/admin-panel",
-                        "/admin/admin-edit-book/**",
-                        "/admin/admin-add-book",
-                        "/admin/edit-loans/**",
-                        "/admin/loan/**",
-                        "/admin/review/**",
-                        "/admin/user/**")
-                .hasRole("ADMIN")
-                // ---------------------
-                // ANY OTHER REQUEST NEEDS AUTH
-                // ---------------------
-                .anyRequest().authenticated())
+                        // ---------------------
+                        // PUBLIC PAGES
+                        // ---------------------
+                        .requestMatchers(HttpMethod.GET, "/api/v1/books/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login", "/loginerror",
+                                "/register",
+                                "/books",
+                                "/book-detail/**",
+                                "/css/**", "/js/**", "/images/**", "/image/**",
+                                "/error/**")
+                        .permitAll()
+                        // ---------------------
+                        // PRIVATE PAGES FOR USER
+                        // ---------------------
+                        .requestMatchers(
+                                "/base",
+                                "/profile",
+                                "/edit-profile",
+                                "/my-loans")
+                        .hasRole("USER")
+                        // ---------------------
+                        // PRIVATE PAGES FOR ADMIN
+                        // ---------------------
+                        .requestMatchers(
+                                "/admin/admin-panel",
+                                "/admin/admin-edit-book/**",
+                                "/admin/admin-add-book",
+                                "/admin/edit-loans/**",
+                                "/admin/loan/**",
+                                "/admin/review/**",
+                                "/admin/user/**")
+                        .hasRole("ADMIN")
+                        // ---------------------
+                        // ANY OTHER REQUEST NEEDS AUTH
+                        // ---------------------
+                        .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
-                .loginPage("/login")
-                .failureUrl("/error/loginerror")
-                .defaultSuccessUrl("/base")
-                .permitAll())
+                        .loginPage("/login")
+                        .failureUrl("/error/loginerror")
+                        .defaultSuccessUrl("/base")
+                        .permitAll())
                 .logout(logout -> logout
-                .logoutUrl("/logout") // URL for logout
-                .logoutSuccessUrl("/") // Redirects to homepage after logout
-                .invalidateHttpSession(true) // Removes the session
-                .deleteCookies("JSESSIONID") // Removes session cookie
-                .permitAll());
+                        .logoutUrl("/logout") // URL for logout
+                        .logoutSuccessUrl("/") // Redirects to homepage after logout
+                        .invalidateHttpSession(true) // Removes the session
+                        .deleteCookies("JSESSIONID") // Removes session cookie
+                        .permitAll());
 
         return http.build();
     }

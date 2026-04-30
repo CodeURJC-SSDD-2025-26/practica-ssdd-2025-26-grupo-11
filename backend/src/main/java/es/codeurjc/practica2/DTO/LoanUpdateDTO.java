@@ -1,9 +1,9 @@
-package es.codeurjc.practica2.DTO;
-import java.util.Date;
+package es.codeurjc.practica2.dto;
+import java.time.LocalDate;
 
 public record LoanUpdateDTO(
-    Date loanDate,
-    Date returnDate,
+    LocalDate loanDate,
+    LocalDate returnDate,
     String status
 ){
 }

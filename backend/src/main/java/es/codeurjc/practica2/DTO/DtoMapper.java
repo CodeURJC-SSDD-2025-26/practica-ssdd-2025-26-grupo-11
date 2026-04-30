@@ -1,4 +1,4 @@
-package es.codeurjc.practica2.DTO;
+package es.codeurjc.practica2.dto;
 
 import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Loan;

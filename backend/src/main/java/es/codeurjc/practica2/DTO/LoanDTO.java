@@ -1,13 +1,15 @@
-package es.codeurjc.practica2.DTO;
-import es.codeurjc.practica2.model.Loan.Status;
+package es.codeurjc.practica2.dto;
+import java.time.LocalDate;
 
 public record LoanDTO(
         Long id,
-        Status status,
-        String loanDate,
-        String returnDate,
+        LocalDate loanDate,
+        LocalDate returnDate,
+        String status,
+        Long userId,
         String userName,
         String userEmail,
+        Long bookId,
         String bookTitle
 ) {
 }
