@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.practica2.model.Book;
+import es.codeurjc.practica2.model.PageData;
 import es.codeurjc.practica2.model.Review;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.BookRepository;
@@ -44,6 +48,17 @@ public class ReviewService {
     public List<Review> searchReviews(String q) {
         String param = (q == null || q.isBlank()) ? null : q.trim();
         return reviewRepository.searchReviews(param);
+    }
+
+    /**
+     * Admin panel: paginated review search.
+     */
+    public PageData<Review> searchReviewsPage(String q, int page, int size) {
+        String param = (q == null || q.isBlank()) ? null : q.trim();
+        Page<Review> result = reviewRepository.searchReviewsPage(
+                param, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
+        return new PageData<>(result.getContent(), page,
+                result.getTotalPages(), result.getTotalElements(), size);
     }
 
     /**

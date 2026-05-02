@@ -236,6 +236,35 @@
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
           <small class="text-muted">{{booksCount}} libros en catálogo</small>
+          {{#booksPageData}}
+          {{#multiPage}}
+          <nav>
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item {{^hasPrevious}}disabled{{/hasPrevious}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{booksPageData.previousPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-libros">
+                  &laquo;
+                </a>
+              </li>
+              {{#pageNumbers}}
+              <li class="page-item {{#active}}active{{/active}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{index}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-libros">
+                  {{label}}
+                </a>
+              </li>
+              {{/pageNumbers}}
+              <li class="page-item {{^hasNext}}disabled{{/hasNext}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{booksPageData.nextPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-libros">
+                  &raquo;
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <small class="text-muted">Pág. {{displayPage}} de {{displayTotalPages}}</small>
+          {{/multiPage}}
+          {{/booksPageData}}
         </div>
       </div>
     </section>
@@ -405,6 +434,35 @@
       </div>
       <div class="d-flex justify-content-between align-items-center px-3 py-2">
         <small class="text-muted">Activos: {{activeLoansCount}} | Vencidos: {{overdueLoansCount}} | Devueltos: {{returnedLoansCount}}</small>
+        {{#loansPageData}}
+        {{#multiPage}}
+        <nav>
+          <ul class="pagination pagination-sm mb-0">
+            <li class="page-item {{^hasPrevious}}disabled{{/hasPrevious}}">
+              <a class="page-link"
+                 href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loansPageData.previousPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-prestamos">
+                &laquo;
+              </a>
+            </li>
+            {{#pageNumbers}}
+            <li class="page-item {{#active}}active{{/active}}">
+              <a class="page-link"
+                 href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{index}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-prestamos">
+                {{label}}
+              </a>
+            </li>
+            {{/pageNumbers}}
+            <li class="page-item {{^hasNext}}disabled{{/hasNext}}">
+              <a class="page-link"
+                 href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loansPageData.nextPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-prestamos">
+                &raquo;
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <small class="text-muted">Pág. {{displayPage}} de {{displayTotalPages}}</small>
+        {{/multiPage}}
+        {{/loansPageData}}
       </div>
     </section>
 
@@ -537,6 +595,35 @@
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
           <small class="text-muted">{{reviewsCount}} reseñas publicadas</small>
+          {{#reviewsPageData}}
+          {{#multiPage}}
+          <nav>
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item {{^hasPrevious}}disabled{{/hasPrevious}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewsPageData.previousPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-resenas">
+                  &laquo;
+                </a>
+              </li>
+              {{#pageNumbers}}
+              <li class="page-item {{#active}}active{{/active}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{index}}&userQ={{userQ}}&userPage={{userPage}}#seccion-resenas">
+                  {{label}}
+                </a>
+              </li>
+              {{/pageNumbers}}
+              <li class="page-item {{^hasNext}}disabled{{/hasNext}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewsPageData.nextPage}}&userQ={{userQ}}&userPage={{userPage}}#seccion-resenas">
+                  &raquo;
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <small class="text-muted">Pág. {{displayPage}} de {{displayTotalPages}}</small>
+          {{/multiPage}}
+          {{/reviewsPageData}}
         </div>
       </div>
     </section>
@@ -664,6 +751,35 @@
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
           <small class="text-muted">{{usersCount}} usuarios registrados</small>
+          {{#usersPageData}}
+          {{#multiPage}}
+          <nav>
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item {{^hasPrevious}}disabled{{/hasPrevious}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{usersPageData.previousPage}}#seccion-usuarios">
+                  &laquo;
+                </a>
+              </li>
+              {{#pageNumbers}}
+              <li class="page-item {{#active}}active{{/active}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{index}}#seccion-usuarios">
+                  {{label}}
+                </a>
+              </li>
+              {{/pageNumbers}}
+              <li class="page-item {{^hasNext}}disabled{{/hasNext}}">
+                <a class="page-link"
+                   href="?bookQ={{bookQ}}&bookGenre={{bookGenre}}&bookPage={{bookPage}}&loanQ={{loanQ}}&loanStatus={{loanStatus}}&loanPage={{loanPage}}&reviewQ={{reviewQ}}&reviewPage={{reviewPage}}&userQ={{userQ}}&userPage={{usersPageData.nextPage}}#seccion-usuarios">
+                  &raquo;
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <small class="text-muted">Pág. {{displayPage}} de {{displayTotalPages}}</small>
+          {{/multiPage}}
+          {{/usersPageData}}
         </div>
       </div>
     </section>

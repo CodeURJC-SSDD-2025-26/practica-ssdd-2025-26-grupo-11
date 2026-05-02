@@ -7,10 +7,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.practica2.model.Book;
 import es.codeurjc.practica2.model.Loan;
+import es.codeurjc.practica2.model.PageData;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.LoanRepository;
 
@@ -232,14 +236,7 @@ public class LoanService {
      */
     public List<Loan> searchLoans(String q, String status) {
         String param = (q == null || q.isBlank()) ? null : q.trim();
-        Loan.Status statusEnum = null;
-        if (status != null && !status.isBlank()) {
-            try {
-                statusEnum = Loan.Status.valueOf(status.toUpperCase());
-            } catch (IllegalArgumentException ignored) {
-                // invalid status string → treat as no filter
-            }
-        }
+        Loan.Status statusEnum = parseStatus(status);
         List<Loan> loans = loanRepository.searchLoans(param, statusEnum);
         for (Loan loan : loans) {
             if (loan.getStatus() != Loan.Status.DEVUELTO) {
@@ -247,6 +244,35 @@ public class LoanService {
             }
         }
         return loans;
+    }
+
+    /**
+     * Admin panel: paginated loan search.
+     */
+    public PageData<Loan> searchLoansPage(String q, String status, int page, int size) {
+        String param = (q == null || q.isBlank()) ? null : q.trim();
+        Loan.Status statusEnum = parseStatus(status);
+
+        Page<Loan> result = loanRepository.searchLoansPage(
+                param, statusEnum, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
+
+        for (Loan loan : result.getContent()) {
+            if (loan.getStatus() != Loan.Status.DEVUELTO) {
+                loan.refreshStatusFromDates();
+            }
+        }
+
+        return new PageData<>(result.getContent(), page,
+                result.getTotalPages(), result.getTotalElements(), size);
+    }
+
+    private Loan.Status parseStatus(String status) {
+        if (status == null || status.isBlank()) return null;
+        try {
+            return Loan.Status.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
     }
 
     // -------------------------------------------------------------------------

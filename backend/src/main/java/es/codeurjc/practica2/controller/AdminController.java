@@ -24,6 +24,7 @@ import es.codeurjc.practica2.model.Genre;
 import es.codeurjc.practica2.model.Loan;
 import es.codeurjc.practica2.model.Review;
 import es.codeurjc.practica2.model.User;
+import es.codeurjc.practica2.model.PageData;
 import es.codeurjc.practica2.service.BookService;
 import es.codeurjc.practica2.service.LoanService;
 import es.codeurjc.practica2.service.ReviewService;
@@ -51,35 +52,36 @@ public class AdminController {
     // Admin panel
     // -------------------------------------------------------------------------
 
+    private static final int PAGE_SIZE = 5;
+
     @GetMapping("/admin-panel")
     public String showAdminPanel(
             Model model,
             @RequestParam(required = false) String bookQ,
             @RequestParam(required = false) String bookGenre,
+            @RequestParam(defaultValue = "0") int bookPage,
             @RequestParam(required = false) String loanQ,
             @RequestParam(required = false) String loanStatus,
+            @RequestParam(defaultValue = "0") int loanPage,
             @RequestParam(required = false) String reviewQ,
-            @RequestParam(required = false) String userQ) {
+            @RequestParam(defaultValue = "0") int reviewPage,
+            @RequestParam(required = false) String userQ,
+            @RequestParam(defaultValue = "0") int userPage) {
 
-        // --- Books (reuse existing searchBooks from BookService) ---
-        Genre genreEnum = (bookGenre == null || bookGenre.isBlank()) ? null
-                : Genre.valueOf(bookGenre.toUpperCase());
-        String bookParam = (bookQ == null || bookQ.isBlank()) ? null : bookQ.trim().toLowerCase();
-        List<Book> books = bookService.searchBooks(bookParam, genreEnum);
-        for (Book book : books) {
-            book.setAvailable(loanService.isBookAvailable(book));
-        }
+        // --- Books ---
+        PageData<Book> booksPage = bookService.searchBooksPage(
+                bookQ, bookGenre, bookPage, PAGE_SIZE, loanService);
 
         // --- Loans ---
-        List<Loan> loans = loanService.searchLoans(loanQ, loanStatus);
+        PageData<Loan> loansPage = loanService.searchLoansPage(loanQ, loanStatus, loanPage, PAGE_SIZE);
 
         // --- Reviews ---
-        List<Review> reviews = reviewService.searchReviews(reviewQ);
+        PageData<Review> reviewsPage = reviewService.searchReviewsPage(reviewQ, reviewPage, PAGE_SIZE);
 
         // --- Users ---
-        List<User> users = userService.searchUsers(userQ);
+        PageData<User> usersPage = userService.searchUsersPage(userQ, userPage, PAGE_SIZE);
 
-        // --- Charts (always use full data, not filtered) ---
+        // --- Charts (always full data) ---
         List<String> genreLabels = new ArrayList<>();
         List<Integer> genreLoanCounts = new ArrayList<>();
         List<String> genreRatingLabels = new ArrayList<>();
@@ -97,21 +99,23 @@ public class AdminController {
 
         for (Genre genre : Genre.values()) {
             String name = genre.getDisplayName();
-            long count = loanCountMap.getOrDefault(genre, 0L);
-            double avg = Math.round(ratingMap.getOrDefault(genre, 0.0) * 10.0) / 10.0;
-
             genreLabels.add(name);
-            genreLoanCounts.add((int) count);
+            genreLoanCounts.add(loanCountMap.getOrDefault(genre, 0L).intValue());
             genreRatingLabels.add(name);
-            genreRatingValues.add(avg);
+            genreRatingValues.add(Math.round(ratingMap.getOrDefault(genre, 0.0) * 10.0) / 10.0);
         }
 
-        model.addAttribute("books", books);
-        model.addAttribute("loans", loans);
-        model.addAttribute("reviews", reviews);
-        model.addAttribute("users", users);
+        // --- Model ---
+        model.addAttribute("books", booksPage.getContent());
+        model.addAttribute("booksPageData", booksPage);
+        model.addAttribute("loans", loansPage.getContent());
+        model.addAttribute("loansPageData", loansPage);
+        model.addAttribute("reviews", reviewsPage.getContent());
+        model.addAttribute("reviewsPageData", reviewsPage);
+        model.addAttribute("users", usersPage.getContent());
+        model.addAttribute("usersPageData", usersPage);
 
-        // Stats (always from full DB, not affected by filters)
+        // Global stats (full DB, unaffected by filters)
         model.addAttribute("booksCount", bookService.findAll().size());
         model.addAttribute("usersCount", userService.findAll().size());
         model.addAttribute("reviewsCount", reviewService.findAll().size());
@@ -119,15 +123,19 @@ public class AdminController {
         model.addAttribute("overdueLoansCount", loanService.countByStatus(Loan.Status.VENCIDO));
         model.addAttribute("returnedLoansCount", loanService.countByStatus(Loan.Status.DEVUELTO));
 
-        // Current filter values (to keep inputs populated after submit)
+        // Filter values
         model.addAttribute("bookQ", bookQ == null ? "" : bookQ);
         model.addAttribute("bookGenre", bookGenre == null ? "" : bookGenre);
+        model.addAttribute("bookPage", bookPage);
         model.addAttribute("loanQ", loanQ == null ? "" : loanQ);
         model.addAttribute("loanStatus", loanStatus == null ? "" : loanStatus);
+        model.addAttribute("loanPage", loanPage);
         model.addAttribute("reviewQ", reviewQ == null ? "" : reviewQ);
+        model.addAttribute("reviewPage", reviewPage);
         model.addAttribute("userQ", userQ == null ? "" : userQ);
+        model.addAttribute("userPage", userPage);
 
-        // Book genre selector
+        // Genre selector booleans
         model.addAttribute("isBookGenreFiccion",   "FICCION".equals(bookGenre));
         model.addAttribute("isBookGenreFantasia",  "FANTASIA".equals(bookGenre));
         model.addAttribute("isBookGenreHistoria",  "HISTORIA".equals(bookGenre));
@@ -138,7 +146,7 @@ public class AdminController {
         model.addAttribute("isBookGenreBiografia", "BIOGRAFIA".equals(bookGenre));
         model.addAttribute("isBookGenreClasicos",  "CLASICOS".equals(bookGenre));
 
-        // Loan status filter buttons
+        // Loan status booleans
         model.addAttribute("isLoanStatusActivo",   "ACTIVO".equals(loanStatus));
         model.addAttribute("isLoanStatusVencido",  "VENCIDO".equals(loanStatus));
         model.addAttribute("isLoanStatusDevuelto", "DEVUELTO".equals(loanStatus));

@@ -2,6 +2,8 @@ package es.codeurjc.practica2.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -60,4 +62,35 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
             """)
     List<Loan> searchLoans(@Param("q") String q,
             @Param("status") Loan.Status status);
+
+    /**
+     * Pageable version used by the admin panel.
+     */
+    @Query(value = """
+            SELECT l FROM Loan l
+            WHERE (
+                :q IS NULL
+                OR LOWER(l.user.name)    LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.user.surname) LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.user.email)   LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.book.title)   LIKE LOWER(CONCAT('%', :q, '%'))
+                OR CAST(l.id AS string)  LIKE CONCAT('%', :q, '%')
+            )
+            AND (:status IS NULL OR l.status = :status)
+            """,
+            countQuery = """
+            SELECT COUNT(l) FROM Loan l
+            WHERE (
+                :q IS NULL
+                OR LOWER(l.user.name)    LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.user.surname) LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.user.email)   LIKE LOWER(CONCAT('%', :q, '%'))
+                OR LOWER(l.book.title)   LIKE LOWER(CONCAT('%', :q, '%'))
+                OR CAST(l.id AS string)  LIKE CONCAT('%', :q, '%')
+            )
+            AND (:status IS NULL OR l.status = :status)
+            """)
+    Page<Loan> searchLoansPage(@Param("q") String q,
+            @Param("status") Loan.Status status,
+            Pageable pageable);
 }
