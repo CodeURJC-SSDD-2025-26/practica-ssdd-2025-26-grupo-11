@@ -11,6 +11,5 @@ public record BookDTO(
         int year,
         long isbn,
         boolean available,
-        String imageUrl
-) {
-}
+        Long imageId    
+) {}

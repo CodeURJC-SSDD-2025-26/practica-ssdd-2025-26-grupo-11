@@ -11,20 +11,20 @@ public final class DtoMapper {
     }
 
     public static BookDTO toBookDTO(Book book, boolean available) {
-        return new BookDTO(
-                book.getId(),
-                book.getTitle(),
-                book.getAuthor(),
-                book.getDescription(),
-                book.getGenre() != null ? book.getGenre().name() : null,
-                book.getGenreDisplayName(),
-                book.getRating(),
-                book.getYear(),
-                book.getIsbn(),
-                available,
-                book.getImage() != null ? "/image/" + book.getImage().getId() : null
-        );
-    }
+    return new BookDTO(
+            book.getId(),
+            book.getTitle(),
+            book.getAuthor(),
+            book.getDescription(),
+            book.getGenre() != null ? book.getGenre().name() : null,
+            book.getGenreDisplayName(),
+            book.getRating(),
+            book.getYear(),
+            book.getIsbn(),
+            available,
+            book.getImage() != null ? book.getImage().getId() : null
+    );
+}
 
     public static UserDTO toUserDTO(User user) {
         return new UserDTO(
