@@ -118,9 +118,12 @@ public class BookService {
 
         List<Book> filteredBooks = books.stream()
                 .filter(book -> {
-                    if (selectedAvailability.isBlank()) return true;
-                    if ("available".equals(selectedAvailability)) return book.isAvailable();
-                    if ("loaned".equals(selectedAvailability)) return !book.isAvailable();
+                    if (selectedAvailability.isBlank())
+                        return true;
+                    if ("available".equals(selectedAvailability))
+                        return book.isAvailable();
+                    if ("loaned".equals(selectedAvailability))
+                        return !book.isAvailable();
                     return true;
                 })
                 .toList();
@@ -313,5 +316,14 @@ public class BookService {
         // Creation with no file: use default
         Resource defaultImage = new ClassPathResource("static/images/default-book.png");
         return imageService.createImage(defaultImage.getInputStream());
+    }
+
+    public Page<Book> searchBooksPageable(String q, Genre genre, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by("rating").descending());
+        return bookRepository.searchBooksPageable(q, genre, pageable);
+    }
+
+    public long countSearchResults(String q, Genre genre) {
+        return bookRepository.countSearchResults(q, genre);
     }
 }

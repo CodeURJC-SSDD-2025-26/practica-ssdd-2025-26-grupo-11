@@ -40,8 +40,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                 OR LOWER(b.author) LIKE LOWER(CONCAT('%', :q, '%'))
             )
             AND (:genre IS NULL OR b.genre = :genre)
-            """,
-            countQuery = """
+            """, countQuery = """
             SELECT COUNT(b) FROM Book b
             WHERE (
                 :q IS NULL
@@ -56,4 +55,24 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT b.genre, AVG(b.rating) FROM Book b GROUP BY b.genre")
     List<Object[]> avgRatingByGenre();
+
+    @Query("""
+            SELECT b FROM Book b
+            WHERE (:q IS NULL OR
+                   LOWER(b.title) LIKE LOWER(CONCAT('%', :q, '%')) OR
+                   LOWER(b.author) LIKE LOWER(CONCAT('%', :q, '%')))
+            AND (:genre IS NULL OR b.genre = :genre)
+            """)
+    Page<Book> searchBooksPageable(@Param("q") String q,
+            @Param("genre") Genre genre,
+            Pageable pageable);
+
+    @Query("""
+            SELECT COUNT(b) FROM Book b
+            WHERE (:q IS NULL OR
+                   LOWER(b.title) LIKE LOWER(CONCAT('%', :q, '%')) OR
+                   LOWER(b.author) LIKE LOWER(CONCAT('%', :q, '%')))
+            AND (:genre IS NULL OR b.genre = :genre)
+            """)
+    long countSearchResults(@Param("q") String q, @Param("genre") Genre genre);
 }

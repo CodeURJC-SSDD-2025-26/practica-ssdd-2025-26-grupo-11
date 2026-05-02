@@ -101,3 +101,15 @@
     color: #FFD700;  /* Gold color */
     font-size: 0.85rem;
 }
+
+.section-title {
+    color: #113744;
+    font-weight: 700;
+    font-size: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #5bc8e8;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
