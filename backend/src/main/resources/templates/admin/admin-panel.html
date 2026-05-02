@@ -53,6 +53,7 @@
       </a>
     </div>
 
+    <!-- Stats cards -->
     <div class="row g-3 mb-5">
       <div class="col-6 col-md-3">
         <div class="stat-card">
@@ -65,9 +66,7 @@
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-card">
-          <div class="stat-icon yellow">
-            <i class="fas fa-exchange-alt"></i>
-          </div>
+          <div class="stat-icon yellow"><i class="fas fa-exchange-alt"></i></div>
           <div>
             <div class="stat-value">{{activeLoansCount}}</div>
             <div class="stat-label">Préstamos activos</div>
@@ -94,40 +93,62 @@
       </div>
     </div>
 
-    <!-- Books section -->
+    <!-- ================================================================== -->
+    <!-- BOOKS SECTION                                                        -->
+    <!-- ================================================================== -->
     <section id="seccion-libros" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-book"></i> Gestión de Libros
       </h2>
 
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div class="input-group" style="max-width: 280px">
-          <input id="bookSearchInput" type="text" class="form-control form-control-sm"
-            placeholder="Buscar por título o autor..." />
-          <button class="btn btn-sm btn-custom-blue" type="button">
-            <i class="fas fa-search"></i>
-          </button>
+      <form method="get" action="/admin/admin-panel#seccion-libros"
+            class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+        <!-- Keep other sections' params so they don't reset -->
+        <input type="hidden" name="loanQ"      value="{{loanQ}}" />
+        <input type="hidden" name="loanStatus" value="{{loanStatus}}" />
+        <input type="hidden" name="reviewQ"    value="{{reviewQ}}" />
+        <input type="hidden" name="userQ"      value="{{userQ}}" />
+
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+          <div class="input-group" style="max-width: 280px">
+            <input name="bookQ" type="text" class="form-control form-control-sm"
+                   placeholder="Buscar por título o autor..."
+                   value="{{bookQ}}" />
+            <button class="btn btn-sm btn-custom-blue" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <select name="bookGenre" class="form-select form-select-sm w-auto"
+                  onchange="this.form.submit()">
+            <option value="" {{^bookGenre}}selected{{/bookGenre}}>Todos los géneros</option>
+            <option value="FICCION"   {{#isBookGenreFiccion}}selected{{/isBookGenreFiccion}}>Ficción</option>
+            <option value="FANTASIA"  {{#isBookGenreFantasia}}selected{{/isBookGenreFantasia}}>Fantasía</option>
+            <option value="HISTORIA"  {{#isBookGenreHistoria}}selected{{/isBookGenreHistoria}}>Historia</option>
+            <option value="CIENCIA"   {{#isBookGenreCiencia}}selected{{/isBookGenreCiencia}}>Ciencia</option>
+            <option value="INFANTIL"  {{#isBookGenreInfantil}}selected{{/isBookGenreInfantil}}>Infantil</option>
+            <option value="MISTERIO"  {{#isBookGenreMisterio}}selected{{/isBookGenreMisterio}}>Misterio</option>
+            <option value="ROMANCE"   {{#isBookGenreRomance}}selected{{/isBookGenreRomance}}>Romance</option>
+            <option value="BIOGRAFIA" {{#isBookGenreBiografia}}selected{{/isBookGenreBiografia}}>Biografía</option>
+            <option value="CLASICOS"  {{#isBookGenreClasicos}}selected{{/isBookGenreClasicos}}>Clásicos</option>
+          </select>
+
+          {{#bookQ}}
+          <a href="/admin/admin-panel#seccion-libros" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-times me-1"></i>Limpiar
+          </a>
+          {{/bookQ}}
         </div>
+
         <a href="/admin/admin-add-book" class="btn btn-sm btn-custom-blue">
           <i class="fas fa-plus me-1"></i>Añadir libro
         </a>
-      </div>
+      </form>
 
       <div class="admin-card">
         <div class="admin-card-header">
           <h5><i class="fas fa-list me-2"></i>Catálogo completo</h5>
-          <select id="bookGenreFilter" class="form-select form-select-sm w-auto">
-            <option value="">Todos los géneros</option>
-            <option value="Ficción">Ficción</option>
-            <option value="Fantasía">Fantasía</option>
-            <option value="Historia">Historia</option>
-            <option value="Ciencia">Ciencia</option>
-            <option value="Infantil">Infantil</option>
-            <option value="Misterio">Misterio</option>
-            <option value="Romance">Romance</option>
-            <option value="Biografía">Biografía</option>
-            <option value="Clásicos">Clásicos</option>
-          </select>
         </div>
         <div class="table-responsive">
           <table class="table table-admin mb-0">
@@ -144,26 +165,21 @@
             </thead>
             <tbody>
               {{#books}}
-              <tr class="book-row" data-title="{{title}}" data-author="{{author}}" data-genre="{{genreDisplayName}}">
+              <tr>
                 <td>
                   {{#image}}
                   <img src="/image/{{id}}" class="book-thumb" alt="Portada" />
                   {{/image}}
                 </td>
                 <td class="fw-bold">
-                  <a href="/book-detail/{{id}}" class="text-decoration-none">
-                    {{title}}
-                  </a>
+                  <a href="/book-detail/{{id}}" class="text-decoration-none">{{title}}</a>
                 </td>
                 <td class="text-muted">{{author}}</td>
-                <td>
-                  <span class="badge bg-secondary" data-genre="{{genre}}">{{genre}}</span>
-                </td>
+                <td><span class="badge bg-secondary">{{genreDisplayName}}</span></td>
                 <td>
                   {{#available}}
                   <span class="badge bg-success">Disponible</span>
                   {{/available}}
-                
                   {{^available}}
                   <span class="badge bg-danger">En préstamo</span>
                   {{/available}}
@@ -173,49 +189,35 @@
                   <i class="{{.}}"></i>
                   {{/stars}}
                 </td>
-
                 <td>
                   <a href="/admin/admin-edit-book/{{id}}" class="btn-icon edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>
                   </a>
-
                   <button type="button" class="btn-icon delete ms-1" title="Eliminar"
-                    style="border: none; background: none" data-bs-toggle="modal"
-                    data-bs-target="#deleteBookModal{{id}}">
+                          style="border:none;background:none"
+                          data-bs-toggle="modal" data-bs-target="#deleteBookModal{{id}}">
                     <i class="fas fa-trash"></i>
                   </button>
 
-                  <div class="modal fade" id="deleteBookModal{{id}}" tabindex="-1"
-                    aria-labelledby="deleteBookModalLabel{{id}}" aria-hidden="true">
+                  <div class="modal fade" id="deleteBookModal{{id}}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header bg-danger text-white">
-                          <h5 class="modal-title" id="deleteBookModalLabel{{id}}">
+                          <h5 class="modal-title">
                             <i class="fas fa-exclamation-triangle me-2"></i>Eliminar libro
                           </h5>
-                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Cerrar"></button>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                          <p class="mb-2">
-                            ¿Estás seguro de que deseas eliminar
-                            <strong>{{title}}</strong>?
-                          </p>
-                          <p class="mb-0 text-muted small">
-                            Esta acción no se puede deshacer.
-                          </p>
+                          <p class="mb-2">¿Estás seguro de que deseas eliminar <strong>{{title}}</strong>?</p>
+                          <p class="mb-0 text-muted small">Esta acción no se puede deshacer.</p>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Cancelar
-                          </button>
-
-                          <form action="/admin/book/{{id}}" method="post" style="display: inline">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <form action="/admin/book/{{id}}" method="post" style="display:inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <input type="hidden" name="_method" value="delete" />
-                            <button type="submit" class="btn btn-danger">
-                              Eliminar
-                            </button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
                           </form>
                         </div>
                       </div>
@@ -226,35 +228,64 @@
               {{/books}}
               {{^books}}
               <tr>
-                <td colspan="7" class="text-center text-muted py-4">
-                  No hay libros en el catálogo.
-                </td>
+                <td colspan="7" class="text-center text-muted py-4">No hay libros que coincidan con la búsqueda.</td>
               </tr>
               {{/books}}
             </tbody>
           </table>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
-          <small class="text-muted">Listado de libros del catálogo</small>
+          <small class="text-muted">{{booksCount}} libros en catálogo</small>
         </div>
       </div>
     </section>
 
-    <!-- Loans section -->
+    <!-- ================================================================== -->
+    <!-- LOANS SECTION                                                        -->
+    <!-- ================================================================== -->
     <section id="seccion-prestamos" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-exchange-alt"></i> Gestión de Préstamos
       </h2>
 
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div class="input-group" style="max-width: 280px">
-          <input id="loanSearchInput" type="text" class="form-control form-control-sm"
-            placeholder="Buscar por id, usuario o libro..." />
-          <button class="btn btn-sm btn-custom-blue">
-            <i class="fas fa-search"></i>
-          </button>
+      <form method="get" action="/admin/admin-panel#seccion-prestamos"
+            class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+        <input type="hidden" name="bookQ"      value="{{bookQ}}" />
+        <input type="hidden" name="bookGenre"  value="{{bookGenre}}" />
+        <input type="hidden" name="reviewQ"    value="{{reviewQ}}" />
+        <input type="hidden" name="userQ"      value="{{userQ}}" />
+
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+          <div class="input-group" style="max-width: 280px">
+            <input name="loanQ" type="text" class="form-control form-control-sm"
+                   placeholder="Buscar por id, usuario o libro..."
+                   value="{{loanQ}}" />
+            <button class="btn btn-sm btn-custom-blue" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <!-- Status filter buttons -->
+          <input type="hidden" name="loanStatus" id="loanStatusInput" value="{{loanStatus}}" />
+          <div class="d-flex gap-2 flex-wrap">
+            <button type="button" class="btn-filter-status all {{^loanStatus}}active-filter{{/loanStatus}}"
+                    onclick="setLoanStatus('')">Todos</button>
+            <button type="button" class="btn-filter-status active {{#isLoanStatusActivo}}active-filter{{/isLoanStatusActivo}}"
+                    onclick="setLoanStatus('ACTIVO')">Activos</button>
+            <button type="button" class="btn-filter-status expired {{#isLoanStatusVencido}}active-filter{{/isLoanStatusVencido}}"
+                    onclick="setLoanStatus('VENCIDO')">Vencidos</button>
+            <button type="button" class="btn-filter-status returned {{#isLoanStatusDevuelto}}active-filter{{/isLoanStatusDevuelto}}"
+                    onclick="setLoanStatus('DEVUELTO')">Devueltos</button>
+          </div>
+
+          {{#loanQ}}
+          <a href="/admin/admin-panel#seccion-prestamos" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-times me-1"></i>Limpiar
+          </a>
+          {{/loanQ}}
         </div>
-      </div>
+      </form>
 
       <div class="admin-card-header">
         <div>
@@ -263,14 +294,8 @@
             Activos: {{activeLoansCount}} | Vencidos: {{overdueLoansCount}} | Devueltos: {{returnedLoansCount}}
           </small>
         </div>
-
-        <div class="d-flex gap-2 flex-wrap">
-          <button class="btn-filter-status all active-filter" type="button" data-status="">Todos</button>
-          <button class="btn-filter-status active" type="button" data-status="ACTIVO">Activos</button>
-          <button class="btn-filter-status expired" type="button" data-status="VENCIDO">Vencidos</button>
-          <button class="btn-filter-status returned" type="button" data-status="DEVUELTO">Devueltos</button>
-        </div>
       </div>
+
       <div class="table-responsive">
         <table class="table table-admin mb-0">
           <thead>
@@ -286,26 +311,20 @@
           </thead>
           <tbody>
             {{#loans}}
-            <tr class="loan-row" data-id="{{id}}" data-user="{{user.name}} {{user.surname}} {{user.email}}"
-              data-book="{{book.title}}" {{#active}}data-status="ACTIVO" {{/active}} {{#overdue}}data-status="VENCIDO"
-              {{/overdue}} {{#returned}}data-status="DEVUELTO" {{/returned}}>
+            <tr>
               <td class="text-muted">#{{id}}</td>
-
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
                   <div>
-                    <div class="fw-bold" style="font-size: 0.88rem">
+                    <div class="fw-bold" style="font-size:0.88rem">
                       {{#user}}{{name}} {{surname}}{{/user}}
                       {{^user}}Usuario eliminado{{/user}}
                     </div>
-                    <div class="text-muted" style="font-size: 0.75rem">
-                      {{user.email}}
-                    </div>
+                    <div class="text-muted" style="font-size:0.75rem">{{user.email}}</div>
                   </div>
                 </div>
               </td>
-
               <td>
                 <div class="d-flex align-items-center gap-2">
                   {{#book.image}}
@@ -320,34 +339,23 @@
                   </a>
                 </div>
               </td>
-
               <td>{{loanDate}}</td>
               <td>{{returnDate}}</td>
-
               <td>
-                {{#active}}
-                <span class="badge bg-primary">ACTIVO</span>
-                {{/active}}
-
-                {{#overdue}}
-                <span class="badge bg-warning text-dark">VENCIDO</span>
-                {{/overdue}}
-
-                {{#returned}}
-                <span class="badge bg-success">DEVUELTO</span>
-                {{/returned}}
+                {{#active}}<span class="badge bg-primary">ACTIVO</span>{{/active}}
+                {{#overdue}}<span class="badge bg-warning text-dark">VENCIDO</span>{{/overdue}}
+                {{#returned}}<span class="badge bg-success">DEVUELTO</span>{{/returned}}
               </td>
-
               <td>
                 <a href="/admin/edit-loans/{{id}}" class="btn-icon edit" title="Editar">
                   <i class="fas fa-pencil-alt"></i>
                 </a>
 
                 {{^returned}}
-                <form action="/admin/loan/{{id}}/return" method="post" style="display:inline;">
+                <form action="/admin/loan/{{id}}/return" method="post" style="display:inline">
                   <input type="hidden" name="_csrf" value="{{token}}" />
                   <button class="btn-icon view ms-1" title="Marcar como devuelto" type="submit"
-                    style="border:none; background:none;">
+                          style="border:none;background:none">
                     <i class="fas fa-check"></i>
                   </button>
                 </form>
@@ -355,7 +363,8 @@
 
                 {{#returned}}
                 <button type="button" class="btn-icon delete ms-1" title="Eliminar préstamo"
-                  style="border: none; background: none" data-bs-toggle="modal" data-bs-target="#deleteLoanModal{{id}}">
+                        style="border:none;background:none"
+                        data-bs-toggle="modal" data-bs-target="#deleteLoanModal{{id}}">
                   <i class="fas fa-trash"></i>
                 </button>
 
@@ -374,7 +383,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form action="/admin/loan/{{id}}/delete" method="post" style="display: inline">
+                        <form action="/admin/loan/{{id}}/delete" method="post" style="display:inline">
                           <input type="hidden" name="_csrf" value="{{token}}" />
                           <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
@@ -383,63 +392,54 @@
                   </div>
                 </div>
                 {{/returned}}
-
-                <div class="modal fade" id="deleteLoanModal{{id}}" tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title">
-                          <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                      </div>
-                      <div class="modal-body text-start">
-                        <p class="mb-2">¿Estás seguro de que deseas eliminar este préstamo permanentemente?</p>
-                        <p class="text-muted small mb-0">Usuario: {{user.email}} <br> Libro: {{book.title}}</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form action="/admin/loan/{{id}}/delete" method="post" style="display: inline">
-                          <input type="hidden" name="_csrf" value="{{token}}" />
-                          <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </td>
             </tr>
-            {{/loans}} {{^loans}}
+            {{/loans}}
+            {{^loans}}
             <tr>
-              <td colspan="7" class="text-center text-muted py-4">
-                No hay préstamos registrados.
-              </td>
+              <td colspan="7" class="text-center text-muted py-4">No hay préstamos que coincidan con la búsqueda.</td>
             </tr>
             {{/loans}}
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-between align-items-center px-3 py-2">
-        <small class="text-muted">Listado de préstamos</small>
-      </div>
+        <small class="text-muted">Activos: {{activeLoansCount}} | Vencidos: {{overdueLoansCount}} | Devueltos: {{returnedLoansCount}}</small>
       </div>
     </section>
 
-    <!-- Reviews section -->
+    <!-- ================================================================== -->
+    <!-- REVIEWS SECTION                                                      -->
+    <!-- ================================================================== -->
     <section id="seccion-resenas" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-star"></i> Moderación de Reseñas
       </h2>
 
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div class="input-group" style="max-width: 280px">
-          <input id="reviewSearchInput" type="text" class="form-control form-control-sm"
-            placeholder="Buscar por usuario, libro o comentario..." />
-          <button class="btn btn-sm btn-custom-blue">
+      <form method="get" action="/admin/admin-panel#seccion-resenas"
+            class="d-flex flex-wrap align-items-center gap-2 mb-3">
+
+        <input type="hidden" name="bookQ"      value="{{bookQ}}" />
+        <input type="hidden" name="bookGenre"  value="{{bookGenre}}" />
+        <input type="hidden" name="loanQ"      value="{{loanQ}}" />
+        <input type="hidden" name="loanStatus" value="{{loanStatus}}" />
+        <input type="hidden" name="userQ"      value="{{userQ}}" />
+
+        <div class="input-group" style="max-width:280px">
+          <input name="reviewQ" type="text" class="form-control form-control-sm"
+                 placeholder="Buscar por usuario, libro o comentario..."
+                 value="{{reviewQ}}" />
+          <button class="btn btn-sm btn-custom-blue" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
-      </div>
+
+        {{#reviewQ}}
+        <a href="/admin/admin-panel#seccion-resenas" class="btn btn-sm btn-outline-secondary">
+          <i class="fas fa-times me-1"></i>Limpiar
+        </a>
+        {{/reviewQ}}
+      </form>
 
       <div class="admin-card">
         <div class="admin-card-header">
@@ -458,18 +458,16 @@
             </thead>
             <tbody>
               {{#reviews}}
-              <tr class="review-row" data-user="{{user.name}} {{user.surname}}" data-book="{{book.title}}"
-                data-comment="{{comment}}">
+              <tr>
                 <td>
                   <div class="d-flex align-items-center gap-2">
                     <img src="/users/{{user.id}}/image" class="mini-avatar" alt="Avatar" />
-                    <span class="fw-bold" style="font-size: 0.88rem">
+                    <span class="fw-bold" style="font-size:0.88rem">
                       {{#user}}{{name}} {{surname}}{{/user}}
                       {{^user}}Usuario eliminado{{/user}}
                     </span>
                   </div>
                 </td>
-
                 <td>
                   <div class="d-flex align-items-center gap-2">
                     {{#book.image}}
@@ -484,54 +482,41 @@
                     </a>
                   </div>
                 </td>
-
                 <td>
                   <span class="text-warning">
-                    {{#filledStars}}
-                    <i class="fas fa-star"></i>
-                    {{/filledStars}}
-                    {{#emptyStars}}
-                    <i class="far fa-star"></i>
-                    {{/emptyStars}}
+                    {{#filledStars}}<i class="fas fa-star"></i>{{/filledStars}}
+                    {{#emptyStars}}<i class="far fa-star"></i>{{/emptyStars}}
                   </span>
                 </td>
-
                 <td class="text-muted"
-                  style="max-width: 220px; font-size: 0.82rem; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
+                    style="max-width:220px;font-size:0.82rem;word-wrap:break-word;white-space:normal">
                   {{comment}}
                 </td>
                 <td>
                   <a href="/book-detail/{{book.id}}" class="btn-icon view" title="Ir a la página del libro">
                     <i class="fas fa-eye"></i>
                   </a>
-
                   <button type="button" class="btn-icon delete ms-1" title="Eliminar reseña"
-                    style="border: none; background: none" data-bs-toggle="modal"
-                    data-bs-target="#deleteReviewModal{{id}}">
+                          style="border:none;background:none"
+                          data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{id}}">
                     <i class="fas fa-trash"></i>
                   </button>
 
-                  <div class="modal fade" id="deleteReviewModal{{id}}" tabindex="-1"
-                    aria-labelledby="deleteReviewModalLabel{{id}}" aria-hidden="true">
+                  <div class="modal fade" id="deleteReviewModal{{id}}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header bg-danger text-white">
-                          <h5 class="modal-title" id="deleteReviewModalLabel{{id}}">
+                          <h5 class="modal-title">
                             <i class="fas fa-exclamation-triangle me-2"></i>Eliminar reseña
                           </h5>
-                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                          <p>
-                            ¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede deshacer.
-                          </p>
+                          <p>¿Estás seguro de que deseas eliminar esta reseña? Esta acción no se puede deshacer.</p>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Cancelar
-                          </button>
-                          <form action="/admin/review/{{id}}/delete" method="post" style="display: inline;">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <form action="/admin/review/{{id}}/delete" method="post" style="display:inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                           </form>
@@ -542,24 +527,23 @@
                 </td>
               </tr>
               {{/reviews}}
-
               {{^reviews}}
               <tr>
-                <td colspan="6" class="text-center text-muted py-4">
-                  No hay reseñas registradas.
-                </td>
+                <td colspan="5" class="text-center text-muted py-4">No hay reseñas que coincidan con la búsqueda.</td>
               </tr>
               {{/reviews}}
             </tbody>
           </table>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
-          <small class="text-muted">Listado de reseñas</small>
+          <small class="text-muted">{{reviewsCount}} reseñas publicadas</small>
         </div>
       </div>
     </section>
 
-    <!-- Users section -->
+    <!-- ================================================================== -->
+    <!-- USERS SECTION                                                        -->
+    <!-- ================================================================== -->
     <section id="seccion-usuarios" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-users"></i> Gestión de Usuarios
@@ -573,15 +557,30 @@
       </div>
       {{/error}}
 
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div class="input-group" style="max-width: 280px">
-          <input id="userSearchInput" type="text" class="form-control form-control-sm"
-            placeholder="Buscar por nombre o email..." />
-          <button class="btn btn-sm btn-custom-blue">
+      <form method="get" action="/admin/admin-panel#seccion-usuarios"
+            class="d-flex flex-wrap align-items-center gap-2 mb-3">
+
+        <input type="hidden" name="bookQ"      value="{{bookQ}}" />
+        <input type="hidden" name="bookGenre"  value="{{bookGenre}}" />
+        <input type="hidden" name="loanQ"      value="{{loanQ}}" />
+        <input type="hidden" name="loanStatus" value="{{loanStatus}}" />
+        <input type="hidden" name="reviewQ"    value="{{reviewQ}}" />
+
+        <div class="input-group" style="max-width:280px">
+          <input name="userQ" type="text" class="form-control form-control-sm"
+                 placeholder="Buscar por nombre o email..."
+                 value="{{userQ}}" />
+          <button class="btn btn-sm btn-custom-blue" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
-      </div>
+
+        {{#userQ}}
+        <a href="/admin/admin-panel#seccion-usuarios" class="btn btn-sm btn-outline-secondary">
+          <i class="fas fa-times me-1"></i>Limpiar
+        </a>
+        {{/userQ}}
+      </form>
 
       <div class="admin-card">
         <div class="admin-card-header">
@@ -601,17 +600,17 @@
             </thead>
             <tbody>
               {{#users}}
-              <tr class="user-row" data-name="{{name}} {{surname}}" data-email="{{email}}">
+              <tr>
                 <td>
                   <div class="d-flex align-items-center gap-2">
                     <img src="/users/{{id}}/image" class="mini-avatar" alt="Avatar">
-                    <span class="fw-bold" style="font-size:.88rem;">{{name}} {{surname}}</span>
+                    <span class="fw-bold" style="font-size:.88rem">{{name}} {{surname}}</span>
                   </div>
                 </td>
-                <td class="text-muted" style="font-size:.85rem;">{{email}}</td>
+                <td class="text-muted" style="font-size:.85rem">{{email}}</td>
                 <td>
                   {{#admin}}
-                  <span class="badge" style="background:#113744;">Admin</span>
+                  <span class="badge" style="background:#113744">Admin</span>
                   {{/admin}}
                   {{^admin}}
                   <span class="badge bg-secondary">Usuario</span>
@@ -623,10 +622,9 @@
                   <a href="/user/{{id}}" class="btn-icon view" title="Ver perfil">
                     <i class="fas fa-eye"></i>
                   </a>
-
                   <button type="button" class="btn-icon delete ms-1" title="Eliminar usuario"
-                    style="border: none; background: none" data-bs-toggle="modal"
-                    data-bs-target="#deleteUserModal{{id}}">
+                          style="border:none;background:none"
+                          data-bs-toggle="modal" data-bs-target="#deleteUserModal{{id}}">
                     <i class="fas fa-trash"></i>
                   </button>
 
@@ -640,12 +638,12 @@
                           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body text-start">
-                          <p>¿Estás seguro de que deseas eliminar a <strong>{{name}} {{surname}}</strong>? Se borrarán
-                            todos sus préstamos y reseñas asociados.</p>
+                          <p>¿Estás seguro de que deseas eliminar a <strong>{{name}} {{surname}}</strong>?
+                            Se borrarán todos sus préstamos y reseñas asociados.</p>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          <form action="/admin/user/{{id}}/delete" method="post" style="display: inline">
+                          <form action="/admin/user/{{id}}/delete" method="post" style="display:inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                           </form>
@@ -653,212 +651,73 @@
                       </div>
                     </div>
                   </div>
-
                 </td>
               </tr>
               {{/users}}
-
               {{^users}}
               <tr>
-                <td colspan="6" class="text-center text-muted py-4">
-                  No hay usuarios registrados.
-                </td>
+                <td colspan="6" class="text-center text-muted py-4">No hay usuarios que coincidan con la búsqueda.</td>
               </tr>
               {{/users}}
             </tbody>
           </table>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 py-2">
-          <small class="text-muted">Listado de usuarios</small>
+          <small class="text-muted">{{usersCount}} usuarios registrados</small>
         </div>
       </div>
     </section>
 
-    <!-- Graphs section -->
+    <!-- ================================================================== -->
+    <!-- GRAPHS SECTION                                                       -->
+    <!-- ================================================================== -->
     <section id="seccion-graficas" class="mb-5">
       <h2 class="section-title">
         <i class="fas fa-chart-pie"></i> Estadísticas
       </h2>
-
       <div class="row g-4">
         <div class="col-md-5">
           <div class="admin-card h-100">
             <div class="admin-card-header">
-              <h5>
-                <i class="fas fa-chart-pie me-2"></i>Géneros más prestados
-              </h5>
+              <h5><i class="fas fa-chart-pie me-2"></i>Géneros más prestados</h5>
             </div>
-            <div class="chart-container" style="height: 260px;">
+            <div class="chart-container" style="height:260px">
               <canvas id="genrePieChart"></canvas>
             </div>
           </div>
         </div>
-
         <div class="col-md-7">
           <div class="admin-card h-100">
             <div class="admin-card-header">
-              <h5>
-                <i class="fas fa-chart-bar me-2"></i>Valoración media por
-                género
-              </h5>
+              <h5><i class="fas fa-chart-bar me-2"></i>Valoración media por género</h5>
             </div>
-            <div class="chart-container" style="height: 260px;">
+            <div class="chart-container" style="height:260px">
               <canvas id="ratingBarChart"></canvas>
             </div>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
   {{>footer}}
 
-  <!-- Delete loan modal -->
-  <div class="modal fade" id="modalDeleteLoan" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title">
-            <i class="fas fa-exclamation-triangle me-2"></i>Eliminar préstamo
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>
-            ¿Estás seguro de que deseas eliminar este préstamo? Esta acción no
-            se puede deshacer.
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="button" class="btn btn-danger">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
   <script>
-    // Turn server data into JS variables for charts
-    window.genreLabels = JSON.parse('{{{genreLabelsJson}}}');
-    window.genreLoanCounts = JSON.parse('{{{genreLoanCountsJson}}}');
+    window.genreLabels       = JSON.parse('{{{genreLabelsJson}}}');
+    window.genreLoanCounts   = JSON.parse('{{{genreLoanCountsJson}}}');
     window.genreRatingLabels = JSON.parse('{{{genreRatingLabelsJson}}}');
     window.genreRatingValues = JSON.parse('{{{genreRatingValuesJson}}}');
   </script>
-
   <script src="/js/charts.js"></script>
 
   <script>
-    // Enum to display name mapping for genres
-    const genreMap = {
-      FICCION: "Ficción",
-      FANTASIA: "Fantasía",
-      HISTORIA: "Historia",
-      CIENCIA: "Ciencia",
-      INFANTIL: "Infantil",
-      MISTERIO: "Misterio",
-      ROMANCE: "Romance",
-      BIOGRAFIA: "Biografía",
-      CLASICOS: "Clásicos",
-    };
-
-    // Genre badge text replacement
-    document.querySelectorAll("span[data-genre]").forEach((span) => {
-      const genre = span.getAttribute("data-genre");
-      if (genreMap[genre]) {
-        span.textContent = genreMap[genre];
-      }
-    });
+    // Submit the loan form when a status filter button is clicked
+    function setLoanStatus(status) {
+      document.getElementById('loanStatusInput').value = status;
+      document.getElementById('loanStatusInput').closest('form').submit();
+    }
   </script>
-  <script>
-    function normalize(text) {
-      return (text || "")
-        .toString()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-    }
 
-    function filterBooks() {
-      const search = normalize(document.getElementById("bookSearchInput")?.value);
-      const genre = document.getElementById("bookGenreFilter")?.value || "";
-
-      document.querySelectorAll(".book-row").forEach(row => {
-        const title = normalize(row.dataset.title);
-        const author = normalize(row.dataset.author);
-        const rowGenre = row.dataset.genre || "";
-
-        const matchesSearch = !search || title.includes(search) || author.includes(search);
-        const matchesGenre = !genre || rowGenre === genre;
-
-        row.style.display = (matchesSearch && matchesGenre) ? "" : "none";
-      });
-    }
-
-    function filterLoans() {
-      const search = normalize(document.getElementById("loanSearchInput")?.value);
-      const activeBtn = document.querySelector(".btn-filter-status.active-filter");
-      const selectedStatus = activeBtn ? activeBtn.dataset.status : "";
-
-      document.querySelectorAll(".loan-row").forEach(row => {
-        const id = normalize(row.dataset.id);
-        const user = normalize(row.dataset.user);
-        const book = normalize(row.dataset.book);
-        const status = row.dataset.status || "";
-
-        const matchesSearch = !search || id.includes(search) || user.includes(search) || book.includes(search);
-        const matchesStatus = !selectedStatus || status === selectedStatus;
-
-        row.style.display = (matchesSearch && matchesStatus) ? "" : "none";
-      });
-    }
-
-    function filterReviews() {
-      const search = normalize(document.getElementById("reviewSearchInput")?.value);
-
-      document.querySelectorAll(".review-row").forEach(row => {
-        const user = normalize(row.dataset.user);
-        const book = normalize(row.dataset.book);
-        const comment = normalize(row.dataset.comment);
-
-        const matches = !search || user.includes(search) || book.includes(search) || comment.includes(search);
-        row.style.display = matches ? "" : "none";
-      });
-    }
-
-    function filterUsers() {
-      const search = normalize(document.getElementById("userSearchInput")?.value);
-
-      document.querySelectorAll(".user-row").forEach(row => {
-        const name = normalize(row.dataset.name);
-        const email = normalize(row.dataset.email);
-
-        const matches = !search || name.includes(search) || email.includes(search);
-        row.style.display = matches ? "" : "none";
-      });
-    }
-
-    document.getElementById("bookSearchInput")?.addEventListener("input", filterBooks);
-    document.getElementById("bookGenreFilter")?.addEventListener("change", filterBooks);
-
-    document.getElementById("loanSearchInput")?.addEventListener("input", filterLoans);
-
-    document.querySelectorAll(".btn-filter-status").forEach(btn => {
-      btn.addEventListener("click", function () {
-        document.querySelectorAll(".btn-filter-status").forEach(b => b.classList.remove("active-filter"));
-        this.classList.add("active-filter");
-        filterLoans();
-      });
-    });
-
-    document.getElementById("reviewSearchInput")?.addEventListener("input", filterReviews);
-    document.getElementById("userSearchInput")?.addEventListener("input", filterUsers);
-  </script>
 </body>
-
 </html>

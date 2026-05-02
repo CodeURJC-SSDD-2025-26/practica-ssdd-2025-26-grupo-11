@@ -53,6 +53,15 @@ public class UserService {
         return userRepository.findAll();
     }
  
+    /**
+     * Admin panel: search users by name, surname or email server-side.
+     * Null or blank query returns all users.
+     */
+    public List<User> searchUsers(String q) {
+        String param = (q == null || q.isBlank()) ? null : q.trim();
+        return userRepository.searchUsers(param);
+    }
+ 
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }

@@ -38,6 +38,15 @@ public class ReviewService {
     }
 
     /**
+     * Admin panel: search reviews server-side.
+     * Null or blank query returns all reviews.
+     */
+    public List<Review> searchReviews(String q) {
+        String param = (q == null || q.isBlank()) ? null : q.trim();
+        return reviewRepository.searchReviews(param);
+    }
+
+    /**
      * Returns the review left by a specific user on a specific book, if any.
      * Used by BookController to know whether the user can still leave a review.
      */
@@ -58,33 +67,13 @@ public class ReviewService {
     // -------------------------------------------------------------------------
 
     public Review addReview(Long bookId, Long userId, String comment, int rating) {
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        if (rating < 1 || rating > 5) {
-            throw new IllegalArgumentException("La calificación debe estar entre 1 y 5");
-        }
-
-        if (comment == null || comment.isBlank()) {
-            throw new IllegalArgumentException("El comentario es obligatorio");
-        }
-
-        if (comment.length() > 1500) {
-            throw new IllegalArgumentException("El comentario no puede exceder 1500 caracteres");
-        }
-
-        if (reviewRepository.findByUserAndBook(user, book).isPresent()) {
-            throw new IllegalStateException("El usuario ya ha escrito una reseña a este libro");
-        }
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
 
         Review review = new Review(comment, rating, user, book);
         Review savedReview = reviewRepository.save(review);
 
         updateBookRating(book);
-
         return savedReview;
     }
 
