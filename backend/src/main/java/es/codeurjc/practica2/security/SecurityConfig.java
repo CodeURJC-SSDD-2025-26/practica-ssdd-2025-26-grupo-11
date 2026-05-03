@@ -142,14 +142,18 @@ public class SecurityConfig {
                 http.authorizeHttpRequests(authorize -> authorize
                                 // PUBLIC PAGES
                                 .requestMatchers(
-                                                "/",
-                                                "/login", "/loginerror",
-                                                "/register",
-                                                "/books",
-                                                "/book-detail/**",
-                                                "/css/**", "/js/**", "/images/**", "/image/**",
-                                                "/error/**")
-                                .permitAll()
+                                "/",
+                                "/login", "/loginerror",
+                                "/register",
+                                "/books",
+                                "/book-detail/**",
+                                "/css/**", "/js/**", "/images/**", "/image/**",
+                                "/error/**",
+                                // Swagger / OpenAPI
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**")
+                        .permitAll()
                                 // USER PAGES
                                 .requestMatchers(
                                                 "/base",
