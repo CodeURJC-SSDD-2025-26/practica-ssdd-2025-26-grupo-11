@@ -74,7 +74,7 @@ public class BookRestController {
                         if ("available".equalsIgnoreCase(availability) && !available) return null;
                         if ("loaned".equalsIgnoreCase(availability) && available) return null;
                         if (!availability.equalsIgnoreCase("available") && !availability.equalsIgnoreCase("loaned")) {
-                            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid availability filter");
+                            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Filtro de disponibuilidad invalido");
                         }
                     }
                     return DtoMapper.toBookDTO(book, available);
@@ -151,7 +151,7 @@ public class BookRestController {
         boolean deleted = loanService.deleteBookIfAllowed(id);
         if (!deleted) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Cannot delete book with active or overdue loans");
+                    "No se puede eliminar el libro con préstamos activos o vencidos");
         }
         return ResponseEntity.noContent().build();
     }
@@ -224,7 +224,7 @@ public class BookRestController {
         Book book = findBookOrThrow(id);
 
         if (book.getImage() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This book has no image to replace");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Este libro no tiene una imagen para reemplazar");
         }
 
         imageService.replaceImageFile(book.getImage().getId(), imageFile.getInputStream());
@@ -240,7 +240,7 @@ public class BookRestController {
         Book book = findBookOrThrow(id);
 
         if (book.getImage() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This book has no image");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Este libro no tiene una imagen");
         }
 
         Long imageId = book.getImage().getId();
@@ -256,7 +256,7 @@ public class BookRestController {
     // -------------------------------------------------------
     private Book findBookOrThrow(Long id) {
         return bookService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
     }
 
     private Genre parseGenre(String genre) {
@@ -264,41 +264,41 @@ public class BookRestController {
         try {
             return Genre.valueOf(genre.trim().toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid genre: " + genre);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Género inválido: " + genre);
         }
     }
 
     private void validateImageFile(MultipartFile imageFile) {
         if (imageFile.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image file cannot be empty");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El archivo de imagen no puede estar vacío");
         }
         String contentType = imageFile.getContentType();
         if (contentType == null || (!contentType.equals("image/jpeg") && !contentType.equals("image/png"))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image must be .jpg or .png");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La imagen debe ser .jpg o .png");
         }
     }
 
     private void validateBookRequest(BookRequestDTO dto) {
         if (dto.title() == null || dto.title().isBlank())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título es requerido");
         if (dto.title().length() > 20)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title must be 20 characters or less");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título debe tener 20 caracteres o menos");
 
         if (dto.author() == null || dto.author().isBlank())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El autor es requerido");
         if (dto.author().length() > 25)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author must be 25 characters or less");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El autor debe tener 25 caracteres o menos");
 
         if (dto.year() == null || dto.year() < 1000 || dto.year() > 2099)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Year must be between 1000 and 2099");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El año debe estar entre 1000 y 2099");
 
         if (dto.isbn() == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ISBN is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ISBN es requerido");
 
         if (dto.description() != null && dto.description().length() > 150)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description must be 150 characters or less");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La descripción debe tener 150 caracteres o menos");
 
         if (dto.genre() == null || dto.genre().isBlank())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Genre is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El género es requerido");
     }
 }

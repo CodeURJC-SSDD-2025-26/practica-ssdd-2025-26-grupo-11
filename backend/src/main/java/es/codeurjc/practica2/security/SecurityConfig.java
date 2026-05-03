@@ -70,18 +70,52 @@ public class SecurityConfig {
                                                 .authenticationEntryPoint(unauthorizedHandlerJwt));
 
                 http.authorizeHttpRequests(authorize -> authorize
-                                // AUTH (IMPORTANTE)
-                                .requestMatchers("/api/v1/auth/**").permitAll()
+                // AUTH
+                .requestMatchers("/api/v1/auth/**").permitAll()
 
-                                // PUBLIC
-                                .requestMatchers(HttpMethod.GET, "/api/v1/books/**").permitAll()
+                // PUBLIC USER ENDPOINTS
+                .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/*/image/media").permitAll()
 
-                                // ADMIN ONLY
-                                .requestMatchers(HttpMethod.POST, "/api/v1/books/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/api/v1/books/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/books/**").hasRole("ADMIN")
+                // PUBLIC BOOK ENDPOINTS
+                .requestMatchers(HttpMethod.GET, "/api/v1/books/**").permitAll()
 
-                                .anyRequest().authenticated());
+                // REVIEW ENDPOINTS FOR AUTHENTICATED USERS
+                .requestMatchers(HttpMethod.POST, "/api/v1/books/*/reviews").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/reviews/*").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/reviews/*").hasAnyRole("USER", "ADMIN")
+
+                // REVIEW ADMIN ENDPOINTS
+                .requestMatchers(HttpMethod.GET, "/api/v1/reviews").hasRole("ADMIN")
+
+                // USER ENDPOINTS FOR AUTHENTICATED USERS
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/me").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/users/me").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/*").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/*/image").hasAnyRole("USER", "ADMIN")
+
+                // USER ADMIN ENDPOINTS
+                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/users/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/users/*").hasRole("ADMIN")
+
+                // BOOK ADMIN ENDPOINTS
+                .requestMatchers(HttpMethod.POST, "/api/v1/books/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/books/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/books/**").hasRole("ADMIN")
+
+                // LOAN ENDPOINTS FOR AUTHENTICATED USERS
+                .requestMatchers(HttpMethod.GET, "/api/v1/loans/me").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/loans/*").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/loans").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/loans/*/return").hasAnyRole("USER", "ADMIN")
+
+                // LOAN ADMIN ENDPOINTS
+                .requestMatchers(HttpMethod.GET, "/api/v1/loans").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/loans/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/loans/*").hasRole("ADMIN")
+
+                .anyRequest().authenticated());
                 // Disable form login for API
                 http.formLogin(formLogin -> formLogin.disable());
 
