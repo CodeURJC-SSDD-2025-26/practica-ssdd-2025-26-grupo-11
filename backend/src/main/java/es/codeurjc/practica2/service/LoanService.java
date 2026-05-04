@@ -21,6 +21,8 @@ import es.codeurjc.practica2.repository.LoanRepository;
 @Service
 public class LoanService {
 
+    private final UtilityClient utilityClient;
+
     @Autowired
     private LoanRepository loanRepository;
 
@@ -30,6 +32,10 @@ public class LoanService {
     @Lazy
     @Autowired
     private BookService bookService;
+
+    LoanService(UtilityClient utilityClient) {
+        this.utilityClient = utilityClient;
+    }
 
     // -------------------------------------------------------------------------
     // Basic CRUD
@@ -101,7 +107,7 @@ public class LoanService {
 
         Loan savedLoan = loanRepository.save(loan);
 
-        emailService.sendLoanConfirmation(
+        utilityClient.sendLoanEmail(
                 user.getEmail(),
                 user.getName(),
                 book.getTitle(),
