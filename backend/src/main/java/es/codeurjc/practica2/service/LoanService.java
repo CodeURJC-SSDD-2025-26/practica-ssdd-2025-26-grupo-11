@@ -21,19 +21,17 @@ import es.codeurjc.practica2.repository.LoanRepository;
 @Service
 public class LoanService {
 
-    private final UtilityClient utilityClient;
+    @Autowired
+    private UtilityClient utilityClient;
 
     @Autowired
     private LoanRepository loanRepository;
-
-    @Autowired
-    private EmailService emailService;
 
     @Lazy
     @Autowired
     private BookService bookService;
 
-    LoanService(UtilityClient utilityClient) {
+    public LoanService(UtilityClient utilityClient) {
         this.utilityClient = utilityClient;
     }
 
