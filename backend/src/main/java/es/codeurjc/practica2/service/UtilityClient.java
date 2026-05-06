@@ -6,12 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Service
 public class UtilityClient {
@@ -24,19 +20,11 @@ public class UtilityClient {
     private String utilityServiceUrl;
 
     public UtilityClient() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
-
         this.restTemplate = new RestTemplate();
-        this.restTemplate.getMessageConverters().removeIf(c -> c instanceof MappingJackson2HttpMessageConverter);
-        this.restTemplate.getMessageConverters().add(0, converter);
     }
 
     public void sendLoanEmail(String email, String user, String book, LocalDate date) {
-        String url = utilityServiceUrl + "/api/v1/emailService";
+        String url = utilityServiceUrl + "/api/v1/emails";
 
         Map<String, Object> request = Map.of(
                 "toEmail", email,

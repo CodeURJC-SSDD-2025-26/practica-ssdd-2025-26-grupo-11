@@ -11,7 +11,7 @@ import es.codeurjc.utility_service.dto.EmailRequest;
 import es.codeurjc.utility_service.service.EmailService;
 
 @RestController
-@RequestMapping("/api/v1/emailService")
+@RequestMapping("/api/v1/emails")
 public class EmailController {
 
     @Autowired
