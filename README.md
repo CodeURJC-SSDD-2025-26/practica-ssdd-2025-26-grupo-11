@@ -397,16 +397,15 @@ Application Class Diagram with color-coded sections:
 
 ---
 
-#### **Student 3 - [Full Name]**
+#### **Student 3 - [Ángel Vila Sánchez]**
 
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Add Docker configuration and infrastructure for services](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/e594dcfcc84dad95a08e6998b46319f8c48c2ab7)  | [Dockerfile, docker-compose.yml, create_image.sh](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/e594dcfcc84dad95a08e6998b46319f8c48c2ab7#diff-fed51f49a9f26cb93cc870efdc9419d425b9422354ae41bb651c3333c8bff486)   |
+|2| [Separation of app-service and utility-service.](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/6a2df8ccd3aa8b70bfc760b8bf2c8b7a6a43b7b7)  | [utilityClient.java, LoanService, EmailRequest.java...](backend/src/main/java/es/codeurjc/practica2/service/UtilityClient.java)   |
+|3| [Correction of LoanService](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/d6f2ba0cbe7d0871063d260029c40b8ab2675483)  | [LoanService](backend/src/main/java/es/codeurjc/practica2/service/LoanService.java)   |
+|4| [Added the other script en folder docker.](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/53921754b0e581eebaaa2f979665ee3640e4301c)  | [publish_compose.sh](docker/publish_compose.sh)   |
 
 ---
 
