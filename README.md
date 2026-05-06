@@ -287,10 +287,10 @@ Application Class Diagram with color-coded sections:
 ### **REST API Documentation**
 
 #### **OpenAPI Specification**
-📄 **[OpenAPI Specification (YAML)](\app-service\api-docs\api-docs.yaml)**
+📄 **[OpenAPI Specification (YAML)](https://raw.githubusercontent.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/main/app-service/api-docs/api-docs.yaml)**
 
 #### **HTML Documentation**
-📖 **[REST API Documentation (HTML)](\app-service\api-docs\api-docs.html)**
+📖 **[REST API Documentation (HTML)](https://raw.githack.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/main/app-service/api-docs/api-docs.html)**
 
 > REST API documentation is located in the `/api-docs` folder of the repository. It has been automatically generated with SpringDoc based on annotations in the Java code.
 
@@ -354,27 +354,27 @@ Application Class Diagram with color-coded sections:
 
 2. **Build the Docker images** (no JDK or Maven required on the host machine):
 ```bash
-   create_image.bat 
+   create_image.bat <dockerhub_user>
 ```
 
 3. **Login to DockerHub**:
 ```bash
-   docker login
+   docker login 
 ```
 
 4. **Publish the images to DockerHub**:
 ```bash
-   publish_image.bat 
+   publish_image.bat <dockerhub_user>
 ```
 
 5. **Login to ORAS**:
 ```bash
-   oras login registry-1.docker.io -u 
+   oras login registry-1.docker.io -u <dockerhub_user>
 ```
 
 6. **Publish the docker_compose.yml as an OCI Artifact**:
 ```bash
-   publish_docker_compose.bat 
+   publish_docker_compose.bat <dockerhub_user>
 ```
 
 ---
@@ -415,7 +415,7 @@ Application Class Diagram with color-coded sections:
 
 4. **Login to ORAS**:
 ```bash
-   oras login registry-1.docker.io -u 
+   oras login registry-1.docker.io -u <dockerhub_user>
 ```
 
 5. **Pull and run the application**:
