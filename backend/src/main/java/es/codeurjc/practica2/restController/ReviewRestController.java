@@ -29,6 +29,11 @@ import es.codeurjc.practica2.service.ReviewService;
 import es.codeurjc.practica2.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import es.codeurjc.practica2.model.PageData;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ReviewRestController {
@@ -47,8 +52,10 @@ public class ReviewRestController {
     // Admin: list all reviews, with optional search
     // -------------------------------------------------------
     @GetMapping("/reviews")
-    public ResponseEntity<List<ReviewDTO>> getReviews(
+    public ResponseEntity<Page<ReviewDTO>> getReviews(
             @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "7") int size,
             HttpServletRequest request) {
 
         if (!request.isUserInRole("ADMIN")) {
@@ -57,11 +64,23 @@ public class ReviewRestController {
                     "Solo los administradores pueden listar todas las reseñas.");
         }
 
-        List<ReviewDTO> reviews = reviewService.searchReviews(q).stream()
+        String normalizedQuery = (q == null || q.isBlank())
+                ? null
+                : q.trim().toLowerCase();
+
+        PageData<Review> reviewPageData = reviewService
+                .searchReviewsPage(normalizedQuery, page, size);
+
+        List<ReviewDTO> dtoList = reviewPageData.getContent().stream()
                 .map(DtoMapper::toReviewDTO)
                 .toList();
 
-        return ResponseEntity.ok(reviews);
+        Page<ReviewDTO> dtoPage = new PageImpl<>(
+                dtoList,
+                PageRequest.of(page, size),
+                reviewPageData.getTotalElements());
+
+        return ResponseEntity.ok(dtoPage);
     }
 
     // -------------------------------------------------------
@@ -102,8 +121,8 @@ public class ReviewRestController {
 
         Book book = bookService.findById(bookId)
                 .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "No se ha encontrado el libro indicado."));
+                        HttpStatus.NOT_FOUND,
+                        "No se ha encontrado el libro indicado."));
 
         validateReview(dto);
 
@@ -161,8 +180,8 @@ public class ReviewRestController {
 
         return userService.findByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "No se ha encontrado el usuario autenticado."));
+                        HttpStatus.NOT_FOUND,
+                        "No se ha encontrado el usuario autenticado."));
     }
 
     private Review findReviewOrThrow(Long id) {

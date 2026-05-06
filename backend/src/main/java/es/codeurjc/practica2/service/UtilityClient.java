@@ -28,7 +28,7 @@ public class UtilityClient {
     }
 
     public void sendLoanEmail(String email, String user, String book, LocalDate date) {
-        String url = "http://localhost:8081/api/email/loan-confirmation";
+        String url = "http://localhost:8080/api/email/loan-confirmation";
 
         Map<String, Object> request = Map.of(
                 "toEmail", email,

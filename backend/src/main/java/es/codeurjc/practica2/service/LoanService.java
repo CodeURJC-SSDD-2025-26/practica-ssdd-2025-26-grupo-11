@@ -18,6 +18,8 @@ import es.codeurjc.practica2.model.PageData;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.repository.LoanRepository;
 
+import org.springframework.data.domain.Pageable;
+
 @Service
 public class LoanService {
 
@@ -65,16 +67,14 @@ public class LoanService {
 
     public boolean hasActiveOrOverdueLoan(User user, Book book) {
         List<Loan> loans = loanRepository.findByUserAndBook(user, book);
-        return loans.stream().anyMatch(loan ->
-                loan.getStatus() == Loan.Status.ACTIVO
-                        || loan.getStatus() == Loan.Status.VENCIDO);
+        return loans.stream().anyMatch(loan -> loan.getStatus() == Loan.Status.ACTIVO
+                || loan.getStatus() == Loan.Status.VENCIDO);
     }
 
     public boolean isBookAvailable(Book book) {
         List<Loan> loans = loanRepository.findByBook(book);
-        return loans.stream().noneMatch(loan ->
-                loan.getStatus() == Loan.Status.ACTIVO
-                        || loan.getStatus() == Loan.Status.VENCIDO);
+        return loans.stream().noneMatch(loan -> loan.getStatus() == Loan.Status.ACTIVO
+                || loan.getStatus() == Loan.Status.VENCIDO);
     }
 
     /**
@@ -95,23 +95,23 @@ public class LoanService {
     // -------------------------------------------------------------------------
 
     public Loan createLoan(User user, Book book) {
-    Loan loan = new Loan(
-            LocalDate.now(),
-            LocalDate.now().plusDays(30),
-            Loan.Status.ACTIVO,
-            user,
-            book);
+        Loan loan = new Loan(
+                LocalDate.now(),
+                LocalDate.now().plusDays(30),
+                Loan.Status.ACTIVO,
+                user,
+                book);
 
-    Loan savedLoan = loanRepository.save(loan);
+        Loan savedLoan = loanRepository.save(loan);
 
-    utilityClient.sendLoanEmail(
-            user.getEmail(),
-            user.getName(),
-            book.getTitle(),
-            savedLoan.getReturnDate());
+        utilityClient.sendLoanEmail(
+                user.getEmail(),
+                user.getName(),
+                book.getTitle(),
+                savedLoan.getReturnDate());
 
-    return savedLoan;
-}
+        return savedLoan;
+    }
 
     // -------------------------------------------------------------------------
     // Status transitions (moved from LoanController / AdminController)
@@ -269,7 +269,8 @@ public class LoanService {
     }
 
     private Loan.Status parseStatus(String status) {
-        if (status == null || status.isBlank()) return null;
+        if (status == null || status.isBlank())
+            return null;
         try {
             return Loan.Status.valueOf(status.toUpperCase());
         } catch (IllegalArgumentException ignored) {
@@ -292,5 +293,13 @@ public class LoanService {
             }
         }
         return loans;
+    }
+
+    public Page<Loan> searchLoans(String q, Loan.Status status, Pageable pageable) {
+        return loanRepository.searchLoansPage(q, status, pageable);
+    }
+
+    public Page<Loan> findByUser(User user, Pageable pageable) {
+        return loanRepository.findByUser(user, pageable);
     }
 }

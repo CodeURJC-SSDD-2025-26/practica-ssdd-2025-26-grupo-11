@@ -1,20 +1,14 @@
 package es.codeurjc.practica2.restController;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -44,45 +38,45 @@ public class LoanRestController {
     private BookService bookService;
 
     // -------------------------------------------------------
-    // GET /api/v1/loans
-    // Admin: list all loans, with optional filters
+    // GET /api/v1/loans (ADMIN)
     // -------------------------------------------------------
     @GetMapping
-    public ResponseEntity<List<LoanDTO>> getLoans(
+    public ResponseEntity<Page<LoanDTO>> getLoans(
             @RequestParam(required = false) String q,
-            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Loan.Status status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
             HttpServletRequest request) {
 
         if (!request.isUserInRole("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden acceder a esta información");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Solo los administradores pueden acceder a esta información");
         }
 
-        List<LoanDTO> loans = loanService.searchLoans(q, status).stream()
-                .map(DtoMapper::toLoanDTO)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok(loans);
+        Page<Loan> loanPage = loanService.searchLoans(q, status, pageable);
+
+        return ResponseEntity.ok(loanPage.map(DtoMapper::toLoanDTO));
     }
 
-    // -------------------------------------------------------
-    // GET /api/v1/loans/me
-    // User: list own loans
-    // -------------------------------------------------------
     @GetMapping("/me")
-    public ResponseEntity<List<LoanDTO>> getMyLoans(HttpServletRequest request) {
+    public ResponseEntity<Page<LoanDTO>> getMyLoans(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            HttpServletRequest request) {
 
         User currentUser = getCurrentUser(request);
 
-        List<LoanDTO> loans = loanService.getLoansForUser(currentUser).stream()
-                .map(DtoMapper::toLoanDTO)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok(loans);
+        Page<Loan> loanPage = loanService.findByUser(currentUser, pageable);
+
+        return ResponseEntity.ok(loanPage.map(DtoMapper::toLoanDTO));
     }
 
     // -------------------------------------------------------
     // GET /api/v1/loans/{id}
-    // Admin or owner: get one loan
     // -------------------------------------------------------
     @GetMapping("/{id}")
     public ResponseEntity<LoanDTO> getLoan(
@@ -104,7 +98,6 @@ public class LoanRestController {
 
     // -------------------------------------------------------
     // POST /api/v1/loans
-    // User: create a loan for the authenticated user
     // -------------------------------------------------------
     @PostMapping
     public ResponseEntity<LoanDTO> createLoan(
@@ -141,7 +134,6 @@ public class LoanRestController {
 
     // -------------------------------------------------------
     // PUT /api/v1/loans/{id}/return
-    // User owner or admin: mark loan as returned
     // -------------------------------------------------------
     @PutMapping("/{id}/return")
     public ResponseEntity<LoanDTO> returnLoan(
@@ -157,12 +149,12 @@ public class LoanRestController {
         }
 
         Loan updatedLoan = findLoanOrThrow(id);
+
         return ResponseEntity.ok(DtoMapper.toLoanDTO(updatedLoan));
     }
 
     // -------------------------------------------------------
     // PUT /api/v1/loans/{id}
-    // Admin: update loan dates and status
     // -------------------------------------------------------
     @PutMapping("/{id}")
     public ResponseEntity<LoanDTO> updateLoan(
@@ -171,26 +163,23 @@ public class LoanRestController {
             HttpServletRequest request) {
 
         if (!request.isUserInRole("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden actualizar préstamos");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Solo los administradores pueden actualizar préstamos");
         }
 
-        List<String> errors = loanService.validateAndUpdateLoan(
+        loanService.validateAndUpdateLoan(
                 id,
                 dto.loanDate(),
                 dto.returnDate(),
                 dto.status());
 
-        if (!errors.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.join(" ", errors));
-        }
-
         Loan updatedLoan = findLoanOrThrow(id);
+
         return ResponseEntity.ok(DtoMapper.toLoanDTO(updatedLoan));
     }
 
     // -------------------------------------------------------
     // DELETE /api/v1/loans/{id}
-    // Admin: delete returned loans from history
     // -------------------------------------------------------
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLoan(
@@ -198,7 +187,8 @@ public class LoanRestController {
             HttpServletRequest request) {
 
         if (!request.isUserInRole("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden eliminar préstamos");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Solo los administradores pueden eliminar préstamos");
         }
 
         Loan loan = findLoanOrThrow(id);
@@ -209,13 +199,13 @@ public class LoanRestController {
         }
 
         loanService.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     // -------------------------------------------------------
     // Helpers
     // -------------------------------------------------------
-
     private User getCurrentUser(HttpServletRequest request) {
         String email = request.getUserPrincipal().getName();
 

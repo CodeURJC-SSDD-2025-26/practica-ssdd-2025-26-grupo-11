@@ -18,6 +18,8 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     List<Loan> findByUser(User user);
 
+    Page<Loan> findByUser(User user, Pageable pageable);
+
     List<Loan> findByBook(Book book);
 
     List<Loan> findByUserAndBook(User user, Book book);

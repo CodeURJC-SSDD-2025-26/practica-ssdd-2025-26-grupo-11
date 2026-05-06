@@ -74,7 +74,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**").permitAll()
 
                 // PUBLIC USER ENDPOINTS
-                .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/users/*/image/media").permitAll()
 
                 // PUBLIC BOOK ENDPOINTS
@@ -96,6 +95,7 @@ public class SecurityConfig {
 
                 // USER ADMIN ENDPOINTS
                 .requestMatchers(HttpMethod.GET, "/api/v1/users").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/users").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/users/*").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/users/*").hasRole("ADMIN")
 
@@ -114,6 +114,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/loans").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/loans/*").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/loans/*").hasRole("ADMIN")
+
+                .requestMatchers(HttpMethod.GET, "/api/v1/books/charts").hasRole("ADMIN")
 
                 .anyRequest().authenticated());
                 // Disable form login for API
