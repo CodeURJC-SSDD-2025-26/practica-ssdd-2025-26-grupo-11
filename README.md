@@ -287,10 +287,10 @@ Application Class Diagram with color-coded sections:
 ### **REST API Documentation**
 
 #### **OpenAPI Specification**
-📄 **[OpenAPI Specification (YAML)](\backend\api-docs\api-docs.yaml)**
+📄 **[OpenAPI Specification (YAML)](\app-service\api-docs\api-docs.yaml)**
 
 #### **HTML Documentation**
-📖 **[REST API Documentation (HTML)](\backend\api-docs\api-docs.html)**
+📖 **[REST API Documentation (HTML)](\app-service\api-docs\api-docs.html)**
 
 > REST API documentation is located in the `/api-docs` folder of the repository. It has been automatically generated with SpringDoc based on annotations in the Java code.
 
@@ -318,7 +318,27 @@ Application Class Diagram with color-coded sections:
    cd [repository]
    ```
 
-2. **NEXT STEPS HERE**:
+2. **Login to ORAS**:
+```bash
+   oras login registry-1.docker.io -u 
+```
+
+3. **Pull the docker_compose.yml and run the application**:
+```bash
+   cd docker
+   oras pull registry-1.docker.io/alvarobravo/biblioonline-compose:latest
+   docker compose -f docker_compose.yml up
+```
+
+4. **Access the application**:
+
+   🌐 [https://localhost:8443](https://localhost:8443)
+
+   Accept the self-signed certificate warning in the browser.
+
+> **Note:** The `SPRING_MAIL_PASSWORD` field in `docker_compose.yml` must be replaced with a valid Gmail App Password for email functionality to work.
+
+---
 
 ### **Docker Image Building**
 
@@ -328,11 +348,36 @@ Application Class Diagram with color-coded sections:
 #### **Steps to build and publish the image:**
 
 1. **Navigate to the Docker directory**:
-   ```bash
+```bash
    cd docker
-   ```
+```
 
-2. **NEXT STEPS HERE**
+2. **Build the Docker images** (no JDK or Maven required on the host machine):
+```bash
+   create_image.bat 
+```
+
+3. **Login to DockerHub**:
+```bash
+   docker login
+```
+
+4. **Publish the images to DockerHub**:
+```bash
+   publish_image.bat 
+```
+
+5. **Login to ORAS**:
+```bash
+   oras login registry-1.docker.io -u 
+```
+
+6. **Publish the docker_compose.yml as an OCI Artifact**:
+```bash
+   publish_docker_compose.bat 
+```
+
+---
 
 ### **Deployment on Virtual Machine**
 
@@ -344,16 +389,47 @@ Application Class Diagram with color-coded sections:
 #### **Steps to deploy:**
 
 1. **Connect to the virtual machine**:
-   ```bash
+```bash
    ssh -i [path/to/key.key] [user]@[IP-or-domain-VM]
-   ```
-   
-   Example:
-   ```bash
-   ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
-   ```
+```
 
-2. **NEXT STEPS HERE**:
+   Example:
+```bash
+   ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
+```
+
+2. **Install Docker** (if not already installed):
+```bash
+   sudo apt-get update
+   sudo apt-get install -y docker.io docker-compose-plugin
+   sudo systemctl start docker
+   sudo systemctl enable docker
+```
+
+3. **Install ORAS**:
+```bash
+   curl -LO https://github.com/oras-project/oras/releases/download/v1.2.0/oras_1.2.0_linux_amd64.tar.gz
+   tar -xzf oras_1.2.0_linux_amd64.tar.gz
+   sudo mv oras /usr/local/bin/
+```
+
+4. **Login to ORAS**:
+```bash
+   oras login registry-1.docker.io -u 
+```
+
+5. **Pull and run the application**:
+```bash
+   oras pull registry-1.docker.io/alvarobravo/biblioonline-compose:latest
+   docker compose -f docker_compose.yml up -d
+```
+
+6. **Access the application**:
+
+   🌐 [https://localhost:8443](https://localhost:8443)
+
+---
+
 
 ### **Deployed Application URL**
 
@@ -363,23 +439,22 @@ Application Class Diagram with color-coded sections:
 
 | Role | User | Password |
 |:---|:---|:---|
-| Administrator | admin | admin123 |
-| Registered User | user1 | user123 |
-| Registered User | user2 | user123 |
+| Administrator | admin@example.com | adminpass |
+| Registered User | user@example.com | pass |
 
 ### **ADDITIONAL DOCUMENTATION REQUIRED FOR THE PRACTICE**
 
 ### **Member Participation in Practice 3**
 
-#### **Student 1 - [Full Name]**
+#### **Student 1 - Alvaro Bravo Pareja**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Added pagination to admin panel and books page](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f257cdea64ebdd38356f6f28ade8ce77107b8538)  | [adminpanel](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f257cdea64ebdd38356f6f28ade8ce77107b8538)   |
+|2| [Added jwt tokens for api security](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/98dd88cc5fd746d55494849928be627eca69a870)  | [/jwt](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/app-service/src/security/jwt)   |
+|3| [Fixed utility client](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/1308003c0a09768437de92707141927a160ce3d5)  | [UtilityClient.java]([URL_archivo_3](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/app-service/src/service/UtilityClient.java))   |
+|4| [Added pagination to api rest](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ffdee0072c65c99ab37c3feaf6b5b78f620f96e2)  | [LoanRestController.java, BookRestController.java, ReviewRestController.java and UserRestController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/ffdee0072c65c99ab37c3feaf6b5b78f620f96e2)   |
+|5| [Fixed docker errors](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/6af323d4b3b1e82372e14ae52a790b55abba1f3d)  | [/docker](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/docker)   |
 
 ---
 
