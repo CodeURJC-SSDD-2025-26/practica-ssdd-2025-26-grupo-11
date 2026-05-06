@@ -1,0 +1,89 @@
+@startuml Service Communication Diagram
+
+title Service Communication Diagram
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam linetype ortho
+skinparam ArrowColor #4A4A4A
+skinparam nodesep 70
+skinparam ranksep 90
+
+left to right direction
+
+skinparam rectangle {
+  BackgroundColor #F8F9FA
+  BorderColor #4A4A4A
+  RoundCorner 12
+  FontSize 13
+}
+
+skinparam package {
+  BackgroundColor #FBFBFB
+  BorderColor #9E9E9E
+  RoundCorner 15
+  FontSize 14
+}
+
+skinparam database {
+  BackgroundColor #F8F9FA
+  BorderColor #4A4A4A
+  FontSize 13
+}
+
+skinparam cloud {
+  BackgroundColor #F8F9FA
+  BorderColor #4A4A4A
+  FontSize 13
+}
+
+skinparam actor {
+  BorderColor #4A4A4A
+  FontSize 13
+}
+
+actor "User" as user
+
+package "Clients" #EEF3F8 {
+  rectangle "Web\nBrowser" as browser
+  rectangle "Postman" as postman
+}
+
+package "Services" #EAF4EA {
+  rectangle "app-service\nSpring Boot\n:8443" as app
+  rectangle "utility-service\nSpring Boot\n:8081" as utility
+}
+
+package "Data / External Systems" #F4F4F4 {
+  database "MySQL\nDatabase" as db
+  cloud "SMTP\nServer" as smtp
+}
+
+' -----------------------------
+' Alignment helpers
+' -----------------------------
+browser -[hidden]-> app
+app -[hidden]-> utility
+utility -[hidden]-> db
+db -[hidden]-> smtp
+
+' -----------------------------
+' Client access
+' -----------------------------
+user --> browser : web
+user --> postman : tests
+
+browser --> app : HTTPS
+postman --> app : REST API
+postman --> utility : Email API
+
+' -----------------------------
+' Service communication
+' -----------------------------
+app --> db : JDBC
+app --> utility : REST
+
+utility --> smtp : SMTP
+
+@enduml
