@@ -115,7 +115,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/v1/loans/*").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/loans/*").hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.GET, "/api/v1/books/charts").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/charts").hasRole("ADMIN")
 
                 .anyRequest().authenticated());
                 // Disable form login for API

@@ -32,15 +32,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "login"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
             }
           },
           "response": []
@@ -66,15 +59,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "login"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
             }
           },
           "response": []
@@ -86,15 +72,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/refresh",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "refresh"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "refresh"]
             }
           },
           "response": []
@@ -106,15 +85,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/logout",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "logout"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "logout"]
             }
           },
           "response": []
@@ -131,14 +103,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books?page=0&size=10",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books"],
               "query": [
                 {
                   "key": "page",
@@ -160,15 +126,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1"]
             }
           },
           "response": []
@@ -194,14 +153,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/books",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books"]
             }
           },
           "response": []
@@ -227,15 +180,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1"]
             }
           },
           "response": []
@@ -247,15 +193,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1"]
             }
           },
           "response": []
@@ -267,16 +206,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1/reviews",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1",
-                "reviews"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1", "reviews"]
             }
           },
           "response": []
@@ -307,14 +238,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users"]
             }
           },
           "response": []
@@ -326,15 +251,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "me"]
             }
           },
           "response": []
@@ -360,15 +278,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "me"]
             }
           },
           "response": []
@@ -379,14 +290,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users"
+              "raw": "{{baseUrl}}/api/v1/users?page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
               ]
             }
           },
@@ -399,15 +314,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "1"]
             }
           },
           "response": []
@@ -419,15 +327,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/3",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "3"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "3"]
             }
           },
           "response": []
@@ -444,15 +345,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans", "me"]
             }
           },
           "response": []
@@ -464,14 +358,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans"]
             }
           },
           "response": []
@@ -483,15 +371,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans", "1"]
             }
           },
           "response": []
@@ -517,14 +398,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans"]
             }
           },
           "response": []
@@ -536,16 +411,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans/1/return",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans",
-                "1",
-                "return"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans", "1", "return"]
             }
           },
           "response": []
@@ -571,15 +438,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/loans/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "loans",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "loans", "1"]
             }
           },
           "response": []
@@ -596,14 +456,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/reviews",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "reviews"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reviews"]
             }
           },
           "response": []
@@ -615,15 +469,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/reviews/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "reviews",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reviews", "1"]
             }
           },
           "response": []
@@ -649,16 +496,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/6/reviews",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "6",
-                "reviews"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "6", "reviews"]
             }
           },
           "response": []
@@ -670,15 +509,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/reviews/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "reviews",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reviews", "1"]
             }
           },
           "response": []
@@ -695,17 +527,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1/image/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1",
-                "image",
-                "media"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1", "image", "media"]
             }
           },
           "response": []
@@ -729,17 +552,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1/image/",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1",
-                "image",
-                ""
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1", "image", ""]
             }
           },
           "response": []
@@ -763,17 +577,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1/image/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1",
-                "image",
-                "media"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1", "image", "media"]
             }
           },
           "response": []
@@ -785,17 +590,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/books/1/image/",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "books",
-                "1",
-                "image",
-                ""
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "books", "1", "image", ""]
             }
           },
           "response": []
@@ -807,17 +603,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/1/image/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "1",
-                "image",
-                "media"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "1", "image", "media"]
             }
           },
           "response": []
@@ -841,16 +628,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/1/image",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "1",
-                "image"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "1", "image"]
             }
           },
           "response": []

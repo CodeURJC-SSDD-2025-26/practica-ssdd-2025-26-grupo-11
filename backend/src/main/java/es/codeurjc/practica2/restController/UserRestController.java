@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
@@ -28,10 +30,16 @@ import es.codeurjc.practica2.dto.DtoMapper;
 import es.codeurjc.practica2.dto.UserCreateDTO;
 import es.codeurjc.practica2.dto.UserDTO;
 import es.codeurjc.practica2.dto.UserUpdateDTO;
+import es.codeurjc.practica2.model.PageData;
 import es.codeurjc.practica2.model.User;
 import es.codeurjc.practica2.service.ReviewService;
 import es.codeurjc.practica2.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
+import es.codeurjc.practica2.model.PageData;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -48,19 +56,30 @@ public class UserRestController {
     // Admin: list all users
     // -------------------------------------------------------
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getUsers(HttpServletRequest request) {
+    public ResponseEntity<Page<UserDTO>> getUsers(
+                    @RequestParam(required = false) String q,
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "10") int size,
+                    HttpServletRequest request) {
 
-        if (!request.isUserInRole("ADMIN")) {
-            throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN,
-                    "Solo los administradores pueden listar todos los usuarios.");
-        }
+            if (!request.isUserInRole("ADMIN")) {
+                    throw new ResponseStatusException(
+                                    HttpStatus.FORBIDDEN,
+                                    "Solo los administradores pueden listar todos los usuarios.");
+            }
 
-        List<UserDTO> users = userService.findAll().stream()
-                .map(DtoMapper::toUserDTO)
-                .toList();
+            PageData<User> userPageData = userService.searchUsersPage(q, page, size);
 
-        return ResponseEntity.ok(users);
+            List<UserDTO> dtoList = userPageData.getContent().stream()
+                            .map(DtoMapper::toUserDTO)
+                            .toList();
+
+            Page<UserDTO> dtoPage = new PageImpl<>(
+                            dtoList,
+                            PageRequest.of(page, size),
+                            userPageData.getTotalElements());
+
+            return ResponseEntity.ok(dtoPage);
     }
 
     // -------------------------------------------------------

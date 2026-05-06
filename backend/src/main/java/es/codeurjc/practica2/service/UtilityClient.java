@@ -3,6 +3,9 @@ package es.codeurjc.practica2.service;
 import java.time.LocalDate;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +16,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @Service
 public class UtilityClient {
 
+    private static final Logger logger = LoggerFactory.getLogger(UtilityClient.class);
+
     private final RestTemplate restTemplate;
+
+    @Value("${utility.service.url}")
+    private String utilityServiceUrl;
 
     public UtilityClient() {
         ObjectMapper mapper = new ObjectMapper();
@@ -28,18 +36,19 @@ public class UtilityClient {
     }
 
     public void sendLoanEmail(String email, String user, String book, LocalDate date) {
-        String url = "http://localhost:8080/api/email/loan-confirmation";
+        String url = utilityServiceUrl + "/api/v1/emailService";
 
         Map<String, Object> request = Map.of(
                 "toEmail", email,
                 "userName", user,
                 "bookTitle", book,
-                "returnDate", date.toString()); // ISO format: "2025-06-01"
+                "returnDate", date.toString()
+        );
 
         try {
             restTemplate.postForEntity(url, request, Void.class);
         } catch (Exception e) {
-            System.err.println("Could not send email: " + e.getMessage());
+            logger.warn("Could not send loan confirmation email: {}", e.getMessage());
         }
     }
 }
