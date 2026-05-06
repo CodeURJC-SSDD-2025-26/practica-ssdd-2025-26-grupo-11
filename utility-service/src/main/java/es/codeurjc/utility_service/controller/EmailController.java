@@ -11,13 +11,13 @@ import es.codeurjc.utility_service.dto.EmailRequest;
 import es.codeurjc.utility_service.service.EmailService;
 
 @RestController
-@RequestMapping("/api/email")
+@RequestMapping("/api/v1/emailService")
 public class EmailController {
 
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/loan-confirmation")
+    @PostMapping
     public ResponseEntity<Void> sendLoanEmail(@RequestBody EmailRequest request) {
         emailService.sendLoanConfirmation(
                 request.toEmail(),
