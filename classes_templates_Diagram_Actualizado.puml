@@ -1,0 +1,222 @@
+@startuml Class and Templates Diagram
+skinparam backgroundColor #F3F3F3
+skinparam componentStyle uml2
+skinparam class {
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam package {
+  Shadowing false
+}
+skinparam linetype ortho
+skinparam ArrowColor Black
+skinparam ranksep 1.2
+skinparam nodesep 35
+
+left to right direction
+
+package "Templates / Views" #D9D2E9 {
+  class index
+  class login
+  class register
+  class books
+  class "book-detail" as book_detail
+  class base
+  class profile
+  class "edit-profile" as edit_profile
+  class "my-loans" as my_loans
+  class "admin/admin-panel" as admin_panel
+  class "admin/admin-add-book" as admin_add_book
+  class "admin/admin-edit-book" as admin_edit_book
+  class "admin/admin-edit-loans" as admin_edit_loans
+  class "error/loginerror" as error_loginerror
+  class "error/500" as error_500
+}
+
+package "Controllers" #C6E0B4 {
+  class WebController
+  class BookController
+  class UserController
+  class LoanController
+  class ReviewController
+  class AdminController
+  class ImageController
+
+  class LoginRestController
+  class BookRestController
+  class UserRestController
+  class LoanRestController
+  class ReviewRestController
+  class GraphRestController
+
+  class EmailController
+}
+
+package "Services" #F8CBAD {
+  class BookService
+  class ImageService
+  class LoanService
+  class ReviewService
+  class UserService
+  class UserLoginService
+  class UtilityClient
+  class EmailService
+}
+
+package "Repositories" #A9D0F5 {
+  class BookRepository
+  class ImageRepository
+  class LoanRepository
+  class ReviewRepository
+  class UserRepository
+}
+
+package "Domain / Entities" #FFFFFF {
+  class Book
+  class User
+  class Loan
+  class Review
+  class Image
+  class Genre
+}
+
+' -----------------------------
+' ALIGNMENT HELPERS (hidden)
+' These help keep the columns horizontally aligned
+' -----------------------------
+index -[hidden]-> WebController
+WebController -[hidden]-> BookService
+BookService -[hidden]-> BookRepository
+BookRepository -[hidden]-> Book
+
+error_500 -[hidden]-> EmailController
+EmailController -[hidden]-> EmailService
+EmailService -[hidden]-> UserRepository
+UserRepository -[hidden]-> Genre
+
+' extra balancing inside controllers/services
+BookController -[hidden]-> BookRestController
+UserController -[hidden]-> UserRestController
+LoanController -[hidden]-> LoanRestController
+ReviewController -[hidden]-> ReviewRestController
+AdminController -[hidden]-> GraphRestController
+
+BookService -[hidden]-> UserLoginService
+ImageService -[hidden]-> UtilityClient
+LoanService -[hidden]-> EmailService
+
+' -----------------------------
+' Templates -> Controllers
+' -----------------------------
+index --> WebController
+login --> WebController
+register --> WebController
+error_loginerror --> WebController
+error_500 --> WebController
+
+books --> BookController
+book_detail --> BookController
+
+profile --> UserController
+edit_profile --> UserController
+base --> UserController
+
+my_loans --> LoanController
+
+book_detail --> ReviewController
+
+admin_panel --> AdminController
+admin_add_book --> AdminController
+admin_edit_book --> AdminController
+admin_edit_loans --> AdminController
+
+' -----------------------------
+' Web Controllers -> Services
+' -----------------------------
+WebController --> UserService
+
+BookController --> BookService
+BookController --> ImageService
+BookController --> LoanService
+BookController --> ReviewService
+
+UserController --> UserService
+UserController --> ImageService
+
+LoanController --> LoanService
+ReviewController --> ReviewService
+ImageController --> ImageService
+
+AdminController --> BookService
+AdminController --> LoanService
+AdminController --> UserService
+AdminController --> ReviewService
+AdminController --> ImageService
+
+' -----------------------------
+' REST Controllers -> Services
+' -----------------------------
+LoginRestController --> UserLoginService
+
+BookRestController --> BookService
+BookRestController --> ImageService
+BookRestController --> ReviewService
+
+UserRestController --> UserService
+UserRestController --> ImageService
+
+LoanRestController --> LoanService
+
+ReviewRestController --> ReviewService
+
+GraphRestController --> BookService
+GraphRestController --> LoanService
+GraphRestController --> ReviewService
+GraphRestController --> UserService
+
+' -----------------------------
+' Utility service relation
+' -----------------------------
+LoanService --> UtilityClient
+UtilityClient --> EmailController
+EmailController --> EmailService
+
+' -----------------------------
+' Services -> Repositories
+' -----------------------------
+BookService --> BookRepository
+ImageService --> ImageRepository
+
+LoanService --> LoanRepository
+LoanService --> BookRepository
+LoanService --> UserRepository
+
+ReviewService --> ReviewRepository
+ReviewService --> BookRepository
+ReviewService --> UserRepository
+
+UserService --> UserRepository
+UserLoginService --> UserRepository
+
+' -----------------------------
+' Repositories -> Entities
+' -----------------------------
+BookRepository --> Book
+ImageRepository --> Image
+LoanRepository --> Loan
+ReviewRepository --> Review
+UserRepository --> User
+
+' -----------------------------
+' Entity relations
+' -----------------------------
+Book --> Genre
+Book --> Review
+Book --> Image
+Loan --> Book
+Loan --> User
+Review --> Book
+Review --> User
+User --> Image
+
+@enduml
