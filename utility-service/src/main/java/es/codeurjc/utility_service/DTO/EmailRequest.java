@@ -1,4 +1,6 @@
-package main.java.es.codeurjc.utility_service.DTO;
+package es.codeurjc.utility_service.dto;
+
+import java.time.LocalDate;
 
 public record EmailRequest(
     String toEmail,

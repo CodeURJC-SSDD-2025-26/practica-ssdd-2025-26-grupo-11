@@ -95,25 +95,23 @@ public class LoanService {
     // -------------------------------------------------------------------------
 
     public Loan createLoan(User user, Book book) {
-        Loan loan = new Loan(
-                LocalDate.now(),
-                LocalDate.now().plusDays(30),
-                Loan.Status.ACTIVO,
-                user,
-                book
-        );
+    Loan loan = new Loan(
+            LocalDate.now(),
+            LocalDate.now().plusDays(30),
+            Loan.Status.ACTIVO,
+            user,
+            book);
 
-        Loan savedLoan = loanRepository.save(loan);
+    Loan savedLoan = loanRepository.save(loan);
 
-        utilityClient.sendLoanEmail(
-                user.getEmail(),
-                user.getName(),
-                book.getTitle(),
-                savedLoan.getReturnDate()
-        );
+    utilityClient.sendLoanEmail(
+            user.getEmail(),
+            user.getName(),
+            book.getTitle(),
+            savedLoan.getReturnDate());
 
-        return savedLoan;
-    }
+    return savedLoan;
+}
 
     // -------------------------------------------------------------------------
     // Status transitions (moved from LoanController / AdminController)
