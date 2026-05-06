@@ -55,7 +55,7 @@ public class ReviewRestController {
     public ResponseEntity<Page<ReviewDTO>> getReviews(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "7") int size,
+            @RequestParam(defaultValue = "6") int size,
             HttpServletRequest request) {
 
         if (!request.isUserInRole("ADMIN")) {

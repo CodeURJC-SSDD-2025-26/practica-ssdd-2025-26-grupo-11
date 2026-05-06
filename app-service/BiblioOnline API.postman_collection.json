@@ -102,7 +102,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/books?page=0&size=10",
+              "raw": "{{baseUrl}}/api/v1/books?page=0",
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "books"],
               "query": [
@@ -290,7 +290,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/users?page=0&size=10",
+              "raw": "{{baseUrl}}/api/v1/users?page=0",
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "users"],
               "query": [

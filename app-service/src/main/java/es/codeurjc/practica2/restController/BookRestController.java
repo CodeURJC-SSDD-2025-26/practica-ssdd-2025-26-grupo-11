@@ -60,7 +60,7 @@ public class BookRestController {
             @RequestParam(required = false) String genre,
             @RequestParam(required = false) String availability,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "7") int size) {
 
         String normalizedQuery = (q == null || q.isBlank()) ? null : q.trim().toLowerCase(Locale.ROOT);
         Genre genreEnum = parseGenre(genre);

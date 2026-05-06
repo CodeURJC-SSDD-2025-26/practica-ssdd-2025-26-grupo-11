@@ -79,7 +79,7 @@ public class AdminController {
         PageData<Review> reviewsPage = reviewService.searchReviewsPage(reviewQ, reviewPage, PAGE_SIZE);
 
         // --- Users ---
-        PageData<User> usersPage = userService.searchUsersPage(userQ, userPage, PAGE_SIZE);
+        PageData<User> usersPage = userService.searchUsersPage(userQ, userPage, 4);
 
         // --- Charts (always full data) ---
         List<String> genreLabels = new ArrayList<>();
