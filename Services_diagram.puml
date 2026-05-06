@@ -52,7 +52,7 @@ package "Clients" #EEF3F8 {
 
 package "Services" #EAF4EA {
   rectangle "app-service\nSpring Boot\n:8443" as app
-  rectangle "utility-service\nSpring Boot\n:8081" as utility
+  rectangle "utility-service\nSpring Boot\n:8080" as utility
 }
 
 package "Data / External Systems" #F4F4F4 {
