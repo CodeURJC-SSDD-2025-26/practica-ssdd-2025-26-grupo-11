@@ -282,94 +282,96 @@ Application Class Diagram with color-coded sections:
 
 ---
 
-## 🛠 **Práctica 3: API REST, docker y despliegue**
+## 🛠 **Practice 3: REST API, Docker and Deployment**
 
-### **Documentación de la API REST**
+### **REST API Documentation**
 
-#### **Especificación OpenAPI**
-📄 **[Especificación OpenAPI (YAML)](/api-docs/api-docs.yaml)**
+#### **OpenAPI Specification**
+📄 **[OpenAPI Specification (YAML)](\backend\api-docs\api-docs.yaml)**
 
-#### **Documentación HTML**
-📖 **[Documentación API REST (HTML)](https://raw.githack.com/[usuario]/[repositorio]/main/api-docs/api-docs.html)**
+#### **HTML Documentation**
+📖 **[REST API Documentation (HTML)](\backend\api-docs\api-docs.html)**
 
-> La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Se ha generado automáticamente con SpringDoc a partir de las anotaciones en el código Java.
+> REST API documentation is located in the `/api-docs` folder of the repository. It has been automatically generated with SpringDoc based on annotations in the Java code.
 
-### **Diagrama de Clases y Templates Actualizado**
+### **Updated Class and Templates Diagram**
 
-Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
+"Updated diagram: @RestControllers and shared @Services relationships"
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+![Updated Class Diagram](images/Class_and_Templates_Diagram_V2.png)
 
-### **Instrucciones de Ejecución con Docker**
+ ### **Service Diagram:**
 
-#### **Requisitos previos:**
-- Docker instalado (versión 20.10 o superior)
-- Docker Compose instalado (versión 2.0 o superior)
+![Services Diagram](images/Service_Diagram.png)
 
-#### **Pasos para ejecutar con docker-compose:**
+### **Docker Execution Instructions**
 
-1. **Clonar el repositorio** (si no lo has hecho ya):
+#### **Prerequisites:**
+- Docker installed (version 20.10 or higher)
+- Docker Compose installed (version 2.0 or higher)
+
+#### **Steps to run with docker-compose:**
+
+1. **Clone the repository** (if you haven't already):
    ```bash
-   git clone https://github.com/[usuario]/[repositorio].git
-   cd [repositorio]
+   git clone https://github.com/[user]/[repository].git
+   cd [repository]
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**:
+2. **NEXT STEPS HERE**:
 
-### **Construcción de la Imagen Docker**
+### **Docker Image Building**
 
-#### **Requisitos:**
-- Docker instalado en el sistema
+#### **Requirements:**
+- Docker installed on the system
 
-#### **Pasos para construir y publicar la imagen:**
+#### **Steps to build and publish the image:**
 
-1. **Navegar al directorio de Docker**:
+1. **Navigate to the Docker directory**:
    ```bash
    cd docker
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**
+2. **NEXT STEPS HERE**
 
-### **Despliegue en Máquina Virtual**
+### **Deployment on Virtual Machine**
 
-#### **Requisitos:**
-- Acceso a la máquina virtual (SSH)
-- Clave privada para autenticación
-- Conexión a la red correspondiente o VPN configurada
+#### **Requirements:**
+- Access to the virtual machine (SSH)
+- Private key for authentication
+- Connection to the corresponding network or configured VPN
 
-#### **Pasos para desplegar:**
+#### **Steps to deploy:**
 
-1. **Conectar a la máquina virtual**:
+1. **Connect to the virtual machine**:
    ```bash
-   ssh -i [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM]
+   ssh -i [path/to/key.key] [user]@[IP-or-domain-VM]
    ```
    
-   Ejemplo:
+   Example:
    ```bash
    ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**:
+2. **NEXT STEPS HERE**:
 
-### **URL de la Aplicación Desplegada**
+### **Deployed Application URL**
 
-🌐 **URL de acceso**: `https://[nombre-app].etsii.urjc.es:8443`
+🌐 **Access URL**: `https://[app-name].etsii.urjc.es:8443`
 
-#### **Credenciales de Usuarios de Ejemplo**
+#### **Sample User Credentials**
 
-| Rol | Usuario | Contraseña |
+| Role | User | Password |
 |:---|:---|:---|
-| Administrador | admin | admin123 |
-| Usuario Registrado | user1 | user123 |
-| Usuario Registrado | user2 | user123 |
+| Administrator | admin | admin123 |
+| Registered User | user1 | user123 |
+| Registered User | user2 | user123 |
 
-### **OTRA DOCUMENTACIÓN ADICIONAL REQUERIDA EN LA PRÁCTICA**
+### **ADDITIONAL DOCUMENTATION REQUIRED FOR THE PRACTICE**
 
-### **Participación de Miembros en la Práctica 3**
+### **Member Participation in Practice 3**
 
-#### **Alumno 1 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+#### **Student 1 - [Full Name]**
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
@@ -381,9 +383,22 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Student 2 - Carlos Asensio Trujillo**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+
+| Nº    | Commits      | Files      |
+|:------------: |:------------:| :------------:|
+|1| [Created DTOs](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/131f5b089d6436b1b9f2681eee13834acea6799c)  | [BookRequestDTO.java,DtoMapper,ReviewCreate.DTO +4](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/131f5b089d6436b1b9f2681eee13834acea6799c)   |
+|2| [Add book rest endpoints](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/0eb8307da99e82fb53186479ef8471c82b1faccb)//[Added REST API endpoints for loans](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/cc2869c51cd7dda1596ff427057fac9b1fd66bce)  | [Archivo2](URL_archivo_2)   |
+|3| [Added REST API endpoints for reviews](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f90440da8db114dec00fe2e9a9bde309b89c7989) // [Added REST API endpoints for users and improved REST API error messages](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/10f656ec8fc9d0aa5c1da9264c4d40b0fbbf0503)| [ReviewRestController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/f90440da8db114dec00fe2e9a9bde309b89c7989) // [UserRestController.java](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/10f656ec8fc9d0aa5c1da9264c4d40b0fbbf0503)  |
+|4| [Add OpenAPI documentation](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/7e63ec0f773d04af461915c62ded2561a92b1801)  | [api-docs.yaml y api-docs.html](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/7e63ec0f773d04af461915c62ded2561a92b1801)   |
+|5| ["Improve REST API utility integration and OpenAPI docs"](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/8ec85346b682f0231b8177227d957fa499d55809)  | [BiblioOnline API.postman_collection.json](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/8ec85346b682f0231b8177227d957fa499d55809)   |
+|6| [Add class and service diagrams](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/55fe0c134803f0fc86a94364a87d8653ee910550)  | [Services_Diagram.png y Class_and_Templates_Diagram_V2.png](https://github.com/CodeURJC-SSDD-2025-26/practica-ssdd-2025-26-grupo-11/commit/55fe0c134803f0fc86a94364a87d8653ee910550)   |
+
+---
+
+#### **Student 3 - [Full Name]**
+
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
@@ -395,30 +410,3 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
-
-#### **Alumno 4 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
