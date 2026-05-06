@@ -16,7 +16,7 @@ public class UtilityClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${utility.service.url}")
+    @Value("${utility.service.url:http://localhost:8080}")
     private String utilityServiceUrl;
 
     public UtilityClient() {
@@ -30,8 +30,7 @@ public class UtilityClient {
                 "toEmail", email,
                 "userName", user,
                 "bookTitle", book,
-                "returnDate", date.toString()
-        );
+                "returnDate", date.toString());
 
         try {
             restTemplate.postForEntity(url, request, Void.class);

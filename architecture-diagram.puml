@@ -1,0 +1,120 @@
+@startuml Class Diagram + Templates
+
+left to right direction
+skinparam linetype ortho
+
+skinparam class {
+    BackgroundColor<<Controller>> #90EE90
+    BackgroundColor<<Service>> #FFB6C6
+    BackgroundColor<<Repository>> #87CEEB
+    BackgroundColor<<Entity>> #FFFACD
+    BackgroundColor<<View>> #DDA0DD
+}
+
+' ======================
+' TEMPLATES (VIEWS)
+' ======================
+package "Templates" {
+    class index_html <<View>>
+    class login_html <<View>>
+    class register_html <<View>>
+    class books_html <<View>>
+    class book_detail_html <<View>>
+    class profile_html <<View>>
+    class admin_panel_html <<View>>
+}
+
+' ======================
+' CONTROLLERS
+' ======================
+package "Controllers" {
+    class WebController <<Controller>>
+    class BookController <<Controller>>
+    class UserController <<Controller>>
+    class ReviewController <<Controller>>
+    class AdminController <<Controller>>
+    class LoanController <<Controller>>
+}
+
+' ======================
+' SERVICES
+' ======================
+package "Services" {
+    class BookService <<Service>>
+    class UserService <<Service>>
+    class LoanService <<Service>>
+    class ReviewService <<Service>>
+    class ImageService <<Service>>
+}
+
+' ======================
+' REPOSITORIES
+' ======================
+package "Repositories" {
+    class BookRepository <<Repository>>
+    class UserRepository <<Repository>>
+    class LoanRepository <<Repository>>
+    class ReviewRepository <<Repository>>
+    class ImageRepository <<Repository>>
+}
+
+' ======================
+' ENTITIES
+' ======================
+package "Entities" {
+    class Book <<Entity>>
+    class User <<Entity>>
+    class Loan <<Entity>>
+    class Review <<Entity>>
+    class Image <<Entity>>
+    class Genre <<Entity>>
+}
+
+' ======================
+' TEMPLATE → CONTROLLER
+' ======================
+index_html --> BookController
+login_html --> WebController
+register_html --> UserController
+books_html --> BookController
+book_detail_html --> BookController
+profile_html --> UserController
+admin_panel_html --> AdminController
+
+' ======================
+' CONTROLLER → SERVICE
+' ======================
+BookController --> BookService
+UserController --> UserService
+ReviewController --> ReviewService
+AdminController --> BookService
+LoanController --> LoanService
+
+' ======================
+' SERVICE → REPOSITORY
+' ======================
+BookService --> BookRepository
+UserService --> UserRepository
+LoanService --> LoanRepository
+ReviewService --> ReviewRepository
+ImageService --> ImageRepository
+
+' ======================
+' REPOSITORY → ENTITY
+' ======================
+BookRepository --> Book
+UserRepository --> User
+LoanRepository --> Loan
+ReviewRepository --> Review
+ImageRepository --> Image
+
+' ======================
+' ENTITY RELATIONS
+' ======================
+Book --> Genre
+Loan --> User
+Loan --> Book
+Review --> User
+Review --> Book
+
+@enduml
